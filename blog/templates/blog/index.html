@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div id="category" class="noselect">
+        <div id="category-title">
+            <ul>
+                <li>分类：</li>
+                <li class="cat-item"><a href="">111</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="bd" class="wrp clear-fix">
+        <div id="main">
+            {% for article in article_list %}
+                <div class="post">
+                    <div class="post-hd">
+                        <h1 class="title"><a href="">{{ article.title }}</a></h1>
+                    </div>
+                    <div class="post-bd">
+                        <!-- 	<p><a href=""><img src="" alt=""></a></p> -->
+                        <p>{{ article.abstract }}</p>
+                        <p><a href="" class="more-link"></a></p>
+                    </div>
+                    <div class="post-ft">
+                        <a href="" class="more">阅读全文>></a>
+                        <i class="icon-date"></i>
+                        <span class="date">{{ article.last_modified_time }}</span>
+                    </div>
+                </div>
+            {% endfor %}
+            <div id="pagenavi" class="noselect">
+                <span class="first-page current">1</span>
+                <a href="">2</a>
+                <a href="" class="next-page">
+                    下一页<span class="icon-next"></span>
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

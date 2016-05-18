@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Myblog</title>
+    <link rel="stylesheet" href="{% static 'blog/css/style.css' %}">
+</head>
+<body>
+<div id="header">
+    <div id="header-warp">
+        <a href="/" title="第一个博客" id="logo"></a>
+        <ul id="header-nav">
+            <li><a href="/">首页</a></li>
+        </ul>
+        <div id="header-right" class="login">
+            <div id="user-info">
+                <span id="dropdown-button">登录</span>
+                <!-- 	<span id="dropdown-button">退出</span> -->
+            </div>
+        </div>
+    </div>
+</div>
+<div id="banner" class="noselect"></div>
+
+{% block content %}{% endblock %}
+
+<div id="footer" class="noselect">
+    <ul id="ft-links">
+        <li><a href="" target="_blank">友情链接1</a></li>
+    </ul>
+    <ul id="ft-about-links">
+        <li><a href="" target="_blank">友情链接2</a></li>
+    </ul>
+    <div id="copyright">&copy; djangoBlog</div>
+</div>
+<script type="text/javascript" src="./script/jquery.js"></script>
+</body>
+</html>
