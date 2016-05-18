@@ -4,7 +4,9 @@
         <div id="category-title">
             <ul>
                 <li>分类：</li>
-                <li class="cat-item"><a href="">111</a></li>
+                {% for category in category_list %}
+                    <li class="cat-item"><a href="">{{ category.name }}</a></li>
+                {% endfor %}
             </ul>
         </div>
     </div>
@@ -24,7 +26,7 @@
                     <div class="post-ft">
                         <a href="" class="more">阅读全文>></a>
                         <i class="icon-date"></i>
-                        <span class="date">{{ article.last_modified_time }}</span>
+                        <span class="date">{{ article.last_modified_time|date:"Y年n月d日" }}</span>
                     </div>
                 </div>
             {% endfor %}

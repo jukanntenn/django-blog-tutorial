@@ -14,3 +14,7 @@ class IndexView(ListView):  # 首页视图
         for article in article_list:
             article.body = markdown2.markdown(article.body, )
         return article_list
+
+    def get_context_data(self, **kwargs):
+        kwargs['category_list'] = Category.objects.all().order_by('name')
+        return super(IndexView, self).get_context_data(**kwargs)
