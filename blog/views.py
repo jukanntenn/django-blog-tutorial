@@ -1,3 +1,4 @@
+# coding:utf-8
 from django.shortcuts import render
 from django.views.generic.list import ListView
 from blog.models import Article, Category
@@ -14,3 +15,7 @@ class IndexView(ListView):  # 首页视图
         for article in article_list:
             article.body = markdown2.markdown(article.body, )
         return article_list
+
+    def get_context_data(self, **kwargs):
+        kwargs['category_list'] = Category.objects.all()
+        return super(IndexView, self).get_context_data(**kwargs)

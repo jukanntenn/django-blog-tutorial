@@ -1,0 +1,646 @@
+# This file is distributed under the same license as the Django package.
+#
+# Translators:
+# edgars <edgars.jekabsons@gmail.com>, 2011
+# Jannis Leidel <jannis@leidel.info>, 2011
+msgid ""
+msgstr ""
+"Project-Id-Version: django\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-11-15 11:06+0100\n"
+"PO-Revision-Date: 2015-11-16 08:16+0000\n"
+"Last-Translator: Jannis Leidel <jannis@leidel.info>\n"
+"Language-Team: Latvian (http://www.transifex.com/django/django/language/"
+"lv/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: lv\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
+"2);\n"
+
+#, python-format
+msgid "Successfully deleted %(count)d %(items)s."
+msgstr "Veiksmīgi izdzēsti %(count)d %(items)s."
+
+#, python-format
+msgid "Cannot delete %(name)s"
+msgstr ""
+
+msgid "Are you sure?"
+msgstr "Vai esat pārliecināts?"
+
+#, python-format
+msgid "Delete selected %(verbose_name_plural)s"
+msgstr "Izdzēst izvēlēto %(verbose_name_plural)s"
+
+msgid "Administration"
+msgstr ""
+
+msgid "All"
+msgstr "Visi"
+
+msgid "Yes"
+msgstr "Jā"
+
+msgid "No"
+msgstr "Nē"
+
+msgid "Unknown"
+msgstr "Nezināms"
+
+msgid "Any date"
+msgstr "Jebkurš datums"
+
+msgid "Today"
+msgstr "Šodien"
+
+msgid "Past 7 days"
+msgstr "Pēdējās 7 dienas"
+
+msgid "This month"
+msgstr "Šomēnes"
+
+msgid "This year"
+msgstr "Šogad"
+
+#, python-format
+msgid ""
+"Please enter the correct %(username)s and password for a staff account. Note "
+"that both fields may be case-sensitive."
+msgstr ""
+
+msgid "Action:"
+msgstr "Darbība:"
+
+msgid "action time"
+msgstr "darbības laiks"
+
+msgid "user"
+msgstr ""
+
+msgid "content type"
+msgstr ""
+
+msgid "object id"
+msgstr "objekta id"
+
+msgid "object repr"
+msgstr "objekta attēlojums"
+
+msgid "action flag"
+msgstr "darbības atzīme"
+
+msgid "change message"
+msgstr "izmaiņas teksts"
+
+msgid "log entry"
+msgstr "žurnāla ieraksts"
+
+msgid "log entries"
+msgstr "žurnāla ieraksti"
+
+#, python-format
+msgid "Added \"%(object)s\"."
+msgstr ""
+
+#, python-format
+msgid "Changed \"%(object)s\" - %(changes)s"
+msgstr ""
+
+#, python-format
+msgid "Deleted \"%(object)s.\""
+msgstr ""
+
+msgid "LogEntry Object"
+msgstr ""
+
+msgid "None"
+msgstr "nekas"
+
+msgid ""
+"Hold down \"Control\", or \"Command\" on a Mac, to select more than one."
+msgstr ""
+
+msgid "Added."
+msgstr ""
+
+#, python-format
+msgid "Changed %s."
+msgstr "Izmainīts %s."
+
+msgid "and"
+msgstr "un"
+
+#, python-format
+msgid "Added %(name)s \"%(object)s\"."
+msgstr "Pievienots %(name)s \"%(object)s\""
+
+#, python-format
+msgid "Changed %(list)s for %(name)s \"%(object)s\"."
+msgstr "Izmainīts %(list)s priekš %(name)s \"%(object)s\"."
+
+#, python-format
+msgid "Deleted %(name)s \"%(object)s\"."
+msgstr "Dzēsts %(name)s \"%(object)s\"."
+
+msgid "No fields changed."
+msgstr "Lauki nav izmainīti"
+
+#, python-format
+msgid ""
+"The %(name)s \"%(obj)s\" was added successfully. You may edit it again below."
+msgstr "%(name)s \"%(obj)s\" pievienots sekmīgi. Zemāk varat to labot."
+
+#, python-format
+msgid ""
+"The %(name)s \"%(obj)s\" was added successfully. You may add another "
+"%(name)s below."
+msgstr ""
+
+#, python-format
+msgid "The %(name)s \"%(obj)s\" was added successfully."
+msgstr "%(name)s \"%(obj)s\" pievienots sekmīgi."
+
+#, python-format
+msgid ""
+"The %(name)s \"%(obj)s\" was changed successfully. You may edit it again "
+"below."
+msgstr ""
+
+#, python-format
+msgid ""
+"The %(name)s \"%(obj)s\" was changed successfully. You may add another "
+"%(name)s below."
+msgstr ""
+
+#, python-format
+msgid "The %(name)s \"%(obj)s\" was changed successfully."
+msgstr "%(name)s \"%(obj)s\" nomainīts sekmīgi."
+
+msgid ""
+"Items must be selected in order to perform actions on them. No items have "
+"been changed."
+msgstr "Lai veiktu darbību, jāizvēlas rindas. Rindas nav izmainītas."
+
+msgid "No action selected."
+msgstr "Nav izvēlēta darbība."
+
+#, python-format
+msgid "The %(name)s \"%(obj)s\" was deleted successfully."
+msgstr "%(name)s \"%(obj)s\" sekmīgi izdzēsts."
+
+#, python-format
+msgid "%(name)s object with primary key %(key)r does not exist."
+msgstr "%(name)s objekts ar primāro atslēgu %(key)r neeksistē."
+
+#, python-format
+msgid "Add %s"
+msgstr "Pievienot %s"
+
+#, python-format
+msgid "Change %s"
+msgstr "Labot %s"
+
+msgid "Database error"
+msgstr "Datubāzes kļūda"
+
+#, python-format
+msgid "%(count)s %(name)s was changed successfully."
+msgid_plural "%(count)s %(name)s were changed successfully."
+msgstr[0] "%(count)s %(name)s ir laboti sekmīgi"
+msgstr[1] "%(count)s %(name)s ir sekmīgi rediģēts"
+msgstr[2] "%(count)s %(name)s ir sekmīgi rediģēti."
+
+#, python-format
+msgid "%(total_count)s selected"
+msgid_plural "All %(total_count)s selected"
+msgstr[0] "%(total_count)s izvēlēti"
+msgstr[1] "%(total_count)s izvēlēts"
+msgstr[2] "%(total_count)s izvēlēti"
+
+#, python-format
+msgid "0 of %(cnt)s selected"
+msgstr "0 no %(cnt)s izvēlēti"
+
+#, python-format
+msgid "Change history: %s"
+msgstr "Izmaiņu vēsture: %s"
+
+#. Translators: Model verbose name and instance representation,
+#. suitable to be an item in a list.
+#, python-format
+msgid "%(class_name)s %(instance)s"
+msgstr ""
+
+#, python-format
+msgid ""
+"Deleting %(class_name)s %(instance)s would require deleting the following "
+"protected related objects: %(related_objects)s"
+msgstr ""
+
+msgid "Django site admin"
+msgstr "Django administrācijas lapa"
+
+msgid "Django administration"
+msgstr "Django administrācija"
+
+msgid "Site administration"
+msgstr "Lapas administrācija"
+
+msgid "Log in"
+msgstr "Pieslēgties"
+
+#, python-format
+msgid "%(app)s administration"
+msgstr ""
+
+msgid "Page not found"
+msgstr "Lapa nav atrasta"
+
+msgid "We're sorry, but the requested page could not be found."
+msgstr "Atvainojiet, pieprasītā lapa neeksistē."
+
+msgid "Home"
+msgstr "Sākums"
+
+msgid "Server error"
+msgstr "Servera kļūda"
+
+msgid "Server error (500)"
+msgstr "Servera kļūda (500)"
+
+msgid "Server Error <em>(500)</em>"
+msgstr "Servera kļūda <em>(500)</em>"
+
+msgid ""
+"There's been an error. It's been reported to the site administrators via "
+"email and should be fixed shortly. Thanks for your patience."
+msgstr ""
+
+msgid "Run the selected action"
+msgstr "Izpildīt izvēlēto darbību"
+
+msgid "Go"
+msgstr "Aiziet!"
+
+msgid "Click here to select the objects across all pages"
+msgstr "Spiest šeit, lai iezīmētu objektus no visām lapām"
+
+#, python-format
+msgid "Select all %(total_count)s %(module_name)s"
+msgstr "Izvēlēties visus %(total_count)s %(module_name)s"
+
+msgid "Clear selection"
+msgstr "Atcelt iezīmēto"
+
+msgid ""
+"First, enter a username and password. Then, you'll be able to edit more user "
+"options."
+msgstr ""
+"Vispirms ievadiet lietotāja vārdu un paroli. Tad varēsiet labot pārējos "
+"lietotāja uzstādījumus."
+
+msgid "Enter a username and password."
+msgstr ""
+
+msgid "Change password"
+msgstr "Paroles maiņa"
+
+msgid "Please correct the error below."
+msgstr "Lūdzu, izlabojiet kļūdas zemāk."
+
+msgid "Please correct the errors below."
+msgstr ""
+
+#, python-format
+msgid "Enter a new password for the user <strong>%(username)s</strong>."
+msgstr "Ievadiet jaunu paroli lietotājam <strong>%(username)s</strong>."
+
+msgid "Welcome,"
+msgstr "Sveicināti,"
+
+msgid "View site"
+msgstr ""
+
+msgid "Documentation"
+msgstr "Dokumentācija"
+
+msgid "Log out"
+msgstr "Atslēgties"
+
+msgid "Add"
+msgstr "Pievienot"
+
+msgid "History"
+msgstr "Vēsture"
+
+msgid "View on site"
+msgstr "Apskatīt lapā"
+
+#, python-format
+msgid "Add %(name)s"
+msgstr "Pievienot %(name)s"
+
+msgid "Filter"
+msgstr "Filtrs"
+
+msgid "Remove from sorting"
+msgstr ""
+
+#, python-format
+msgid "Sorting priority: %(priority_number)s"
+msgstr ""
+
+msgid "Toggle sorting"
+msgstr ""
+
+msgid "Delete"
+msgstr "Dzēst"
+
+#, python-format
+msgid ""
+"Deleting the %(object_name)s '%(escaped_object)s' would result in deleting "
+"related objects, but your account doesn't have permission to delete the "
+"following types of objects:"
+msgstr ""
+"Izdzēšot objektu %(object_name)s '%(escaped_object)s', tiks dzēsti visi "
+"saistītie objekti, bet jums nav tiesību dzēst sekojošus objektu tipus:"
+
+#, python-format
+msgid ""
+"Deleting the %(object_name)s '%(escaped_object)s' would require deleting the "
+"following protected related objects:"
+msgstr ""
+
+#, python-format
+msgid ""
+"Are you sure you want to delete the %(object_name)s \"%(escaped_object)s\"? "
+"All of the following related items will be deleted:"
+msgstr ""
+"Vai esat pārliecināts, ka vēlaties dzēst %(object_name)s \"%(escaped_object)s"
+"\"? Tiks dzēsti arī sekojoši saistītie objekti:"
+
+msgid "Objects"
+msgstr ""
+
+msgid "Yes, I'm sure"
+msgstr "Jā, esmu pārliecināts"
+
+msgid "No, take me back"
+msgstr ""
+
+msgid "Delete multiple objects"
+msgstr "Dzēst vairākus objektus"
+
+#, python-format
+msgid ""
+"Deleting the selected %(objects_name)s would result in deleting related "
+"objects, but your account doesn't have permission to delete the following "
+"types of objects:"
+msgstr ""
+
+#, python-format
+msgid ""
+"Deleting the selected %(objects_name)s would require deleting the following "
+"protected related objects:"
+msgstr ""
+
+#, python-format
+msgid ""
+"Are you sure you want to delete the selected %(objects_name)s? All of the "
+"following objects and their related items will be deleted:"
+msgstr ""
+
+msgid "Change"
+msgstr "Izmainīt"
+
+msgid "Remove"
+msgstr "Dzēst"
+
+#, python-format
+msgid "Add another %(verbose_name)s"
+msgstr "Pievienot vēl %(verbose_name)s"
+
+msgid "Delete?"
+msgstr "Dzēst?"
+
+#, python-format
+msgid " By %(filter_title)s "
+msgstr " Pēc %(filter_title)s "
+
+msgid "Summary"
+msgstr ""
+
+#, python-format
+msgid "Models in the %(name)s application"
+msgstr ""
+
+msgid "You don't have permission to edit anything."
+msgstr "Jums nav tiesības neko labot."
+
+msgid "Recent Actions"
+msgstr "Nesenās darbības"
+
+msgid "My Actions"
+msgstr "Manas darbības"
+
+msgid "None available"
+msgstr "Nav pieejams"
+
+msgid "Unknown content"
+msgstr "Nezināms saturs"
+
+msgid ""
+"Something's wrong with your database installation. Make sure the appropriate "
+"database tables have been created, and make sure the database is readable by "
+"the appropriate user."
+msgstr ""
+"Problēma ar datubāzes instalāciju. Pārliecinieties, ka attiecīgās tabulas ir "
+"izveidotas un attiecīgajam lietotājam ir tiesības tai piekļūt."
+
+#, python-format
+msgid ""
+"You are authenticated as %(username)s, but are not authorized to access this "
+"page. Would you like to login to a different account?"
+msgstr ""
+
+msgid "Forgotten your password or username?"
+msgstr ""
+
+msgid "Date/time"
+msgstr "Datums/laiks"
+
+msgid "User"
+msgstr "Lietotājs"
+
+msgid "Action"
+msgstr "Darbība"
+
+msgid ""
+"This object doesn't have a change history. It probably wasn't added via this "
+"admin site."
+msgstr ""
+"Šim objektam nav izmaiņu vēstures. Tas visdrīzāk netika pievienots, "
+"izmantojot šo administrācijas rīku."
+
+msgid "Show all"
+msgstr "Rādīt visu"
+
+msgid "Save"
+msgstr "Saglabāt"
+
+msgid "Popup closing..."
+msgstr ""
+
+#, python-format
+msgid "Change selected %(model)s"
+msgstr ""
+
+#, python-format
+msgid "Add another %(model)s"
+msgstr ""
+
+#, python-format
+msgid "Delete selected %(model)s"
+msgstr ""
+
+msgid "Search"
+msgstr "Meklēt"
+
+#, python-format
+msgid "%(counter)s result"
+msgid_plural "%(counter)s results"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#, python-format
+msgid "%(full_result_count)s total"
+msgstr "kopā - %(full_result_count)s"
+
+msgid "Save as new"
+msgstr "Saglabāt kā jaunu"
+
+msgid "Save and add another"
+msgstr "Saglabāt un pievienot vēl vienu"
+
+msgid "Save and continue editing"
+msgstr "Saglabāt un turpināt labošanu"
+
+msgid "Thanks for spending some quality time with the Web site today."
+msgstr "Paldies par pavadīto laiku mājas lapā."
+
+msgid "Log in again"
+msgstr "Pieslēgties vēlreiz"
+
+msgid "Password change"
+msgstr "Paroles maiņa"
+
+msgid "Your password was changed."
+msgstr "Jūsu parole tika nomainīta."
+
+msgid ""
+"Please enter your old password, for security's sake, and then enter your new "
+"password twice so we can verify you typed it in correctly."
+msgstr ""
+"Drošības nolūkos ievadiet veco paroli un pēc tam ievadiet jauno paroli "
+"divreiz, lai varētu pārbaudīt, ka tā ir uzrakstīta pareizi."
+
+msgid "Change my password"
+msgstr "Nomainīt manu paroli"
+
+msgid "Password reset"
+msgstr "Paroles pārstatīšana(reset)"
+
+msgid "Your password has been set.  You may go ahead and log in now."
+msgstr "Jūsu parole ir uzstādīta. Varat pieslēgties."
+
+msgid "Password reset confirmation"
+msgstr "Paroles pārstatīšanas apstiprinājums"
+
+msgid ""
+"Please enter your new password twice so we can verify you typed it in "
+"correctly."
+msgstr ""
+"Lūdzu ievadiet jauno paroli divreiz, lai varētu pārbaudīt, ka tā ir "
+"uzrakstīta pareizi."
+
+msgid "New password:"
+msgstr "Jaunā parole:"
+
+msgid "Confirm password:"
+msgstr "Apstiprināt paroli:"
+
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please request a new password reset."
+msgstr ""
+"Paroles pārstatīšanas saite bija nekorekta, iespējams, tā jau ir izmantota. "
+"Lūdzu pieprasiet paroles pārstatīšanu vēlreiz."
+
+msgid ""
+"We've emailed you instructions for setting your password, if an account "
+"exists with the email you entered. You should receive them shortly."
+msgstr ""
+
+msgid ""
+"If you don't receive an email, please make sure you've entered the address "
+"you registered with, and check your spam folder."
+msgstr ""
+
+#, python-format
+msgid ""
+"You're receiving this email because you requested a password reset for your "
+"user account at %(site_name)s."
+msgstr ""
+
+msgid "Please go to the following page and choose a new password:"
+msgstr "Lūdzu apmeklējiet sekojošo lapu un ievadiet jaunu paroli:"
+
+msgid "Your username, in case you've forgotten:"
+msgstr "Jūsu lietotājvārds, ja gadījumā tas ir aizmirsts:"
+
+msgid "Thanks for using our site!"
+msgstr "Paldies par mūsu lapas lietošanu!"
+
+#, python-format
+msgid "The %(site_name)s team"
+msgstr "%(site_name)s komanda"
+
+msgid ""
+"Forgotten your password? Enter your email address below, and we'll email "
+"instructions for setting a new one."
+msgstr ""
+
+msgid "Email address:"
+msgstr ""
+
+msgid "Reset my password"
+msgstr "Paroles pārstatīšana"
+
+msgid "All dates"
+msgstr "Visi datumi"
+
+#, python-format
+msgid "Select %s"
+msgstr "Izvēlēties %s"
+
+#, python-format
+msgid "Select %s to change"
+msgstr "Izvēlēties %s, lai izmainītu"
+
+msgid "Date:"
+msgstr "Datums:"
+
+msgid "Time:"
+msgstr "Laiks:"
+
+msgid "Lookup"
+msgstr "Pārlūkot"
+
+msgid "Currently:"
+msgstr ""
+
+msgid "Change:"
+msgstr ""
