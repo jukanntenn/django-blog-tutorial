@@ -1,5 +1,4 @@
-*/venv/*
-*/migrations/*
+venv/
 *.pyc
 *.log
 *.sqlite3
