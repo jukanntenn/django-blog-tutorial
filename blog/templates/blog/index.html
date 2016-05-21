@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
+    <div id="banner" class="noselect"></div>
     <div id="category" class="noselect">
         <div id="category-title">
             <ul>
                 <li>分类：</li>
                 {% for category in category_list %}
-                    <li class="cat-item"><a href="">{{ category.name }}</a></li>
+                    <li class="cat-item"><a href="{% url 'blog:category' category.pk %}">{{ category.name }}</a></li>
                 {% endfor %}
             </ul>
         </div>
@@ -16,7 +17,7 @@
             {% for article in article_list %}
                 <div class="post">
                     <div class="post-hd">
-                        <h1 class="title"><a href="">{{ article.title }}</a></h1>
+                        <h1 class="title"><a href="{% url 'blog:detail' article.pk %}">{{ article.title }}</a></h1>
                     </div>
                     <div class="post-bd">
                         <!-- 	<p><a href=""><img src="" alt=""></a></p> -->
@@ -24,7 +25,7 @@
                         <p><a href="" class="more-link"></a></p>
                     </div>
                     <div class="post-ft">
-                        <a href="" class="more">阅读全文>></a>
+                        <a href="{% url 'blog:detail' article.id %}" class="more">阅读全文>></a>
                         <i class="icon-date"></i>
                         <span class="date">{{ article.last_modified_time|date:"Y年n月d日" }}</span>
                     </div>
