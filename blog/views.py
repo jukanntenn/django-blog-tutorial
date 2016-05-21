@@ -25,7 +25,7 @@ class ArticleDetailView(DetailView):
     model = Article
     template_name = "blog/detail.html"
     context_object_name = "article"
-    slug_field = 'id'
+    pk_url_kwarg = 'article_id'
 
     def get_object(self):
         object = super(ArticleDetailView, self).get_object()
