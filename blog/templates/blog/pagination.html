@@ -1,0 +1,27 @@
+<div id="pagenavi" class="noselect">
+    {% if article_list.has_previous %}
+        <a class="previous-page" href="?page={{ article_list.previous_page_number }}">
+            <span class="icon-previous"></span>上一页
+        </a>
+    {% endif %}
+
+    {% for page in pages %}
+        {% if page  == 1 %}
+            {% if page == current_page %}
+                <span class="first-page current">{{ page }}</span>
+            {% else %}
+                <a href="?page={{ page }}" class="first-page">{{ page }}</a>
+            {% endif %}
+        {% elif page == current_page %}
+            <span class="current">{{ page }}</span>
+        {% else %}
+            <a href="?page={{ page }}">{{ page }}</a>
+        {% endif %}
+    {% endfor %}
+
+    {% if article_list.has_next %}
+        <a class="next-page" href="?page={{ article_list.next_page_number }}">
+            下一页<span class="icon-next"></span>
+        </a>
+    {% endif %}
+</div>
