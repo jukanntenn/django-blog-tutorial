@@ -1,4 +1,3 @@
-#coding:utf-8
 from django.db import models
 
 
@@ -25,7 +24,7 @@ class Article(models.Model):
         return self.title
 
     class Meta:
-        ordering = ['last_modified_time']
+        ordering = ['-last_modified_time']
 
 
 class Category(models.Model):
