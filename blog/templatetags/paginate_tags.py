@@ -30,8 +30,12 @@ def paginate(context, object_list, page_count):
     context['pages'] = pages
     context['last_page'] = paginator.num_pages
     context['first_page'] = 1
-    context['pages_first'] = pages[0]
-    context['pages_last'] = pages[-1] + 1
+    try:
+        context['pages_first'] = pages[0]
+        context['pages_last'] = pages[-1] + 1
+    except IndexError:
+        context['pages_first'] = 1
+        context['pages_last'] = 2
 
     return ''  # 必须加这个，否则首页会显示个None
 

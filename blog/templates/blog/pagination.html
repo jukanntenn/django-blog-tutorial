@@ -27,10 +27,12 @@
         <span>...</span>
     {% endif %}
 
-    {% if last_page == current_page %}
-        <span class="current">{{ last_page }}</span>
-    {% else %}
-        <a href="?page={{ last_page }}">{{ last_page }}</a>
+    {% if last_page != 1 %}
+        {% if last_page == current_page %}
+            <span class="current">{{ last_page }}</span>
+        {% else %}
+            <a href="?page={{ last_page }}">{{ last_page }}</a>
+        {% endif %}
     {% endif %}
 
     {% if article_list.has_next %}
