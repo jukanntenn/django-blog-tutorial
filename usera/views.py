@@ -1,4 +1,4 @@
-from django.contrib import auth
+from django.contrib.auth import login, authenticate
 from django.views.generic.edit import FormView
 from usera.forms import SignInForm, SignUpForm
 
@@ -9,8 +9,16 @@ class SignInView(FormView):
     success_url = '/blog'
 
     def form_valid(self, form):
-        user = form.get_user()
-        auth.login(self.request, user)
+        username = form.cleaned_data['username']
+        password = form.cleaned_data['password']
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            if user.is_active:
+                login(self.request, user)
+            else:
+                pass
+        else:
+            pass
         return super(SignInView, self).form_valid(form)
 
 
