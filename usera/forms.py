@@ -6,5 +6,5 @@ class SignUpForm(ModelForm):
     pass
 
 
-class SignInForm(forms):
+class SignInForm(forms.Form):
     pass
