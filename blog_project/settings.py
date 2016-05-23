@@ -117,3 +117,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES = os.path.join(BASE_DIR, 'blog/static')
+
+AUTH_USER_MODEL = 'usera.ForumUser'
