@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.urlresolvers import reverse
 
 
 # Create your models here.
@@ -22,6 +23,13 @@ class Article(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('blog:detail', kwargs={'article_id': self.pk})
+
+    def save(self, *args, **kwargs):
+        self.abstract = self.abstract or self.body[:54]
+        super(Article, self).save(*args, **kwargs)
 
     class Meta:
         ordering = ['-last_modified_time']

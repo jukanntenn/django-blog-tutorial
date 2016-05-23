@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 {% load staticfiles %}
-<html>
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <title>Myblog</title>
@@ -9,9 +9,9 @@
 <body>
 <div id="header">
     <div id="header-warp">
-        <a href="/" title="第一个博客" id="logo"></a>
+        <a href="{% url 'blog:index' %}" title="第一个博客" id="logo"></a>
         <ul id="header-nav">
-            <li><a href="/">首页</a></li>
+            <li><a href="{% url 'blog:index' %}">首页</a></li>
         </ul>
         <div id="header-right" class="login">
             <div id="user-info">
@@ -21,7 +21,7 @@
         </div>
     </div>
 </div>
-<div id="banner" class="noselect"></div>
+
 
 {% block content %}{% endblock %}
 
@@ -34,6 +34,6 @@
     </ul>
     <div id="copyright">&copy; djangoBlog</div>
 </div>
-<script type="text/javascript" src="./script/jquery.js"></script>
+<script type="text/javascript" src="{% static 'blog/js/jquery.js' %}"></script>
 </body>
 </html>
