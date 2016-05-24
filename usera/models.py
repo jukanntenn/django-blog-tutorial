@@ -8,7 +8,7 @@ class ForumUser(AbstractUser):
         ('M', 'male'),
         ('F', 'female'),
     )
-    mugshot = models.ImageField('头像', upload_to='/uploads')
+    mugshot = models.ImageField('头像', upload_to='/uploads', null=True)
     gender = models.CharField('性别', max_length=1, choices=GENDER_CHOICES, blank=True, null=True)
     birthday = models.DateField('生日', blank=True, null=True)
     self_intro = models.TextField('个人简介', blank=True, null=True)
