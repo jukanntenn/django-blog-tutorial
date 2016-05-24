@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog',
+    'usera',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -116,3 +117,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES = os.path.join(BASE_DIR, 'blog/static')
+
+AUTH_USER_MODEL = 'usera.ForumUser'
