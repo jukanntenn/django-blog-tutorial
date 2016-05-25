@@ -1,9 +1,10 @@
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import PasswordChangeForm
-from django.views.generic.edit import FormView
+from django.views.generic.edit import FormView, UpdateView
 
-from usera.forms import SignInForm, SignUpForm
+from usera.forms import SignInForm, SignUpForm, ProfileForm
 from django.utils import timezone
+from usera.models import ForumUser
 
 
 class SignInView(FormView):
@@ -51,3 +52,12 @@ class PassWordChangeView(FormView):
 
     def form_valid(self, form):
         return super(PassWordChangeView, self).form_valid(form)
+
+
+class ProfileChangeView(UpdateView):
+    form_class = ProfileForm
+    template_name = 'usera/profile_change.html'
+    model = ForumUser
+
+    def form_valid(self, form):
+        return super(ProfileChangeView, self).form_valid(form)
