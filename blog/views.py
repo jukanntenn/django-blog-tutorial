@@ -28,9 +28,9 @@ class ArticleDetailView(DetailView):
     pk_url_kwarg = 'article_id'
 
     def get_object(self):
-        article = super(ArticleDetailView, self).get_object()
-        article.body = markdown2.markdown(object.body)
-        return article
+        obj = super(ArticleDetailView, self).get_object()
+        obj.body = markdown2.markdown(object.body)
+        return obj
 
 
 class CategoryView(ListView):
