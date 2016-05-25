@@ -25,7 +25,7 @@ class SignInForm(AuthenticationForm):
         if len(username) < 6 or len(username) > 18:
             raise forms.ValidationError('用户名长度6到18位')
 
-        if not re.match('\w+$', username):
+        if not re.match('^\w+$', username):
             raise forms.ValidationError('用户名应该只包含数字字母下划线')
         # 匹配数字字母下划线
         return username
@@ -117,7 +117,7 @@ class SignUpForm(UserCreationForm):
 
     def clean_username(self):
         username = self.cleaned_data['username']
-        if not re.match('\w+$', username):
+        if not re.match('^\w+$', username):
             raise forms.ValidationError('用户名应该只包含数字字母下划线')
         # 匹配数字字母下划线
         if len(username) < 6 or len(username) > 18:
