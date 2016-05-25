@@ -2,3 +2,4 @@ venv/
 *.pyc
 *.log
 *.sqlite3
+.idea/
