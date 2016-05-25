@@ -4,28 +4,98 @@ from usera.models import ForumUser, GENDER_CHOICES
 from django.contrib.auth import authenticate
 from django.core.exceptions import ValidationError
 from django.conf import settings
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 
 
-class SignInForm(ModelForm):
-    class Meta:
-        model = ForumUser
-        fields = ['username', 'password']
+class SignInForm(AuthenticationForm):
+    error_messages = {
+        'invalid_login': '用户名或密码不正确',
+        'inactive': '非活跃账户',
+    }
 
-    def clean(self, form=None):
-        username = self.cleaned_data['username']
-        password = self.cleaned_data['password']
+    def __init__(self, request=None, *args, **kwargs):
+        self.request = request
+        self.user_cache = None
+        super(AuthenticationForm, self).__init__(*args, **kwargs)
+
+    def clean(self):
+        username = self.cleaned_data.get('username')
+        password = self.cleaned_data.get('password')
 
         if username and password:
-            user_cache = authenticate(username=username, password=password)
-            if user_cache is None:
-                raise ValidationError('用户名或者密码不正确')
+            self.user_cache = authenticate(username=username,
+                                           password=password)
+            if self.user_cache is None:
+                raise forms.ValidationError(
+                        self.error_messages['invalid_login'],
+                        code='invalid_login',
+                )
+            else:
+                self.confirm_login_allowed(self.user_cache)
         return self.cleaned_data
 
 
-class SignUpForm(ModelForm):
+# class SignInForm(ModelForm):
+#     class Meta:
+#         model = ForumUser
+#         fields = ['username', 'password']
+#
+#     def clean(self, form=None):
+#         username = self.cleaned_data['username']
+#         password = self.cleaned_data['password']
+#
+#         if username and password:
+#             user_cache = authenticate(username=username, password=password)
+#             if user_cache is None:
+#                 raise ValidationError('用户名或者密码不正确')
+#         return self.cleaned_data
+
+
+# class SignUpForm(ModelForm):
+#     class Meta:
+#         model = ForumUser
+#         fields = ['username', 'email', 'password']
+#
+#     def clean_username(self):
+#         username = self.cleaned_data['username']
+#         try:
+#             ForumUser.objects.get(username=username)
+#             raise forms.ValidationError('所填用户名已经被注册过')
+#         except ForumUser.DoesNotExist:
+#             if username in settings.RESERVED:
+#                 raise forms.ValidationError('用户名被保留不可用')
+#             return username
+#
+#     def clean_email(self):
+#         email = self.cleaned_data['email']
+#         try:
+#             ForumUser.objects.get(email=email)
+#             raise forms.ValidationError('所填邮箱已经被注册过')
+#         except ForumUser.DoesNotExist:
+#             return email
+#
+#     def clean_password_confirm(self):
+#         password1 = self.cleaned_data['password']
+#         password2 = self.cleaned_data['password_confirm']
+#         if password1 and password2 and password1 != password2:
+#             raise forms.ValidationError('两次输入密码不一致')
+#         return password2
+#
+#     def save(self, commit=True):
+#         user = super(SignUpForm, self).save(commit=False)
+#         user.set_password(self.cleaned_data['password'])
+#         if commit:
+#             user.save()
+#         return user
+
+class SignUpForm(UserCreationForm):
+    error_messages = {
+        'password_mismatch': "两次密码不匹配",
+    }
+
     class Meta:
         model = ForumUser
-        fields = ['username', 'email', 'password']
+        fields = ("username", 'email')
 
     def clean_username(self):
         username = self.cleaned_data['username']
@@ -45,16 +115,9 @@ class SignUpForm(ModelForm):
         except ForumUser.DoesNotExist:
             return email
 
-    def clean_password_confirm(self):
-        password1 = self.cleaned_data['password']
-        password2 = self.cleaned_data['password_confirm']
-        if password1 and password2 and password1 != password2:
-            raise forms.ValidationError('两次输入密码不一致')
-        return password2
-
     def save(self, commit=True):
         user = super(SignUpForm, self).save(commit=False)
-        user.set_password(self.cleaned_data['password'])
+        user.set_password(self.cleaned_data["password1"])
         if commit:
             user.save()
         return user
