@@ -20,8 +20,6 @@ class ForumUser(AbstractUser):
     gender = models.CharField('性别', max_length=1, choices=GENDER_CHOICES, blank=True, null=True)
     birthday = models.DateField('生日', blank=True, null=True)
     self_intro = models.TextField('个人简介', blank=True, null=True)
-    mugshot = models.ImageField('头像', upload_to='/uploads', blank=True, null=True)
-    gender = models.CharField('性别', max_length=1, choices=GENDER_CHOICES, blank=True, null=True)
     sign_up_ip = models.GenericIPAddressField('注册时IP', null=True)
     last_login_time = models.DateTimeField('最后一次登录时间', auto_now=True, null=True)
     last_login_ip = models.GenericIPAddressField('最后一次登录IP', null=True)
