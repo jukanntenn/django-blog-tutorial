@@ -28,9 +28,9 @@ class ArticleDetailView(DetailView):
     pk_url_kwarg = 'article_id'
 
     def get_object(self):
-        object = super(ArticleDetailView, self).get_object()
-        object.body = markdown2.markdown(object.body)
-        return object
+        obj = super(ArticleDetailView, self).get_object()
+        obj.body = markdown2.markdown(object.body)
+        return obj
 
 
 class CategoryView(ListView):
@@ -38,7 +38,7 @@ class CategoryView(ListView):
     context_object_name = "article_list"
 
     def get_queryset(self):
-        article_list = Article.objects.filter(category=self.kwargs['cate_id'])
+        article_list = Article.objects.filter(category=self.kwargs['cate_id'], status='p')
         for article in article_list:
             article.body = markdown2.markdown(article.body, )
         return article_list
