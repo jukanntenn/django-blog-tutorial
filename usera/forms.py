@@ -1,10 +1,12 @@
 from django import forms
 from django.forms import ModelForm
+from pip.cmdoptions import help_
 from usera.models import ForumUser, GENDER_CHOICES
 from django.contrib.auth import authenticate
 from django.core.exceptions import ValidationError
 from django.conf import settings
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+import re
 
 
 class SignInForm(AuthenticationForm):
@@ -18,9 +20,19 @@ class SignInForm(AuthenticationForm):
         self.user_cache = None
         super(AuthenticationForm, self).__init__(*args, **kwargs)
 
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+        if len(username) < 6 or len(username) > 18:
+            raise forms.ValidationError('用户名长度6到18位')
+
+        if not re.match('\w+$', username):
+            raise forms.ValidationError('用户名应该只包含数字字母下划线')
+        # 匹配数字字母下划线
+        return username
+
     def clean(self):
-        username = self.cleaned_data.get('username').strip().lower()
-        password = self.cleaned_data.get('password')
+        username = self.cleaned_data['username']
+        password = self.cleaned_data['password']
 
         if username and password:
             self.user_cache = authenticate(username=username,
@@ -97,14 +109,21 @@ class SignUpForm(UserCreationForm):
         model = ForumUser
         fields = ("username", 'email')
 
-    def clean_username(self):
-        username = self.cleaned_data['username'].strip().lower()
+    def __init__(self, *args, **kwargs):
+        super(UserCreationForm, self).__init__(*args, **kwargs)
+        self.fields['username'].help_text = '用户名长度6位到30位'
+        self.fields['password1'].help_text = '密码长度6位到32位'
+        self.fields['password2'].help_text = '请重复输入密码'
 
-        if not 6 <= len(username) <= 18:
-            raise forms.ValidationError('用户名长度必须为6-18个字符', code='length_invalid')
+    def clean_username(self):
+        username = self.cleaned_data['username']
+        if not re.match('\w+$', username):
+            raise forms.ValidationError('用户名应该只包含数字字母下划线')
+        # 匹配数字字母下划线
+        if len(username) < 6 or len(username) > 18:
+            raise forms.ValidationError('用户名长度6到18位')
 
         try:
-
             ForumUser.objects.get(username=username)
             raise forms.ValidationError('该用户名已被注册', code='registered')
         except ForumUser.DoesNotExist:
