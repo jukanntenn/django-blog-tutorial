@@ -9,8 +9,8 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 
 class SignInForm(AuthenticationForm):
     error_messages = {
-        'invalid_login': '用户名或密码不正确',
-        'inactive': '非活跃账户',
+        'invalid_login': '用户名或密码错误',
+        'inactive': '该账户已被冻结',
     }
 
     def __init__(self, request=None, *args, **kwargs):
@@ -19,7 +19,7 @@ class SignInForm(AuthenticationForm):
         super(AuthenticationForm, self).__init__(*args, **kwargs)
 
     def clean(self):
-        username = self.cleaned_data.get('username')
+        username = self.cleaned_data.get('username').strip().lower()
         password = self.cleaned_data.get('password')
 
         if username and password:
@@ -90,7 +90,7 @@ class SignInForm(AuthenticationForm):
 
 class SignUpForm(UserCreationForm):
     error_messages = {
-        'password_mismatch': "两次密码不匹配",
+        'password_mismatch': "两次输入的密码不匹配",
     }
 
     class Meta:
@@ -98,10 +98,15 @@ class SignUpForm(UserCreationForm):
         fields = ("username", 'email')
 
     def clean_username(self):
-        username = self.cleaned_data['username']
+        username = self.cleaned_data['username'].strip().lower()
+
+        if not 6 <= len(username) <= 18:
+            raise forms.ValidationError('用户名长度必须为6-18个字符', code='length_invalid')
+
         try:
+
             ForumUser.objects.get(username=username)
-            raise forms.ValidationError('所填用户名已经被注册过')
+            raise forms.ValidationError('该用户名已被注册', code='registered')
         except ForumUser.DoesNotExist:
             if username in settings.RESERVED:
                 raise forms.ValidationError('用户名被保留不可用')
@@ -216,14 +221,14 @@ class RestPasswordForm(forms.Form):
         super(RestPasswordForm, self).__init__(*args, **kwargs)
 
     def clean(self):
-        username = self.cleaned_data.get('username')
+        username = self.cleaned_data.get('username').strip().lower()
         email = self.cleaned_data.get('email')
 
         if username and email:
             try:
                 self.user_cache = ForumUser.objects.get(username=username, email=email)
             except ForumUser.DoesNotExist:
-                raise forms.ValidationError(u'所填用户名和邮箱有误')
+                raise forms.ValidationError('所填用户名或邮箱错误')
         return self.cleaned_data
 
     def get_user(self):
