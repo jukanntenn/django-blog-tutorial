@@ -1,8 +1,11 @@
+# -*- coding: utf-8 -*-
 from django.db import models
 from django.core.urlresolvers import reverse
+from django.utils.encoding import python_2_unicode_compatible
 
 
 # Create your models here.
+@python_2_unicode_compatible
 class Article(models.Model):
     STATUS_CHOICES = (
         ('d', 'Draft'),

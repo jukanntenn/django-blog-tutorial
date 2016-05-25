@@ -6,7 +6,7 @@ from django.utils import timezone
 
 
 class SignInView(FormView):
-    template_name = ''
+    template_name = 'usera/signin.html'
     form_class = SignInForm
     success_url = '/blog'
 
@@ -29,7 +29,7 @@ class SignInView(FormView):
 
 
 class SignUpView(FormView):
-    template_name = ''
+    template_name = 'usera/signup.html'
     form_class = SignUpForm
     success_url = '/blog'
 
@@ -37,5 +37,7 @@ class SignUpView(FormView):
         # 用户注册时，为其设置一个默认头像和设置其注册的IP
         user = form.save(commit=False)
         user.sign_up_ip = self.request.META.get("REMOTE_ADDR", None)
+        user.last_login_ip = self.request.META.get("REMOTE_ADDR", None)
+        user.last_login_time = timezone.now()
         user.save()
         return super(SignUpView, self).form_valid(form)
