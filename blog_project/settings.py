@@ -15,6 +15,8 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+#
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
@@ -55,7 +57,7 @@ ROOT_URLCONF = 'blog_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'blog/templates')]
+        'DIRS': [os.path.join(BASE_DIR, 'blog/templates'), os.path.join(BASE_DIR, 'usera/templates'), ]
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -116,6 +118,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES = os.path.join(BASE_DIR, 'blog/static')
+STATICFILES = [os.path.join(BASE_DIR, 'blog/static'), os.path.join(BASE_DIR, 'usera/static'), ]
 
 AUTH_USER_MODEL = 'usera.ForumUser'
+
+# 用户账号保留字
+RESERVED = []
