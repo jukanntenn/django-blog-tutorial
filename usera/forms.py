@@ -16,8 +16,8 @@ class SignInForm(ModelForm):
         password = self.cleaned_data['password']
 
         if username and password:
-            self.user_cache = authenticate(username=username, password=password)
-            if self.user_cache is None:
+            user_cache = authenticate(username=username, password=password)
+            if user_cache is None:
                 raise ValidationError('用户名或者密码不正确')
         return self.cleaned_data
 
@@ -61,11 +61,10 @@ class SignUpForm(ModelForm):
 
 
 class ProfileForm(forms.Form):
-    usera_id = forms.CharField(required=False)
     mugshot = forms.ImageField(label=u'头像', required=True, error_messages={'invalid': u'头像格式要求？'})
     gender = forms.ChoiceField(label=u'性别', required=True, choices=GENDER_CHOICES)
     birthday = forms.DateField(label=u'生日', required=True)
-    self_intro = forms.Textarea(label=u'个人简介')
+    self_intro = forms.Textarea()
     website = forms.URLField(label=u'个人网站', required=True, max_length=200, min_length=10, error_messages={
         'invalid': u'输入个人网站',
         'max_length': u'不能超过200个字符',
