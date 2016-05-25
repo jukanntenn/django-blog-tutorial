@@ -29,7 +29,7 @@ class ArticleDetailView(DetailView):
 
     def get_object(self):
         obj = super(ArticleDetailView, self).get_object()
-        obj.body = markdown2.markdown(object.body)
+        obj.body = markdown2.markdown(obj.body)
         return obj
 
 
