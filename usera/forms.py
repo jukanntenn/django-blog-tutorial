@@ -205,3 +205,26 @@ class ProfileForm(forms.ModelForm):
         model = ForumUser
         fields = ('mugshot', 'gender', 'birthday', 'self_intro',
                   'website', 'github', 'nickname', 'sector', 'position')
+
+
+class RestPasswordForm(forms.Form):
+    username = forms.CharField()
+    email = forms.EmailField()
+
+    def __init__(self, *args, **kwargs):
+        self.user_cache = None
+        super(RestPasswordForm, self).__init__(*args, **kwargs)
+
+    def clean(self):
+        username = self.cleaned_data.get('username')
+        email = self.cleaned_data.get('email')
+
+        if username and email:
+            try:
+                self.user_cache = ForumUser.objects.get(username=username, email=email)
+            except ForumUser.DoesNotExist:
+                raise forms.ValidationError(u'所填用户名和邮箱有误')
+        return self.cleaned_data
+
+    def get_user(self):
+        return self.user_cache

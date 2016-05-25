@@ -2,7 +2,7 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import PasswordChangeForm
 from django.views.generic.edit import FormView, UpdateView
 
-from usera.forms import SignInForm, SignUpForm, ProfileForm
+from usera.forms import SignInForm, SignUpForm, ProfileForm, RestPasswordForm
 from django.utils import timezone
 from usera.models import ForumUser
 
@@ -61,3 +61,24 @@ class ProfileChangeView(UpdateView):
 
     def form_valid(self, form):
         return super(ProfileChangeView, self).form_valid(form)
+
+
+class RestPasswordView(FormView):
+    form_class = RestPasswordForm
+    template_name = ''
+    success_url = '/blog'
+
+    def form_valid(self, form):
+        user = form.get_user()
+
+        new_password = uuid.uuid1().hex
+        user.set_password(new_password)
+        user.save()
+
+        # 给用户发送新密码
+        mail_title = u'django中国社区找回密码'
+        var = {'email': user.email, 'new_password': new_password}
+        mail_content = loader.get_template('user/forgot_password_mail.html').render(Context(var))
+        sendmail(mail_title, mail_content, user.email)
+
+        return ''
