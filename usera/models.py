@@ -1,8 +1,16 @@
+# -*- coding: utf-8 -*-
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.utils.encoding import python_2_unicode_compatible
+
+GENDER_CHOICES = (
+    ('M', 'male'),
+    ('F', 'female'),
+)
 
 
 # Create your models here.
+@python_2_unicode_compatible
 class ForumUser(AbstractUser):
     GENDER_CHOICES = (
         ('M', 'male'),
@@ -12,6 +20,10 @@ class ForumUser(AbstractUser):
     gender = models.CharField('性别', max_length=1, choices=GENDER_CHOICES, blank=True, null=True)
     birthday = models.DateField('生日', blank=True, null=True)
     self_intro = models.TextField('个人简介', blank=True, null=True)
+    mugshot = models.ImageField('头像', upload_to='/uploads')
+    gender = models.CharField('性别', max_length=1, choices=GENDER_CHOICES)
+    birthday = models.DateField('生日')
+    self_intro = models.TextField('个人简介')
     sign_up_ip = models.GenericIPAddressField('注册时IP')
     last_login_time = models.DateTimeField('最后一次登录时间', auto_now=True)
     last_login_ip = models.GenericIPAddressField('最后一次登录IP')
