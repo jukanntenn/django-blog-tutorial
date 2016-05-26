@@ -20,20 +20,26 @@ class SignInForm(AuthenticationForm):
         self.user_cache = None
         super(AuthenticationForm, self).__init__(*args, **kwargs)
 
-    def clean_username(self):
-        username = self.cleaned_data.get('username')
+    # def clean_username(self):
+    #     username = self.cleaned_data['username']
+    #     if len(username) < 6 or len(username) > 18:
+    #         raise forms.ValidationError('用户名长度6到18位')
+    #
+    #     if not re.match('^\w+$', username):
+    #         raise forms.ValidationError('用户名应该只包含数字字母下划线')
+    #     # 匹配数字字母下划线
+    #     return username
+    #    上面这样写好像有问题，先写在clean里面
+
+    def clean(self):
+        username = self.cleaned_data['username']
+        password = self.cleaned_data['password']
         if len(username) < 6 or len(username) > 18:
             raise forms.ValidationError('用户名长度6到18位')
 
         if not re.match('^\w+$', username):
             raise forms.ValidationError('用户名应该只包含数字字母下划线')
         # 匹配数字字母下划线
-        return username
-
-    def clean(self):
-        username = self.cleaned_data['username']
-        password = self.cleaned_data['password']
-
         if username and password:
             self.user_cache = authenticate(username=username,
                                            password=password)
@@ -242,7 +248,6 @@ class RestPasswordForm(forms.Form):
     def clean(self):
         username = self.cleaned_data.get('username').strip().lower()
         email = self.cleaned_data.get('email')
-
         if username and email:
             try:
                 self.user_cache = ForumUser.objects.get(username=username, email=email)
@@ -252,3 +257,5 @@ class RestPasswordForm(forms.Form):
 
     def get_user(self):
         return self.user_cache
+
+
