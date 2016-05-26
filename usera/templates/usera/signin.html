@@ -53,16 +53,16 @@
                                 <form role="form" action="{% url 'usera:signin' %}" method="post" class="login-form">
                                     {% csrf_token %}
                                     <div class="form-group">
-                                        <label class="sr-only" for="form-username">用户名</label>
-                                        <input type="text" name="form-username" placeholder="用户名" class="form-username form-control" id="form-username">
+                                        <label class="sr-only" for="id_username">用户名</label>
+                                        <input type="text" name="username" placeholder="用户名" class="form-control" id="id_username">
                                         <!-- 为更好的视觉效果，用{{form.field..}}手工渲染 -->
                                         <ul>
                                             <li>错误提示</li>
                                         </ul>
                                     </div>
                                     <div class="form-group">
-                                        <label class="sr-only" for="form-password">密码</label>
-                                        <input type="password" name="form-password" placeholder="密码" class="form-password form-control" id="form-password">
+                                        <label class="sr-only" for="id_password">密码</label>
+                                        <input type="password" name="password" placeholder="密码" class="form-password form-control" id="id_password">
                                         <ul>
                                             <li>错误提示</li>
                                         </ul>
