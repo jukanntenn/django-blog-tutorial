@@ -12,7 +12,7 @@ from usera.models import ForumUser
 class SignInView(FormView):
     template_name = 'usera/signin.html'
     form_class = SignInForm
-    success_url = '/blog'
+    success_url = '/'
 
     def form_valid(self, form):
         user = form.get_user()
@@ -30,7 +30,7 @@ class SignInView(FormView):
 class SignUpView(FormView):
     template_name = 'usera/signup.html'
     form_class = SignUpForm
-    success_url = '/blog'
+    success_url = '/'
 
     def form_valid(self, form):
         # 用户注册时，为其设置一个默认头像和设置其注册的IP
@@ -45,7 +45,7 @@ class SignUpView(FormView):
 class PassWordChangeView(FormView):
     template_name = 'usera/password_change.html'
     form_class = PasswordChangeForm
-    success_url = '/blog'
+    success_url = '/'
 
     def get_form_kwargs(self):
         kwargs = super(PassWordChangeView, self).get_form_kwargs()
@@ -95,4 +95,4 @@ class ProfileChangeView(UpdateView):
 
 def log_out(request):
     logout(request)
-    return HttpResponseRedirect('/blog')
+    return HttpResponseRedirect('/')
