@@ -1,5 +1,5 @@
 # DjangoBlog 
-####powered by python 3.4 and django 1.9
+####Powered by python 3.4 and django 1.9
 
 > Note:
 目前项目共两个分支，master 分支为纯粹的 Blog 项目，该项目的配套教程，会在每周的周发布到简书、CSDN、开发者头条等平台，如果你对文档、代码等有任何建议，敬请反馈给我们。我们期待更多的反馈意见，这才能使我们更好改进该项目。
