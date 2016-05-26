@@ -1,16 +1,18 @@
 from django import forms
 from django.forms import ModelForm
+from pip.cmdoptions import help_
 from usera.models import ForumUser, GENDER_CHOICES
 from django.contrib.auth import authenticate
 from django.core.exceptions import ValidationError
 from django.conf import settings
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+import re
 
 
 class SignInForm(AuthenticationForm):
     error_messages = {
-        'invalid_login': '用户名或密码不正确',
-        'inactive': '非活跃账户',
+        'invalid_login': '用户名或密码错误',
+        'inactive': '该账户已被冻结',
     }
 
     def __init__(self, request=None, *args, **kwargs):
@@ -18,9 +20,19 @@ class SignInForm(AuthenticationForm):
         self.user_cache = None
         super(AuthenticationForm, self).__init__(*args, **kwargs)
 
-    def clean(self):
+    def clean_username(self):
         username = self.cleaned_data.get('username')
-        password = self.cleaned_data.get('password')
+        if len(username) < 6 or len(username) > 18:
+            raise forms.ValidationError('用户名长度6到18位')
+
+        if not re.match('^\w+$', username):
+            raise forms.ValidationError('用户名应该只包含数字字母下划线')
+        # 匹配数字字母下划线
+        return username
+
+    def clean(self):
+        username = self.cleaned_data['username']
+        password = self.cleaned_data['password']
 
         if username and password:
             self.user_cache = authenticate(username=username,
@@ -90,18 +102,30 @@ class SignInForm(AuthenticationForm):
 
 class SignUpForm(UserCreationForm):
     error_messages = {
-        'password_mismatch': "两次密码不匹配",
+        'password_mismatch': "两次输入的密码不匹配",
     }
 
     class Meta:
         model = ForumUser
         fields = ("username", 'email')
 
+    def __init__(self, *args, **kwargs):
+        super(UserCreationForm, self).__init__(*args, **kwargs)
+        self.fields['username'].help_text = '用户名长度6位到30位'
+        self.fields['password1'].help_text = '密码长度6位到32位'
+        self.fields['password2'].help_text = '请重复输入密码'
+
     def clean_username(self):
         username = self.cleaned_data['username']
+        if not re.match('^\w+$', username):
+            raise forms.ValidationError('用户名应该只包含数字字母下划线')
+        # 匹配数字字母下划线
+        if len(username) < 6 or len(username) > 18:
+            raise forms.ValidationError('用户名长度6到18位')
+
         try:
             ForumUser.objects.get(username=username)
-            raise forms.ValidationError('所填用户名已经被注册过')
+            raise forms.ValidationError('该用户名已被注册', code='registered')
         except ForumUser.DoesNotExist:
             if username in settings.RESERVED:
                 raise forms.ValidationError('用户名被保留不可用')
@@ -205,3 +229,26 @@ class ProfileForm(forms.ModelForm):
         model = ForumUser
         fields = ('mugshot', 'gender', 'birthday', 'self_intro',
                   'website', 'github', 'nickname', 'sector', 'position')
+
+
+class RestPasswordForm(forms.Form):
+    username = forms.CharField()
+    email = forms.EmailField()
+
+    def __init__(self, *args, **kwargs):
+        self.user_cache = None
+        super(RestPasswordForm, self).__init__(*args, **kwargs)
+
+    def clean(self):
+        username = self.cleaned_data.get('username').strip().lower()
+        email = self.cleaned_data.get('email')
+
+        if username and email:
+            try:
+                self.user_cache = ForumUser.objects.get(username=username, email=email)
+            except ForumUser.DoesNotExist:
+                raise forms.ValidationError('所填用户名或邮箱错误')
+        return self.cleaned_data
+
+    def get_user(self):
+        return self.user_cache
