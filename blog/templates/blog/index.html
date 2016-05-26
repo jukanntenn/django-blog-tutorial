@@ -14,8 +14,6 @@
 
     <div id="bd" class="wrp clear-fix">
         <div id="main">
-            {% load paginate_tags %}
-            {% paginate article_list 1 %}
             {% for article in article_list %}
                 <div class="post">
                     <div class="post-hd">
@@ -33,7 +31,6 @@
                     </div>
                 </div>
             {% endfor %}
-            {% include 'blog/pagination.html' %}
         </div>
     </div>
 {% endblock %}

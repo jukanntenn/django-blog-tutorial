@@ -6,7 +6,7 @@ import markdown2
 
 
 # Create your views here.
-class IndexView(ListView):  # 首页视图
+class IndexView(ListView):
     template_name = "blog/index.html"
     context_object_name = "article_list"
 
@@ -27,9 +27,9 @@ class ArticleDetailView(DetailView):
     context_object_name = "article"
     pk_url_kwarg = 'article_id'
 
-    def get_object(self):
+    def get_object(self, queryset=None):
         obj = super(ArticleDetailView, self).get_object()
-        obj.body = markdown2.markdown(object.body)
+        obj.body = markdown2.markdown(obj.body)
         return obj
 
 
