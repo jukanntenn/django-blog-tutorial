@@ -106,7 +106,7 @@ def log_out(request):
 class RestPasswordView(FormView):
     form_class = RestPasswordForm
     template_name = 'usera/password_reset.html'
-    success_url = '/blog'
+    success_url = '/'
 
     def randomstr(self, length=20):
         letters = list(string.ascii_letters + string.digits)
