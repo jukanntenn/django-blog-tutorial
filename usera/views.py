@@ -124,7 +124,7 @@ class RestPasswordView(FormView):
         host = 'smtp.163.com'  # 设置发件服务器地址
         port = 25  # 设置发件服务器端口号。注意，这里有SSL和非SSL两种形式
         sender = 'upczww@163.com'  # 设置发件邮箱，一定要自己注册的邮箱
-        pwd = '15763928103z'  # 设置发件邮箱的密码，等会登陆会用到
+        pwd = 'password'  # 设置发件邮箱的密码，等会登陆会用到
         receiver = user.email  # 设置邮件接收人
         body = '<h1>Django中国社区密码重置</h1><p>您的新密码为：'+new_password+'</p>'  # 设置邮件正文，这里是支持HTML的
 
