@@ -1,18 +1,16 @@
 from django import forms
 from django.forms import ModelForm
-from pip.cmdoptions import help_
 from usera.models import ForumUser, GENDER_CHOICES
 from django.contrib.auth import authenticate
-from django.core.exceptions import ValidationError
+from django.core.exceptions import ValidationError, NON_FIELD_ERRORS
 from django.conf import settings
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-import re
-
+from django.utils.translation import ugettext_lazy as _
 
 class SignInForm(AuthenticationForm):
     error_messages = {
-        'invalid_login': '用户名或密码错误',
-        'inactive': '该账户已被冻结',
+        'invalid_login': '用户名或密码不正确',
+        'inactive': '非活跃账户',
     }
 
     def __init__(self, request=None, *args, **kwargs):
@@ -20,19 +18,9 @@ class SignInForm(AuthenticationForm):
         self.user_cache = None
         super(AuthenticationForm, self).__init__(*args, **kwargs)
 
-    def clean_username(self):
-        username = self.cleaned_data.get('username')
-        if len(username) < 6 or len(username) > 18:
-            raise forms.ValidationError('用户名长度6到18位')
-
-        if not re.match('^\w+$', username):
-            raise forms.ValidationError('用户名应该只包含数字字母下划线')
-        # 匹配数字字母下划线
-        return username
-
     def clean(self):
-        username = self.cleaned_data['username']
-        password = self.cleaned_data['password']
+        username = self.cleaned_data.get('username')
+        password = self.cleaned_data.get('password')
 
         if username and password:
             self.user_cache = authenticate(username=username,
@@ -102,30 +90,18 @@ class SignInForm(AuthenticationForm):
 
 class SignUpForm(UserCreationForm):
     error_messages = {
-        'password_mismatch': "两次输入的密码不匹配",
+        'password_mismatch': "两次密码不匹配",
     }
 
     class Meta:
         model = ForumUser
         fields = ("username", 'email')
 
-    def __init__(self, *args, **kwargs):
-        super(UserCreationForm, self).__init__(*args, **kwargs)
-        self.fields['username'].help_text = '用户名长度6位到30位'
-        self.fields['password1'].help_text = '密码长度6位到32位'
-        self.fields['password2'].help_text = '请重复输入密码'
-
     def clean_username(self):
         username = self.cleaned_data['username']
-        if not re.match('^\w+$', username):
-            raise forms.ValidationError('用户名应该只包含数字字母下划线')
-        # 匹配数字字母下划线
-        if len(username) < 6 or len(username) > 18:
-            raise forms.ValidationError('用户名长度6到18位')
-
         try:
             ForumUser.objects.get(username=username)
-            raise forms.ValidationError('该用户名已被注册', code='registered')
+            raise forms.ValidationError('所填用户名已经被注册过')
         except ForumUser.DoesNotExist:
             if username in settings.RESERVED:
                 raise forms.ValidationError('用户名被保留不可用')
@@ -227,28 +203,49 @@ class SignUpForm(UserCreationForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = ForumUser
-        fields = ('mugshot', 'gender', 'birthday', 'self_intro',
-                  'website', 'github', 'nickname', 'sector', 'position')
+        fields = ('nickname', 'mugshot', 'gender', 'birthday', 'self_intro',
+                  'website', 'github',  'sector', 'position')
 
+        help_texts = {
+            'mugshot': '上传jpg/png格式图片',
+            'self_intro': '%d/%d' % (5, 120)
+        }
+        error_messages = {
+            'mugshot':{
+                'invalid': '上传jpg/png格式图片',
+            },
+            'nickname':{
+                'invalid': u'输入您的昵称',
+                'max_length': u'不能超过12个字符',
+                'min_length': u'不能少于2个字符'
+            },
+            'self_intro': {
+                'invalid': u'您的说明',
+                'max_length': u'不能超过120个字符',
+                'min_length': u'不能少于20个字符'
+            },
+        }
+    def clean_nickname(self):
+        onickname = self.cleaned_data['nickname']
+        try:
+            ForumUser.objects.get(nickname__exact=onickname)
+            raise forms.ValidationError(u'昵称已存在')
+        except ForumUser.DoesNotExist:
+            return onickname
 
-class RestPasswordForm(forms.Form):
-    username = forms.CharField()
-    email = forms.EmailField()
+    def clean_mugshot(self):
+        pass
+        omugshot = self.cleaned_data['mugshot']
+        if not str(omugshot.name).endswith('.jpg') or not str(omugshot.name).endswith('.png'):
+            raise forms.ValidationError(u'请上传jpg/png格式图像', code='FormatError')
+        else:
+            return omugshot
 
-    def __init__(self, *args, **kwargs):
-        self.user_cache = None
-        super(RestPasswordForm, self).__init__(*args, **kwargs)
-
-    def clean(self):
-        username = self.cleaned_data.get('username').strip().lower()
-        email = self.cleaned_data.get('email')
-
-        if username and email:
-            try:
-                self.user_cache = ForumUser.objects.get(username=username, email=email)
-            except ForumUser.DoesNotExist:
-                raise forms.ValidationError('所填用户名或邮箱错误')
-        return self.cleaned_data
-
-    def get_user(self):
-        return self.user_cache
+    def save(self, commit=True):
+        try:
+            #self.full_clean(exclude=('last_login_ip', 'username', 'password1', 'password2'))
+            self.full_clean(exclude=not self.fields)
+        except ValidationError as e:
+            raise e.message_dict[NON_FIELD_ERRORS]
+        profile = super(ProfileForm, self).save(commit=commit)
+        return profile
