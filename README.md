@@ -16,6 +16,7 @@ feature 分支为 django 中国社区的开发分支，目前已经初步完成�
 注：如果你完全没有接触过 Django，强烈建议你首先阅读官方文档的入门教程，我们组织首页仓库也有其[中文翻译版本](https://github.com/djangoStudyTeam/django-intro-zh)，强烈推荐先阅读该教程以掌握 Django 开发中的一些基础知识。
 
 **第一周**：[Django 学习小组：博客开发实战第一周教程 —— 编写博客的 Model 和首页面](http://www.jianshu.com/p/3bf9fb2a7e31)
+
 **第二周**：[Django 学习小组：博客开发实战第二周教程 —— 博客详情页面和分类页面](http://www.jianshu.com/p/b74a6c5382c1)
 
 ### 项目运行方式
