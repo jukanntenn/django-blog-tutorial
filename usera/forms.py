@@ -3,11 +3,11 @@ from django.forms import ModelForm
 from pip.cmdoptions import help_
 from usera.models import ForumUser, GENDER_CHOICES
 from django.contrib.auth import authenticate
-from django.core.exceptions import ValidationError
+from django.core.exceptions import ValidationError, NON_FIELD_ERRORS
 from django.conf import settings
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 import re
-
+from django.utils.translation import ugettext_lazy as _
 
 class SignInForm(AuthenticationForm):
     error_messages = {
@@ -233,8 +233,52 @@ class SignUpForm(UserCreationForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = ForumUser
-        fields = ('mugshot', 'gender', 'birthday', 'self_intro',
-                  'website', 'github', 'nickname', 'sector', 'position')
+        fields = ('nickname', 'mugshot', 'gender', 'birthday', 'self_intro',
+                  'website', 'github',  'sector', 'position')
+
+        help_texts = {
+            'mugshot': '上传jpg/png格式图片',
+            'self_intro': '%d/%d' % (5, 120)
+        }
+        error_messages = {
+            'mugshot':{
+                'invalid': '上传jpg/png格式图片',
+            },
+            'nickname':{
+                'invalid': u'输入您的昵称',
+                'max_length': u'不能超过12个字符',
+                'min_length': u'不能少于2个字符'
+            },
+            'self_intro': {
+                'invalid': u'您的说明',
+                'max_length': u'不能超过120个字符',
+                'min_length': u'不能少于20个字符'
+            },
+        }
+    def clean_nickname(self):
+        onickname = self.cleaned_data['nickname']
+        try:
+            ForumUser.objects.get(nickname__exact=onickname)
+            raise forms.ValidationError(u'昵称已存在')
+        except ForumUser.DoesNotExist:
+            return onickname
+
+    def clean_mugshot(self):
+        pass
+        omugshot = self.cleaned_data['mugshot']
+        if not str(omugshot.name).endswith('.jpg') or not str(omugshot.name).endswith('.png'):
+            raise forms.ValidationError(u'请上传jpg/png格式图像', code='FormatError')
+        else:
+            return omugshot
+
+    def save(self, commit=True):
+        try:
+            #self.full_clean(exclude=('last_login_ip', 'username', 'password1', 'password2'))
+            self.full_clean(exclude=not self.fields)
+        except ValidationError as e:
+            raise e.message_dict[NON_FIELD_ERRORS]
+        profile = super(ProfileForm, self).save(commit=commit)
+
 
 
 class RestPasswordForm(forms.Form):
