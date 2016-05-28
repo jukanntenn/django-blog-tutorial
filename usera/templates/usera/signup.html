@@ -43,8 +43,11 @@
                     <div class="form-top">
                         <div class="form-top-left">
                             <h3>注册Django社区</h3>
-                            <p><a href="{% url 'usera:signin' %}">已有账户，去登录</a><a href="{% url 'usera:password_reset' %}"
-                                                                                 class="pull-right">忘记密码？</a></p>
+                            <p>
+                                <a href="{% url 'usera:signin' %}">已有账户，去登录</a>
+                                <a href="{% url 'usera:password_reset' %}"
+                                    class="pull-right">忘记密码？</a>
+                                </p>
                         </Div>
                         <div class="form-top-right">
                             <i class="fa fa-book"></i>
@@ -55,51 +58,31 @@
                             {% csrf_token %}
                             <div class="form-group">
                                 <label class="sr-only" for="id_username">用户名</label>
-                                <input type="text" name="username" placeholder="用户名" class="form-control"
-                                       id="id_username">
-                                <!-- 为更好的视觉效果，用{{form.field..}}手工渲染 -->
+                                <input type="text" name="username" placeholder="用户名"
+                                        class="form-control" id="id_username">
                                 {{ form.username.errors }}
                             </div>
                             <div class="form-group">
                                 <label class="sr-only" for="id_email">邮箱</label>
-                                <input type="email" name="email" placeholder="邮箱" class="form-control" id="id_email">
-                                <!-- 为更好的视觉效果，用{{form.field..}}手工渲染 -->
+                                <input type="email" name="email" placeholder="邮箱"
+                                        class="form-control" id="id_email">
                                 {{ form.email.errors }}
                             </div>
                             <div class="form-group">
                                 <label class="sr-only" for="id_password1">密码</label>
-                                <input type="password" name="password1" placeholder="密码" class="form-control"
-                                       id="id_password1">
+                                <input type="password" name="password1" placeholder="密码"
+                                        class="form-control" id="id_password1">
                                 {{ form.password.errors }}
                             </div>
                             <div class="form-group">
-                                <label class="sr-only" for="id_password2">重复密码</label>
-                                <input type="password" name="password2" placeholder="密码重复" class="form-control"
-                                       id="id_password2">
+                                <label class="sr-only" for="id_password2">密码确认</label>
+                                <input type="password" name="password2"
+                                        placeholder="密码确认" class="form-control"
+                                        id="id_password2">
                                 {{ form.non_field_errors }}
                             </div>
                             <button type="submit" class="btn">注册</button>
                         </form>
-                    </div>
-                </div>
-            </div>
-            <!-- 隐藏三方登录 -->
-            <div class="row" style="display: none;">
-                <div class="col-sm-6 col-sm-offset-3 social-login">
-                    <h3>其他登录方式</h3>
-                    <div class="social-login-buttons">
-                        <a class="btn btn-link-1 btn-link-1-qq" href="#">
-                            <i class="fa fa-qq"></i> QQ
-                        </a>
-                        <a class="btn btn-link-1 btn-link-1-wechat" href="#">
-                            <i class="fa fa-wechat"></i> 微信
-                        </a>
-                        <a class="btn btn-link-1 btn-link-1-sina" href="#">
-                            <i class="fa fa-share-alt"></i> 新浪
-                        </a>
-                        <a class="btn btn-link-1 btn-link-1-github" href="#">
-                            <i class="fa fa-github"></i> github
-                        </a>
                     </div>
                 </div>
             </div>
