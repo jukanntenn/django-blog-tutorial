@@ -2,107 +2,108 @@
 {% load staticfiles %}
 <html lang="en">
 
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>登录-Django中国社区</title>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>登录-Django中国社区</title>
 
-        <!-- CSS -->
-        <link rel="stylesheet" href="{% static 'usera/lib/bootstrap-3.3.5/css/bootstrap.min.css' %}">
-        <link rel="stylesheet" href="{% static 'usera/lib/font-awesome/css/font-awesome.min.css' %}">
-        <link rel="stylesheet" href="{% static 'usera/css/form-elements.css' %}">
-        <link rel="stylesheet" href="{% static 'usera/css/style.css' %}">
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'usera/lib/bootstrap-3.3.5/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'usera/lib/font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'usera/css/form-elements.css' %}">
+    <link rel="stylesheet" href="{% static 'usera/css/style.css' %}">
 
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
 
-    </head>
+</head>
 
-    <body>
+<body>
 
-        <!-- Top content -->
-        <div class="top-content">
+<!-- Top content -->
+<div class="top-content">
 
-            <div class="inner-bg">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-sm-8 col-sm-offset-2 text">
-                            <h1>Django社区</h1>
-                            <div class="description">
-                                <p>欢迎登录Django中国社区</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6 col-sm-offset-3 form-box">
-                            <div class="form-top">
-                                <div class="form-top-left">
-                                    <h3>登录Django社区</h3>
-                                    <p><a href="{% url 'usera:signup' %}">注册新账户</a><a href="{% url 'usera:password_reset' %}" class="pull-right">忘记密码？</a></p>
-                                </Div>
-                                <div class="form-top-right">
-                                    <i class="fa fa-key"></i>
-                                </div>
-                            </div>
-                            <div class="form-bottom">
-                                <form role="form" action="{% url 'usera:signin' %}" method="post" class="login-form">
-                                    {% csrf_token %}
-                                    <div class="form-group">
-                                        <label class="sr-only" for="id_username">用户名</label>
-                                        <input type="text" name="username" placeholder="用户名" class="form-control" id="id_username">
-                                        <!-- 为更好的视觉效果，用{{form.field..}}手工渲染 -->
-                                        <ul>
-                                            <li>错误提示</li>
-                                        </ul>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="sr-only" for="id_password">密码</label>
-                                        <input type="password" name="password" placeholder="密码" class="form-password form-control" id="id_password">
-                                        <ul>
-                                            <li>错误提示</li>
-                                        </ul>
-                                    </div>
-                                    <button type="submit" class="btn">登录</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- 隐藏三方登录 -->
-                    <div class="row" style="display: none;">
-                        <div class="col-sm-6 col-sm-offset-3 social-login">
-                            <h3>其他登录方式</h3>
-                            <div class="social-login-buttons">
-                                <a class="btn btn-link-1 btn-link-1-qq" href="#">
-                                    <i class="fa fa-qq"></i> QQ
-                                </a>
-                                <a class="btn btn-link-1 btn-link-1-wechat" href="#">
-                                    <i class="fa fa-wechat"></i> 微信
-                                </a>
-                                <a class="btn btn-link-1 btn-link-1-sina" href="#">
-                                    <i class="fa fa-share-alt"></i> 新浪
-                                </a>
-                                <a class="btn btn-link-1 btn-link-1-github" href="#">
-                                    <i class="fa fa-github"></i> github
-                                </a>
-                            </div>
-                        </div>
+    <div class="inner-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-2 text">
+                    <h1>Django社区</h1>
+                    <div class="description">
+                        <p>欢迎登录Django中国社区</p>
                     </div>
                 </div>
             </div>
-
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3 form-box">
+                    <div class="form-top">
+                        <div class="form-top-left">
+                            <h3>登录Django社区</h3>
+                            <p>
+                                <a href="{% url 'usera:signup' %}">注册新账户</a>
+                                <a href="{% url 'usera:password_reset' %}"
+                                    class="pull-right">忘记密码？</a>
+                                </p>
+                        </Div>
+                        <div class="form-top-right">
+                            <i class="fa fa-key"></i>
+                        </div>
+                    </div>
+                    <div class="form-bottom">
+                        <form role="form" action="{% url 'usera:signin' %}" method="post" class="login-form">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label class="sr-only" for="id_username">用户名</label>
+                                <input type="text" name="username" placeholder="用户名"
+                                        class="form-control" id="id_username">
+                                {{ form.non_field_errors }}
+                            </div>
+                            <div class="form-group">
+                                <label class="sr-only" for="id_password">密码</label>
+                                <input type="password" name="password" placeholder="密码"
+                                        class="form-password form-control" id="id_password">
+                                {{ form.password.errors }}
+                            </div>
+                            <button type="submit" class="btn">登录</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- 隐藏三方登录 -->
+            <div class="row" style="display: none;">
+                <div class="col-sm-6 col-sm-offset-3 social-login">
+                    <h3>其他登录方式</h3>
+                    <div class="social-login-buttons">
+                        <a class="btn btn-link-1 btn-link-1-qq" href="#">
+                            <i class="fa fa-qq"></i> QQ
+                        </a>
+                        <a class="btn btn-link-1 btn-link-1-wechat" href="#">
+                            <i class="fa fa-wechat"></i> 微信
+                        </a>
+                        <a class="btn btn-link-1 btn-link-1-sina" href="#">
+                            <i class="fa fa-share-alt"></i> 新浪
+                        </a>
+                        <a class="btn btn-link-1 btn-link-1-github" href="#">
+                            <i class="fa fa-github"></i> github
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
+    </div>
+
+</div>
 
 
-        <!-- Javascript -->
-        <script src="{% static 'usera/js/jquery-1.11.1.min.js' %}"></script>
-        <script src="{% static 'usera/lib/bootstrap-3.3.5/js/bootstrap.min.js' %}"></script>
-        <script src="{% static 'usera/js/jquery.backstretch.min.js' %}"></script>
-        <script src="{% static 'usera/js/scripts.js' %}"></script>
-    </body>
+<!-- Javascript -->
+<script src="{% static 'usera/js/jquery-1.11.1.min.js' %}"></script>
+<script src="{% static 'usera/lib/bootstrap-3.3.5/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'usera/js/jquery.backstretch.min.js' %}"></script>
+<script src="{% static 'usera/js/scripts.js' %}"></script>
+</body>
 
 </html>
