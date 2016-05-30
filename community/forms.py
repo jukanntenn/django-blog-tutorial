@@ -19,8 +19,7 @@ class PostForm(ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
-        self.request = kwargs.pop('request', None)
-        self.obj = kwargs.pop('obj')
+        # form 实例化是需要视图函数提供 user 参数
         self.user = kwargs.pop('user')
         super(PostForm, self).__init__(*args, **kwargs)
 
@@ -41,7 +40,7 @@ class ReplyForm(ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
-        self.request = kwargs.pop('request', None)
+        # form 实例化是需要视图函数提供 user 参数
         self.user = kwargs.pop('user')
         super(ReplyForm, self).__init__(*args, **kwargs)
 
