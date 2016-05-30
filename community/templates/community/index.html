@@ -1,0 +1,31 @@
+{% extends 'base_site.html' %}
+{% block content %}
+    <div id="community" class="noselect">
+    <h2> {{ community }}</h2>
+        <div id="category-title">
+            <ul>
+                <li>发现：</li>
+                <li><a href="{% url 'community:index' %}">等待回复</a></li>
+                <li><a href="{% url 'community:index' %}" id="sort_control_hot">热门</a></li>
+                <li><a href="{% url 'community:index' %}">推荐</a></li>
+                <li class="active"><a href="{% url 'community:index' %}">最新</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="bd" class="wrp clear-fix">
+        <div id="main">
+{#            {% load paginate_tags %}#}
+{#            {% paginate article_list 7 %}#}
+            {% for post in post_list %}
+                <div class="post">
+                    <div class="post-hd">
+                        <h1 class="title"><a href="{% url 'community:detail' post.id %}">{{ post.title }}</a></h1>
+                        <span>{{ post.ups }}点赞 {{ post.views }} 浏览</span>
+                    </div>
+                </div>
+            {% endfor %}
+{#            {% include 'blog/pagination.html' %}#}
+        </div>
+    </div>
+{% endblock %}
