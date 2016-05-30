@@ -20,5 +20,6 @@ from blog import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'', include('blog.urls', namespace='blog', app_name='blog')),
-    url(r'', include('usera.urls', namespace='usera', app_name='usera'))
+    url(r'', include('usera.urls', namespace='usera', app_name='usera')),
+    url(r'', include('community.urls', namespace='community', app_name='community'))
 ]

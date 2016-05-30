@@ -5,7 +5,7 @@ from community.forms import PostForm, ReplyForm
 
 # Create your views here.
 class PostCreateView(FormView):
-    template_name = ''
+    template_name = 'community/post_create.html'
     form_class = PostForm
     success_url = '/'
 
