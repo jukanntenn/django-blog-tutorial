@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div id="banner" class="noselect"></div>
+    <div id="bd" class="wrp clear-fix">
+        <div id="main">
+            {% load paginate_tags %}
+            {% paginate article_list 7 %}
+            {% for article in article_list %}
+
+                <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+
+                    <p>
+                        <time class="post-time" itemprop="dateCreated">
+                            {{ article.last_modified_time|date:"Y年n月d日" }}
+                        </time>
+                        <a href="{% url 'blog:detail' article.pk %}">{{ article.title }}</a>
+
+
+                </article>
+
+            {% endfor %}
+            {% include 'blog/pagination.html' %}
+        </div>
+    </div>
+{% endblock %}

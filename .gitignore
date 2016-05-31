@@ -1,0 +1,12 @@
+*.pyc
+*.py~
+*.log
+*.tmp
+*.swp
+*pydev*
+.project
+.DS_Store
+logs/*
+*.tmp*~
+*CACHE*
+example/dev.db
