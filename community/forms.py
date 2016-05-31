@@ -1,5 +1,5 @@
 from django.forms import ModelForm, Textarea, CharField
-from community.models import Post, Reply
+from community.models import Post, Comment
 
 
 class PostForm(ModelForm):
@@ -13,10 +13,10 @@ class PostForm(ModelForm):
             }
         }
 
-        widgets = {
-            'title': CharField(attrs={}),
-            'body': Textarea(attrs={})
-        }
+        # widgets = {
+        #     'title': CharField(),
+        #     'body': Textarea(),
+        # }
 
     def __init__(self, *args, **kwargs):
         # form 实例化是需要视图函数提供 user 参数
@@ -32,12 +32,12 @@ class PostForm(ModelForm):
 
 class ReplyForm(ModelForm):
     class Meta:
-        model = Reply
-        fields = ['content']
+        model = Comment
+        fields = ['text']
 
-        widgets = {
-            'content': Textarea(attrs={})
-        }
+        # widgets = {
+        #     'content': Textarea()
+        # }
 
     def __init__(self, *args, **kwargs):
         # form 实例化是需要视图函数提供 user 参数
