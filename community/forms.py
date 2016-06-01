@@ -5,7 +5,7 @@ from .models import Post, Comment
 class PostForm(ModelForm):
     class Meta:
         model = Post
-        fields = ['title', 'body', 'topic']
+        fields = ['title', 'body', 'tags']
 
         error_messages = {
             'title': {
@@ -33,7 +33,7 @@ class PostForm(ModelForm):
 class CommentForm(ModelForm):
     class Meta:
         model = Comment
-        fields = ['text']
+        fields = ['body']
 
         # widgets = {
         #     'content': Textarea()

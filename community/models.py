@@ -36,8 +36,7 @@ class Comment(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL)
 
     class Meta:
-        ordering = ['created_at', ]
-        abstract = True
+        ordering = ['created', ]
 
     def __str__(self):
         return self.body[:20]

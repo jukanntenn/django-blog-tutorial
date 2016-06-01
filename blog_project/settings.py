@@ -125,7 +125,7 @@ STATIC_URL = '/static/'
 STATICFILES = [os.path.join(BASE_DIR, 'blog/static'), os.path.join(BASE_DIR, 'usera/static'),
                os.path.join(BASE_DIR, 'community/static')]
 
-AUTH_USER_MODEL = 'usera.ForumUser'
+AUTH_USER_MODEL = 'usera.CommunityUser'
 
 # 用户账号保留字
 RESERVED = []
