@@ -1,13 +1,8 @@
+import re
 from django import forms
-from django.forms import ModelForm
-from pip.cmdoptions import help_
-from usera.models import ForumUser, GENDER_CHOICES
-from django.contrib.auth import authenticate
-from django.core.exceptions import ValidationError, NON_FIELD_ERRORS
 from django.conf import settings
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-import re
-from django.utils.translation import ugettext_lazy as _
+from .models import CommunityUser
 
 
 class SignInForm(AuthenticationForm):
@@ -16,32 +11,6 @@ class SignInForm(AuthenticationForm):
         'inactive': '该账户已被冻结',
     }
 
-    def __init__(self, request=None, *args, **kwargs):
-        self.request = request
-        self.user_cache = None
-        super(AuthenticationForm, self).__init__(*args, **kwargs)
-
-    def clean(self):
-        username = self.cleaned_data['username']
-        password = self.cleaned_data['password']
-        if len(username) < 6 or len(username) > 18:
-            raise forms.ValidationError('用户名长度6到18位')
-
-        if not re.match('^\w+$', username):
-            raise forms.ValidationError('用户名应该只包含数字字母下划线')
-        # 匹配数字字母下划线
-        if username and password:
-            self.user_cache = authenticate(username=username,
-                                           password=password)
-            if self.user_cache is None:
-                raise forms.ValidationError(
-                        self.error_messages['invalid_login'],
-                        code='invalid_login',
-                )
-            else:
-                self.confirm_login_allowed(self.user_cache)
-        return self.cleaned_data
-
 
 class SignUpForm(UserCreationForm):
     error_messages = {
@@ -49,27 +18,27 @@ class SignUpForm(UserCreationForm):
     }
 
     class Meta:
-        model = ForumUser
-        fields = ("username", 'email')
+        model = CommunityUser
+        fields = ['username', 'email']
 
     def __init__(self, *args, **kwargs):
         super(UserCreationForm, self).__init__(*args, **kwargs)
-        self.fields['username'].help_text = '用户名长度6位到30位'
+        self.fields['username'].help_text = '用户名长度6位到18位，只能包含字母数字和下划线'
         self.fields['password1'].help_text = '密码长度6位到32位'
-        self.fields['password2'].help_text = '请重复输入密码'
+        self.fields['password2'].help_text = '请再次输入密码'
 
     def clean_username(self):
         username = self.cleaned_data['username']
         if not re.match('^\w+$', username):
-            raise forms.ValidationError('用户名应该只包含数字字母下划线')
+            raise forms.ValidationError('用户名只能包含字母、数字或下划线')
         # 匹配数字字母下划线
         if len(username) < 6 or len(username) > 18:
-            raise forms.ValidationError('用户名长度6到18位')
+            raise forms.ValidationError('用户名长度只能为6到18位')
 
         try:
-            ForumUser.objects.get(username=username)
-            raise forms.ValidationError('该用户名已被注册', code='registered')
-        except ForumUser.DoesNotExist:
+            CommunityUser.objects.get(username=username)
+            raise forms.ValidationError('该用户名已被注册')
+        except CommunityUser.DoesNotExist:
             if username in settings.RESERVED:
                 raise forms.ValidationError('用户名被保留不可用')
             return username
@@ -77,85 +46,78 @@ class SignUpForm(UserCreationForm):
     def clean_email(self):
         email = self.cleaned_data['email']
         try:
-            ForumUser.objects.get(email=email)
+            CommunityUser.objects.get(email=email)
             raise forms.ValidationError('所填邮箱已经被注册过')
-        except ForumUser.DoesNotExist:
+        except CommunityUser.DoesNotExist:
             return email
 
-    def save(self, commit=True):
-        user = super(SignUpForm, self).save(commit=False)
-        user.set_password(self.cleaned_data["password1"])
-        if commit:
-            user.save()
-        return user
+
+# class ProfileForm(forms.ModelForm):
+#     class Meta:
+#         model = CommunityUser
+#         fields = ('nickname', 'mugshot', 'gender', 'birthday', 'self_intro',
+#                   'website', 'github', 'sector', 'position')
+#
+#         help_texts = {
+#             'mugshot': '上传jpg/png格式图片',
+#             'self_intro': '%d/%d' % (5, 120)
+#         }
+#         error_messages = {
+#             'mugshot': {
+#                 'invalid': '上传jpg/png格式图片',
+#             },
+#             'nickname': {
+#                 'invalid': u'输入您的昵称',
+#                 'max_length': u'不能超过12个字符',
+#                 'min_length': u'不能少于2个字符'
+#             },
+#             'self_intro': {
+#                 'invalid': u'您的说明',
+#                 'max_length': u'不能超过120个字符',
+#                 'min_length': u'不能少于20个字符'
+#             },
+#         }
+#
+#     def clean_nickname(self):
+#         onickname = self.cleaned_data['nickname']
+#         try:
+#             CommunityUser.objects.get(nickname__exact=onickname)
+#             raise forms.ValidationError(u'昵称已存在')
+#         except CommunityUser.DoesNotExist:
+#             return onickname
+#
+#     def clean_mugshot(self):
+#         pass
+#         omugshot = self.cleaned_data['mugshot']
+#         if not str(omugshot.name).endswith('.jpg') or not str(omugshot.name).endswith('.png'):
+#             raise forms.ValidationError(u'请上传jpg/png格式图像', code='FormatError')
+#         else:
+#             return omugshot
+#
+#     def save(self, commit=True):
+#         try:
+#             # self.full_clean(exclude=('last_login_ip', 'username', 'password1', 'password2'))
+#             self.full_clean(exclude=not self.fields)
+#         except ValidationError as e:
+#             raise e.message_dict[NON_FIELD_ERRORS]
+#         profile = super(ProfileForm, self).save(commit=commit)
 
 
-class ProfileForm(forms.ModelForm):
-    class Meta:
-        model = ForumUser
-        fields = ('nickname', 'mugshot', 'gender', 'birthday', 'self_intro',
-                  'website', 'github', 'sector', 'position')
-
-        help_texts = {
-            'mugshot': '上传jpg/png格式图片',
-            'self_intro': '%d/%d' % (5, 120)
-        }
-        error_messages = {
-            'mugshot': {
-                'invalid': '上传jpg/png格式图片',
-            },
-            'nickname': {
-                'invalid': u'输入您的昵称',
-                'max_length': u'不能超过12个字符',
-                'min_length': u'不能少于2个字符'
-            },
-            'self_intro': {
-                'invalid': u'您的说明',
-                'max_length': u'不能超过120个字符',
-                'min_length': u'不能少于20个字符'
-            },
-        }
-
-    def clean_nickname(self):
-        onickname = self.cleaned_data['nickname']
-        try:
-            ForumUser.objects.get(nickname__exact=onickname)
-            raise forms.ValidationError(u'昵称已存在')
-        except ForumUser.DoesNotExist:
-            return onickname
-
-    def clean_mugshot(self):
-        pass
-        omugshot = self.cleaned_data['mugshot']
-        if not str(omugshot.name).endswith('.jpg') or not str(omugshot.name).endswith('.png'):
-            raise forms.ValidationError(u'请上传jpg/png格式图像', code='FormatError')
-        else:
-            return omugshot
-
-    def save(self, commit=True):
-        try:
-            # self.full_clean(exclude=('last_login_ip', 'username', 'password1', 'password2'))
-            self.full_clean(exclude=not self.fields)
-        except ValidationError as e:
-            raise e.message_dict[NON_FIELD_ERRORS]
-        profile = super(ProfileForm, self).save(commit=commit)
-
-
-class RestPasswordForm(forms.Form):
+class ResetPasswordForm(forms.Form):
     username = forms.CharField()
     email = forms.EmailField()
 
     def __init__(self, *args, **kwargs):
         self.user_cache = None
-        super(RestPasswordForm, self).__init__(*args, **kwargs)
+        super(ResetPasswordForm, self).__init__(*args, **kwargs)
 
     def clean(self):
-        username = self.cleaned_data.get('username').strip().lower()
+        username = self.cleaned_data.get('username')
         email = self.cleaned_data.get('email')
         if username and email:
             try:
-                self.user_cache = ForumUser.objects.get(username=username, email=email)
-            except ForumUser.DoesNotExist:
+                self.user_cache = CommunityUser.objects.get(username=username, email=email)
+            except CommunityUser.DoesNotExist:
                 raise forms.ValidationError('所填用户名或邮箱错误')
         return self.cleaned_data
 
