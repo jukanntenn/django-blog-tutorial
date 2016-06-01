@@ -11,7 +11,7 @@ class Post(models.Model):
     collected_by = models.ManyToManyField(settings.AUTH_USER_MODEL, verbose_name='收藏的用户',
                                           related_name='collected_users')
     liked_by = models.ManyToManyField(settings.AUTH_USER_MODEL, verbose_name='赞过的用户', related_name='liked_users')
-    tags = models.ManyToManyField(Tag, verbose_name='标签', max_length=50)
+    tags = models.ManyToManyField('Tag', verbose_name='标签', max_length=50)
     views = models.PositiveIntegerField(verbose_name='浏览量', default=0)
 
     class Meta:
