@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'usera',
     'markdown2',
     'pygments',
+    'community',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -59,7 +60,8 @@ ROOT_URLCONF = 'blog_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'blog/templates'), os.path.join(BASE_DIR, 'usera/templates'), ]
+        'DIRS': [os.path.join(BASE_DIR, 'blog/templates'), os.path.join(BASE_DIR, 'usera/templates'),
+                 os.path.join(BASE_DIR, 'community/templates')]
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -121,7 +123,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES = [os.path.join(BASE_DIR, 'blog/static'), os.path.join(BASE_DIR, 'usera/static'), ]
+STATICFILES = [os.path.join(BASE_DIR, 'blog/static'), os.path.join(BASE_DIR, 'usera/static'),
+               os.path.join(BASE_DIR, 'community/static')]
 
 AUTH_USER_MODEL = 'usera.ForumUser'
 
