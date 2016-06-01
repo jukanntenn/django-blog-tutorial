@@ -12,7 +12,7 @@ from django.template.defaultfilters import slugify
 @python_2_unicode_compatible
 class ArchivesManager(models.Manager):
     def get_queryset(self):
-        return Article.objects.datetimes('pub_date','month',order='DESC')
+        return Article.objects.datetimes('pub_date', 'month', order='DESC')
 
 
 class ArchivesItem(models.Model):
@@ -24,6 +24,7 @@ class ArchivesItem(models.Model):
     #     #     'year': self.year,
     #     #     'month': self.strftime('%b').lower()
     #     # })
+
 
 class Article(models.Model):
     STATUS_CHOICES = (
