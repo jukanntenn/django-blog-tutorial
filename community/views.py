@@ -47,7 +47,7 @@ class IndexView(generic.ListView):
     #     return post_list
 
     def get_context_data(self, **kwargs):
-        kwargs['post_list'] = Post.objects.all().order_by('-last_modified_time')
+        kwargs['post_list'] = Post.objects.all().order_by('-modified_date')
         return super(IndexView, self).get_context_data(**kwargs)
 
 
