@@ -3,18 +3,22 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>Myblog</title>
+    <title>Blog based on Django</title>
+    <link rel="stylesheet" href="{% static 'usera/lib/bootstrap-3.3.5/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'usera/lib/font-awesome/css/font-awesome.min.css' %}">
     <link rel="stylesheet" href="{% static 'blog/css/style.css' %}">
     <link rel="stylesheet" href="{% static 'blog/css/pygments/manni.css' %}">
 </head>
 <body>
 <div id="header">
-    <div id="header-warp">
+    <div id="header-warp" class="container">
         <a href="{% url 'blog:index' %}" title="第一个博客" id="logo"></a>
         <ul id="header-nav">
             <li><a href="{% url 'blog:index' %}">首页</a></li>
+            <!-- <li><a href="{% url 'blog:archives' %}">归档</a></li> -->
         </ul>
         <div id="header-right" class="login">
+            {% if user.is_authenticated %}
             <div id="user-info">
                 <a href="{% url 'usera:signup' %}"><span id="dropdown-button">注册</span></a>
                 <!-- 	<span id="dropdown-button">退出</span> -->
@@ -23,25 +27,110 @@
                 <a href="{% url 'usera:signin' %}"><span id="dropdown-button">登录</span></a>
                 <!-- 	<span id="dropdown-button">退出</span> -->
             </div>
+            {% else %}
             <div id="user-info">
                 <a href="{% url 'usera:log_out' %}"><span id="dropdown-button">登出</span></a>
                 <!-- 	<span id="dropdown-button">退出</span> -->
             </div>
+            {% endif %}
         </div>
     </div>
 </div>
 
 
-{% block content %}{% endblock %}
+<!-- {# {% block content %}{% endblock %} #} -->
+
+<div class="wrapper">
+
+    <div class="container">
+        <div class="row body">
+            <div class="col-md-12">
+                <div id="banner" class="noselect"></div>
+            </div>
+            <div class="col-md-8 content">
+                {% block content %}{% endblock %}
+            </div>
+
+            <div class="col-md-4 sidebar">
+
+                <!-- Latest Posts -->
+                
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4>最近文章</h4>
+                    </div>
+                    <ul class="list-group">
+                        {% for blog in recent_blogs %}
+                        <li class="list-group-item"><a href="{{blog.get_absolute_url}}">{{blog.title}}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+
+                <!-- Categories -->
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4>文章分类</h4>
+                    </div>
+                    <ul class="list-group">
+                        {% for category in categories %}
+                        <li class="list-group-item"><a href="{% url 'blog:category' category.pk %}">{{ category.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                
+                <!-- Archives -->
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4>文章归档</h4>
+                    </div>
+                    <ul class="list-group">
+                        {% for archiveItem in archives %}
+                        
+                        <li class="list-group-item"><a href="{% url 'blog:monthly_archives' year=archiveItem.year month=archiveItem|date:'m' %}">{{ archiveItem|date:'Y年m月' }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <!-- {# <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4>友情链接</h4>
+                    </div>
+                    <ul class="list-group">
+                        {% for friend in friends %}
+                        <li class="list-group-item"><a href="{{friend.url}}">{{friend.title}}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div #} -->
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4>图书推荐</h4>
+                    </div>
+                    <ul class="list-group">
+                        <li class="list-group-item"><a href="https://book.douban.com/subject/23008813/">高性能MySQL第三版</a>
+                        <li class="list-group-item"><a href="https://book.douban.com/subject/3117898/">Python源码剖析</a>
+                        <li class="list-group-item"><a href="https://read.douban.com/ebook/7519526/">Redis设计与实现</a>
+                        <li class="list-group-item"><a href="https://book.douban.com/subject/6021440/">黑客与画家</a>
+
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 
 <div id="footer" class="noselect">
-    <ul id="ft-links">
+    <!-- <ul id="ft-links">
         <li><a href="" target="_blank">友情链接1</a></li>
     </ul>
     <ul id="ft-about-links">
         <li><a href="" target="_blank">友情链接2</a></li>
-    </ul>
-    <div id="copyright">&copy; djangoBlog</div>
+    </ul> -->
+    <div id="copyright">&copy; djangoBlog 2016</div>
 </div>
 <script type="text/javascript" src="{% static 'blog/js/jquery.js' %}"></script>
 </body>
