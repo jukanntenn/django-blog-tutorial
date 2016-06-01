@@ -15,17 +15,14 @@
 
     <div id="bd" class="wrp clear-fix">
         <div id="main">
-{#            {% load paginate_tags %}#}
-{#            {% paginate article_list 7 %}#}
             {% for post in post_list %}
                 <div class="post">
                     <div class="post-hd">
                         <h1 class="title"><a href="{% url 'community:detail' post.id %}">{{ post.title }}</a></h1>
-                        <span>{{ post.ups }}点赞 {{ post.views }} 浏览</span>
+
                     </div>
                 </div>
             {% endfor %}
-{#            {% include 'blog/pagination.html' %}#}
         </div>
     </div>
 {% endblock %}
