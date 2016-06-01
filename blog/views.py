@@ -28,6 +28,11 @@ class ArticleDetailView(DetailView):
     def get_object(self, queryset=None):
         obj = super(ArticleDetailView, self).get_object()
         obj.body = markdown2.markdown(obj.body, extras=['fenced-code-blocks'], )
+
+        # 阅读数增1
+        # obj.views += 1
+        # obj.save(modified=False)
+
         return obj
 
 class CategoryView(ListView):
@@ -75,5 +80,16 @@ class ArchiveView(ListView):
 
         # for article in article_list:
         #     article.body = markdown2.markdown(article.body)
+
+        return article_list
+
+class MonthlyArchivesView(ListView):
+    template_name = "blog/index.html"
+    context_object_name = "article_list"
+
+    def get_queryset(self):
+        article_list = Article.objects.filter(pub_date__year=self.kwargs['year'], pub_date__month=self.kwargs['month'])
+        for article in article_list:
+            article.body = markdown2.markdown(article.body, extras=['fenced-code-blocks'], )
 
         return article_list

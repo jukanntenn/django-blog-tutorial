@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-    <div id="banner" class="noselect"></div>
-    <div id="bd" class="wrp clear-fix">
+    <div class="clear-fix">
         <div id="main">
             {% load paginate_tags %}
             {% paginate article_list 7 %}
@@ -13,7 +12,7 @@
                         <time class="post-time" itemprop="dateCreated">
                             {{ article.last_modified_time|date:"Y年n月d日" }}
                         </time>
-                        <a href="{% url 'blog:detail' article.pk %}">{{ article.title }}</a>
+                        <a href="{{blog.get_absolute_url}}">{{ article.title }}</a>
 
 
                 </article>
