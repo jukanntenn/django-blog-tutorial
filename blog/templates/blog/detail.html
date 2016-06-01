@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
-    <div id="bd" class="wrp clear-fix">
+    <div class="clear-fix">
         <div id="main">
             <div id="detail-title">
                 <ul id="single-nav">
@@ -15,18 +15,21 @@
                         </ul>
                     </li>
                     <li>&gt;</li>
-                    <li class="title-active"><a href="{% url 'blog:detail' article.pk %}"
+                    <li class="title-active"><a href="{{blog.get_absolute_url}}"
                                                 rel="bookmark">{{ article.title }}</a>
                     </li>
                 </ul>
             </div>
-            <div id="post-1951"
-                 class="post-1951 post type-post status-publish format-standard hentry category-meida-report">
+            <div class="post type-post status-publish format-standard hentry category-meida-report">
                 <div class="post-hd">
                     <h1 class="title">{{ article.title }}</h1>
                 </div>
                 <div class="date-read">
                     <i class="icon-date"></i><span class="date">{{ article.last_modified_time|date:"Y年n月d日" }}</span>
+
+                    {% for tag in article.tags.all %}
+                    <a href="{%url 'blog:tag' tag%}">{{tag }}</a>
+                    {% endfor %}
                 </div>
                 <div class="post-bd">
                     {{ article.body |safe }}
