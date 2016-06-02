@@ -26,11 +26,19 @@ class ArchivesItem(models.Model):
     #     # })
 
 
+class ArticleManager(models.Manager):
+    def archive(self):
+        dates = Article.objects.dates('year', 'month').distinct()
+        return dates
+
+
 class Article(models.Model):
     STATUS_CHOICES = (
         ('d', "草稿"),
         ('p', "已发布"),
     )
+
+    objects = ArchivesManager()
 
     title = models.CharField('标题', max_length=100)
     body = models.TextField('正文')
@@ -45,7 +53,7 @@ class Article(models.Model):
     topped = models.BooleanField('置顶', default=False)
 
     category = models.ForeignKey('Category', verbose_name='所属分类', null=True, on_delete=models.SET_NULL)
-    tags = models.ManyToManyField('Tag', verbose_name='标签集合', null=True, blank=True, help_text='标签')
+    tags = models.ManyToManyField('Tag', verbose_name='标签集合', blank=True, help_text='标签')
 
     slug = models.SlugField('slug', unique=True, max_length=100)
     slug.help_text = "Cool URIs don't change"
@@ -61,10 +69,10 @@ class Article(models.Model):
 
     def save(self, *args, **kwargs):
         self.abstract = self.abstract or self.body[:140]
-        modified = kwargs.pop("modified", True)
-        if modified:
-            self.last_modified_time = datetime.datetime.utcnow()
-
+        # auto_now 已经实现了保存时自动修改时间
+        # modified = kwargs.pop("modified", True)
+        # if modified:
+        #     self.last_modified_time = datetime.datetime.utcnow()
         super(Article, self).save(*args, **kwargs)
 
     class Meta:

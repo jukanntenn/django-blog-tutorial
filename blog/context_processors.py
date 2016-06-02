@@ -3,6 +3,8 @@
 from django.db import connection
 
 from blog.models import Article, Category, Tag, ArchivesItem
+
+
 # from .models import Friend
 
 
@@ -40,7 +42,10 @@ def recent_blog_list(request):
     # 归档
     archives = ArchivesItem.archives.all()
 
+    dates = Article.objects.archive()
+
     # 友情链接
     # friends = Friend.objects.filter(active=True).order_by('position')
 
-    return {'recent_blogs': recent_blogs, 'categories': categories, 'archives': archives} #, 'friends': friends
+    return {'recent_blogs': recent_blogs, 'categories': categories, 'archives': archives,
+            'dates': dates}  # , 'friends': friends
