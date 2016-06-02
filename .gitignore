@@ -92,3 +92,5 @@ ENV/
 # Pycharm settings
 .idea
 
+# Collected static files
+/static
