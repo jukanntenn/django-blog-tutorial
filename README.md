@@ -19,15 +19,28 @@ feature 分支为 django 中国社区的开发分支，目前已经初步完成�
 
 **第二周**：[Django 学习小组：博客开发实战第二周教程 —— 博客详情页面和分类页面](http://www.jianshu.com/p/b74a6c5382c1)
 
+**第三周**：[Django 学习小组：博客开发实战第三周教程 —— 文章列表分页和代码语法高亮](http://www.jianshu.com/p/6c4615751854)
+
 ### 项目运行方式
-确保你的项目版本是 python 3
+确保你的开发环境是 python3，如果不是，请考虑使用虚拟环境virtualenv搭建python3, 自行度娘并参照相关教程。
 
 1. fork 本项目到你的仓库
 2. 克隆你的仓库到本地
 3. 命令行执行 pip install -r requirements.txt（注意在 requirements.txt 所在目录下执行，否则请输入完整路径名）安装依赖包
-4. 迁移数据库，在 manage.py 所在目录执行 python manage.py migrate
-5. 在 manage.py 所在目录执行 python manage.py runserver
-6. 浏览器输入 http://127.0.0.1:8000/
+4. 迁移数据库，在 manage.py 所在目录执行 
+
+        python manage.py makemigrations
+        python manage.py migrate
+
+5. 类似步骤4，运行命令创建超级用户
+    
+        python manage.py createsuperuser
+
+6. 类似步骤4、5，在 manage.py 所在目录执行 
+
+        python manage.py runserver
+
+7. 浏览器输入 http://127.0.0.1:8000/
 
 ### 贡献人员名单：
 JFluo2011，bdbai
@@ -45,4 +58,3 @@ django学习小组是一个促进 django 新手互相学习、互相帮助的组
 你也可以加入我们的邮件列表 django_study@groups.163.com ，随时关注我们的动态。我们会将每周的详细开发文档和代码通过邮件列表发出。
 
 如有任何建议，欢迎提 issue，欢迎 fork，pr，当然也别忘了 star 哦！
-
