@@ -1,11 +1,11 @@
 from django.forms import ModelForm, Textarea, CharField
-from community.models import Post, Comment
+from .models import Post, Comment
 
 
 class PostForm(ModelForm):
     class Meta:
         model = Post
-        fields = ['title', 'body', 'topic']
+        fields = ['title', 'body', 'tags']
 
         error_messages = {
             'title': {
@@ -30,10 +30,10 @@ class PostForm(ModelForm):
         return post
 
 
-class ReplyForm(ModelForm):
+class CommentForm(ModelForm):
     class Meta:
         model = Comment
-        fields = ['text']
+        fields = ['body']
 
         # widgets = {
         #     'content': Textarea()
@@ -42,10 +42,10 @@ class ReplyForm(ModelForm):
     def __init__(self, *args, **kwargs):
         # form 实例化是需要视图函数提供 user 参数
         self.user = kwargs.pop('user')
-        super(ReplyForm, self).__init__(*args, **kwargs)
+        super(CommentForm, self).__init__(*args, **kwargs)
 
     def save(self, commit=True):
-        reply = super(ReplyForm, self).save(commit=False)
-        reply.reply_user = self.user
-        reply.save()
-        return reply
+        comment = super(CommentForm, self).save(commit=False)
+        comment.reply_user = self.user
+        comment.save()
+        return comment

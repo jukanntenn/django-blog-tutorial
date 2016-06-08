@@ -1,12 +1,10 @@
-from django.shortcuts import render
 from django.views.generic import FormView
-from community.forms import PostForm, ReplyForm
 from django.views import generic
-from community.models import Post, Comment
 import markdown2
+from .forms import PostForm, CommentForm
+from .models import Post, Comment
 
 
-# Create your views here.
 class PostCreateView(FormView):
     template_name = 'community/post_create.html'
     form_class = PostForm
@@ -22,19 +20,19 @@ class PostCreateView(FormView):
         return super(PostCreateView, self).form_valid(form)
 
 
-class ReplyCreateView(FormView):
+class CommentCreateView(FormView):
     template_name = ''
-    form_class = ReplyForm
+    form_class = CommentForm
     success_url = '/'
 
     def get_form_kwargs(self):
-        kwargs = super(ReplyCreateView, self).get_form_kwargs()
+        kwargs = super(CommentCreateView, self).get_form_kwargs()
         kwargs['user'] = self.request.user
         return kwargs
 
     def form_valid(self, form):
         form.save()
-        return super(ReplyCreateView, self).form_valid(form)
+        return super(CommentCreateView, self).form_valid(form)
 
 
 class IndexView(generic.ListView):
@@ -49,7 +47,7 @@ class IndexView(generic.ListView):
     #     return post_list
 
     def get_context_data(self, **kwargs):
-        kwargs['post_list'] = Post.objects.all().order_by('-last_modified_time')
+        kwargs['post_list'] = Post.objects.all().order_by('-modified_date')
         return super(IndexView, self).get_context_data(**kwargs)
 
 

@@ -20,11 +20,11 @@
         <div id="header-right" class="login">
             {% if user.is_authenticated %}
             <div id="user-info">
-                <a href="{% url 'usera:signup' %}"><span id="dropdown-button">注册</span></a>
+                <a href="{% url 'usera:sign_up' %}"><span id="dropdown-button">注册</span></a>
                 <!-- 	<span id="dropdown-button">退出</span> -->
             </div>
             <div id="user-info">
-                <a href="{% url 'usera:signin' %}"><span id="dropdown-button">登录</span></a>
+                <a href="{% url 'usera:sign_in' %}"><span id="dropdown-button">登录</span></a>
                 <!-- 	<span id="dropdown-button">退出</span> -->
             </div>
             {% else %}
