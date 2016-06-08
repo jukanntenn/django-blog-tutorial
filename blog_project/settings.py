@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'markdown2',
     'pygments',
     'community',
+    'notification',
 ]
 
 MIDDLEWARE_CLASSES = [
