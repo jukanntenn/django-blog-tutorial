@@ -6,6 +6,7 @@
     <title>Myblog</title>
     <link rel="stylesheet" href="{% static 'blog/css/style.css' %}">
     <link rel="stylesheet" href="{% static 'blog/css/pygments/github.css' %}">
+    <link rel="stylesheet" href="{% static 'lib/css/bootstrap.min.css' %}">
 </head>
 <body>
 <div id="header">
@@ -22,7 +23,6 @@
     </div>
 </div>
 
-
 {% block content %}{% endblock %}
 
 <div id="footer" class="noselect">
@@ -35,5 +35,7 @@
     <div id="copyright">&copy; djangoBlog</div>
 </div>
 <script type="text/javascript" src="{% static 'blog/js/jquery.js' %}"></script>
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script type="text/javascript" src="{% static 'lib/js/bootstrap.min.js' %}"></script>
 </body>
 </html>
