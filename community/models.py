@@ -66,12 +66,12 @@ class Comment(BaseComment):
 
     objects = CommentManager()
 
-    def get_absolutu_url(self):
+    def get_absolute_url(self):
         return reversed('community_comment_details', args=[self.id, ])
 
     def save(self, *args, **kwargs):
         if self.is_spam:
-            self.is_publised = True
+            self.is_published = True
         super(Comment, self).save(*args, **kwargs)
 
 
