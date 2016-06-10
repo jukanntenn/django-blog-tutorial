@@ -1,11 +1,19 @@
 from django.db import models
 from django.core.urlresolvers import reverse
+from collections import defaultdict
+import datetime
 
 
 # Create your models here.
 class ArticleManage(models.Manager):
     def archive(self):
-        date_list = Article.objects.dates('created_time', 'mouth')
+        date_list = Article.objects.datetimes('created_time', 'month')
+        date_dict = defaultdict(list)
+        for d in date_list:
+            print(type(d.year))
+            print(type(d.month))
+            date_dict[d.year].append(d.month)
+        return dict(date_dict)  # 模板不支持defaultdict
 
 
 class Article(models.Model):
@@ -14,10 +22,12 @@ class Article(models.Model):
         ('p', 'Published'),
     )
 
+    objects = ArticleManage()
+
     title = models.CharField('标题', max_length=70)
     body = models.TextField('正文')
-    created_time = models.DateTimeField('创建时间', auto_now_add=True)
-    last_modified_time = models.DateTimeField('修改时间', auto_now=True)
+    created_time = models.DateTimeField('创建时间')
+    last_modified_time = models.DateTimeField('修改时间')
     status = models.CharField('文章状态', max_length=1, choices=STATUS_CHOICES)
     abstract = models.CharField('摘要', max_length=54, blank=True, null=True, help_text="可选，如若为空将摘取正文的前54个字符")
     views = models.PositiveIntegerField('浏览量', default=0)

@@ -18,6 +18,8 @@ class IndexView(ListView):
 
     def get_context_data(self, **kwargs):
         kwargs['category_list'] = Category.objects.all().order_by('name')
+        kwargs['date_archive'] = Article.objects.archive()
+        print(kwargs['date_archive'])
         return super(IndexView, self).get_context_data(**kwargs)
 
 
