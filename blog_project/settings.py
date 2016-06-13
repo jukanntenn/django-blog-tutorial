@@ -84,7 +84,7 @@ WSGI_APPLICATION = 'blog_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3') if os.getenv('DATA_PATH') is None else os.getenv('DATA_PATH'),
     }
 }
 
@@ -122,8 +122,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
+STATIC_ROOT = BASE_DIR + '/static'
 STATIC_URL = '/static/'
-STATICFILES = [os.path.join(BASE_DIR, 'blog/static'), os.path.join(BASE_DIR, 'usera/static'),
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'blog/static'), os.path.join(BASE_DIR, 'usera/static'),
                os.path.join(BASE_DIR, 'community/static')]
 
 AUTH_USER_MODEL = 'usera.CommunityUser'

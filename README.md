@@ -19,6 +19,8 @@ feature 分支为 django 中国社区的开发分支，目前已经初步完成�
 
 **第二周**：[Django 学习小组：博客开发实战第二周教程 —— 博客详情页面和分类页面](http://www.jianshu.com/p/b74a6c5382c1)
 
+**第三周**：[Django 学习小组：博客开发实战第三周教程 —— 文章列表分页和代码语法高亮](http://www.jianshu.com/p/6c4615751854)
+
 ### 项目运行方式
 确保你的开发环境是 python3，如果不是，请考虑使用虚拟环境virtualenv搭建python3, 自行度娘并参照相关教程。
 
