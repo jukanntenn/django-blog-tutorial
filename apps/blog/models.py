@@ -18,13 +18,6 @@ class ArchivesManager(models.Manager):
 class ArchivesItem(models.Model):
     archives = ArchivesManager()
 
-    # def get_absolute_url(self):
-    #     return reverse('blog:monthly_archives’', args=(self.archives.year, self.archives.strftime('%b').lower()))
-    #     # return ('blog:monthly_archives’', None, {
-    #     #     'year': self.year,
-    #     #     'month': self.strftime('%b').lower()
-    #     # })
-
 
 class ArticleManager(models.Manager):
     def archive(self):

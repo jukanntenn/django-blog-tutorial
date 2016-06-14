@@ -12,7 +12,7 @@ class Post(models.Model):
     views = models.PositiveIntegerField(verbose_name='浏览量', default=0)
 
     class Meta:
-        ordering = ['-published_date', ]
+        ordering = ['-created', ]
         verbose_name = '帖子'
         verbose_name_plural = verbose_name
 

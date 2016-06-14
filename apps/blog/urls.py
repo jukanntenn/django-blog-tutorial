@@ -1,9 +1,7 @@
 from django.conf.urls import url
-
 from apps.blog import views
 
 urlpatterns = [
-
     url(r'^article/(?P<article_id>\d+)$', views.ArticleDetailView.as_view(), name='detail'),
     url(r'^category/(?P<cate_id>\d+)$', views.CategoryView.as_view(), name='category'),
     url(r'^blog$', views.IndexView.as_view(), name='index'),

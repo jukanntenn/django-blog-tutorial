@@ -2,7 +2,7 @@ import markdown2
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 
-from apps.blog import Article, Category, Tag
+from .models import Article, Category, Tag
 
 
 # Create your views here.

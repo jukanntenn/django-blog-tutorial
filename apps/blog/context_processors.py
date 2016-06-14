@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from apps.blog import Article, Category, ArchivesItem
+from .models import Article, Category, ArchivesItem
 
 
 # from .models import Friend

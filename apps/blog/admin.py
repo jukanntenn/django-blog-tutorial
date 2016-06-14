@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from apps.blog import Article, Category, Tag
+from .models import Article, Category, Tag
 
 
 # Add in this class to customized the Admin Interface

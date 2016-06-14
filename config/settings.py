@@ -37,11 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'blog',
-    'usera',
+    'apps.blog',
+    'apps.usera',
+    'apps.community',
     'markdown2',
     'pygments',
-    'community',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -68,7 +68,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'blog.context_processors.recent_blog_list',
+                # 'apps.blog.context_processors.recent_blog_list',
             ],
         },
     },
@@ -122,8 +122,7 @@ USE_TZ = True
 
 STATIC_ROOT = BASE_DIR + '/static'
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'apps/blog/static'), os.path.join(BASE_DIR, 'apps/usera/static'),
-                    os.path.join(BASE_DIR, 'apps/community/static')]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
 
 AUTH_USER_MODEL = 'usera.CommunityUser'
 
