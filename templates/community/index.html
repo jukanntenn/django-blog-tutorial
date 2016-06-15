@@ -1,28 +1,21 @@
-{% extends 'base_site.html' %}
+{% extends 'community_base.html' %}
 {% block content %}
-    <div id="community" class="noselect">
-    <h2> {{ community }}</h2>
-        <div id="category-title">
-            <ul>
-                <li>发现：</li>
-                <li><a href="{% url 'community:index' %}">等待回复</a></li>
-                <li><a href="{% url 'community:index' %}" id="sort_control_hot">热门</a></li>
-                <li><a href="{% url 'community:index' %}">推荐</a></li>
-                <li class="active"><a href="{% url 'community:index' %}">最新</a></li>
-            </ul>
-        </div>
-    </div>
+    <div class="container">
+        <div class="row">
 
-    <div id="bd" class="wrp clear-fix">
-        <div id="main">
-            {% for post in post_list %}
-                <div class="post">
-                    <div class="post-hd">
-                        <h1 class="title"><a href="{% url 'community:detail' post.id %}">{{ post.title }}</a></h1>
-
+            <div class="col-md-2">
+                <a href="{% url 'community:create_post' %}">
+                    <button type="button" class="btn btn-info btn-block">发表新帖子</button>
+                </a>
+            </div>
+            <div class="col-md-9 col-md-offset-1">
+                {% for post in post_list %}
+                    <div>
+                        <h4><a href="{% url 'community:detail' post.pk %}">{{ post.title }}</a></h4>
+                        <time>{{ post.created }}</time>
                     </div>
-                </div>
-            {% endfor %}
+                {% endfor %}
+            </div>
         </div>
     </div>
 {% endblock %}
