@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'apps.blog',
     'apps.usera',
     'apps.community',
+    'apps.likes',
+    'apps.attention',
 ]
 
 MIDDLEWARE_CLASSES = [
