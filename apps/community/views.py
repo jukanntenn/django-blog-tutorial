@@ -7,7 +7,7 @@ from .models import Post
 import markdown2
 
 
-class PostCreateView(LoginRequiredMixin, CreateView):
+class PostCreateView(CreateView):
     template_name = 'community/post_create.html'
     form_class = PostForm
     success_url = '/'

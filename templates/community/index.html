@@ -1,21 +1,99 @@
 {% extends 'community_base.html' %}
 {% block content %}
-    <div class="container">
+    <div class="container dj-content">
         <div class="row">
+            <div class="col-sm-2">
+                <div class="list-group">
+                    <a href="{% url 'community:create_post' %}" class="btn btn-danger btn-block">
+                        <i class="fa fa-fw fa-pencil-square-o" aria-hidden="true"></i>发个帖子
+                    </a>
+                </div>
 
-            <div class="col-md-2">
-                <a href="{% url 'community:create_post' %}">
-                    <button type="button" class="btn btn-info btn-block">发表新帖子</button>
-                </a>
+                <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-info">
+                        <i class="fa fa-fw fa-comments-o"></i>
+                        全部帖子
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-info">
+                        <i class="fa fa-fw fa-star"></i>
+                        关注
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-info">
+                        <i class="fa fa-fw fa-th-large"></i>
+                        标签
+                    </a>
+                </div>
+
+                <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-success">
+                        <i class="fa fa-square fa-fw"></i>
+                        标签1
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-success">
+                        <i class="fa fa-square fa-fw"></i>
+                        标签2
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-success">
+                        <i class="fa fa-square fa-fw"></i>
+                        标签3
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-success">
+                        <i class="fa fa-square fa-fw"></i>
+                        标签4
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-warning">更多...</a>
+                </div>
             </div>
-            <div class="col-md-9 col-md-offset-1">
+            <div class="col-sm-10">
                 {% for post in post_list %}
-                    <div>
-                        <h4><a href="{% url 'community:detail' post.pk %}">{{ post.title }}</a></h4>
-                        <time>{{ post.created }}</time>
+                    <div class="dj-list row">
+                        <div class="col-sm-1 dj-list-left clearfix">
+                            <a href="#" class="pull-left">
+                                <!-- <img class="dj-avatar" src="" alt="头像"> -->
+                                <span class="dj-list-avatar">A</span>
+                            </a>
+                        </div>
+                        <a class="col-sm-10 clearfix dj-list-center" href="{% url 'community:detail' post.pk %}">
+                            <h4 class="dj-list-title">{{ post.title }}</h4>
+                        <span class="dj-list-info">
+                            <i class="fa fa-fw fa-reply "></i><strong>作者</strong> · 回复于&nbsp;<time>3分钟前</time>
+                            <!-- <i class="fa fa-fw fa-pencil-square-o"></i><strong>作者</strong> · 发布于&nbsp;<time>3分钟前</time> -->
+                        </span>
+                            <div class="btn-group btn-group-xs pull-right dj-list-tags" role="group">
+                                <span class="btn btn-success">标签1</span>
+                                <span class="btn btn-info">标签2</span>
+                                <span class="btn btn-warning">标签3</span>
+                            </div>
+                        </a>
+                        <div class="media-middle col-sm-1 dj-list-right">
+                            <span><i class="fa fa-fw fa-comment-o"></i>200</span>
+                        </div>
                     </div>
                 {% endfor %}
             </div>
+        </div>
+        <div class="row">
+            <nav class="col-sm-offset-4 col-sm-4">
+                <ul class="pagination">
+                    <li>
+                        <a href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+                    <li class="active"><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li>
+                        <a href="#" aria-label="Previous">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </div>
 {% endblock %}

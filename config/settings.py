@@ -40,8 +40,6 @@ INSTALLED_APPS = [
     'apps.blog',
     'apps.usera',
     'apps.community',
-    'markdown2',
-    'pygments',
 ]
 
 MIDDLEWARE_CLASSES = [

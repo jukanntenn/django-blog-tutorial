@@ -1,65 +1,75 @@
-{% load  staticfiles %}
+{% load staticfiles %}
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <title>Bootstrap 101 Template</title>
-
-    <!-- Bootstrap -->
-    <link href="{% static '_lib/bootstrap-3.3.5/css/bootstrap.min.css' %}" rel="stylesheet">
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>列表页</title>
+    <link rel="stylesheet" type="text/css" href="{% static '_lib/font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static '_lib/bootstrap-3.3.5/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'community/css/post.css' %}">
 </head>
-<header>
-    <nav class="navbar navbar-default">
-        <div class="container">
-            <div class="container-fluid">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                            data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#">Django 中国社区</a>
-                </div>
-
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">社区 <span class="sr-only">(current)</span></a></li>
-                        <li><a href="#">博客</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        {% if user.is_authenticated %}
-                            <li><a href="{% url 'usera:log_out' %}">退出登录</a></li>
-                        {% else %}
-                            <li><a href="{% url 'usera:sign_in' %}">登录</a></li>
-                            <li><a href="{% url 'usera:sign_up' %}">注册</a></li>
-                        {% endif %}
-                    </ul>
-                </div><!-- /.navbar-collapse -->
-            </div><!-- /.container-fluid -->
-        </div>
-    </nav>
-
-</header>
 <body>
-{% block content %}{% endblock %}
+<nav class="navbar navbar-default">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{% url 'community:index' %}">Django中国社区</a>
+        </div>
 
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="{% static 'blog/js/jquery.js' %}"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="{% static '_lib/bootstrap-3.3.5/js/bootstrap.min.js' %}"></script>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">帖子<span class="sr-only">(current)</span></a></li>
+                <li><a href="#">标签</a></li>
+                <li><a href="#">blog</a></li>
+            </ul>
+            <form class="navbar-form navbar-left" role="search">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="搜索其实很简单">
+                </div>
+                <button type="submit" class="btn btn-default">搜索</button>
+            </form>
+            <ul class="nav navbar-nav navbar-right">
+                {% if user.is_authenticated %}
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">用户名<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">通知</a></li>
+                            <li><a href="#">设置</a></li>
+                            <li><a href="#">个人中心</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="{% url 'usera:log_out' %}">退出</a></li>
+                        </ul>
+                    </li>
+                {% else %}
+                    <li><a href="{% url 'usera:sign_in' %}">登录</a></li>
+                    <li><a href="{% url 'usera:sign_up' %}">注册</a></li>
+                {% endif %}
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+{% block content %}
+{% endblock %}
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-offset-4 col-sm-4">
+                copyright © Django中国社区 2016
+            </div>
+        </div>
+    </div>
+</footer>
+<script type="text/javascript" src="assets/js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="assets/lib/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 </body>
 </html>

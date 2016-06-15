@@ -1,13 +1,181 @@
 {% extends 'community_base.html' %}
 {% block content %}
-    <div class="container">
-        <div class="row">
-            <div class="col-md-9">
-                {{ post.created }}
-                {{ post.body |safe }}
+    <div class="jumbotron dj-jumbotron">
+        <div class="container">
+            <div>
+                <a href="" class="btn btn-info btn-xs">标签1</a>
+                <a href="" class="btn btn-success btn-xs">标签2</a>
+                <a href="" class="btn btn-warning btn-xs">标签3</a>
             </div>
-            <div class="col-md-2 col-md-offset-1">
-                <button type="button" class="btn btn-info btn-block">回复</button>
+            <h3 class="">{{ post.title }}</h3>
+        </div>
+    </div>
+    <div class="container dj-content">
+        <div class="row">
+            <div class="col-sm-9">
+                <div class="dj-list-d row">
+                    <div class="col-sm-2 clearfix">
+                        <a href="#" class="pull-left">
+                            <!-- <img class="dj-list-davatar" src="" alt="头像"> -->
+                            <span class="dj-list-davatar">A</span>
+                        </a>
+                    </div>
+                    <div class="col-sm-10 clearfix d-list-center">
+                        <h3 class="dj-list-dinfo">
+                            <a href=""><strong>{{ post.author }}</strong></a> · 发布于&nbsp;
+                            <time>3分钟前</time>
+                            <!-- <i class="fa fa-fw fa-pencil-square-o"></i><strong>作者</strong> · 发布于&nbsp;<time>3分钟前</time> -->
+                        </h3>
+                        <div class="d-content">
+                            <!-- 这里是具体内容 -->
+                            {{ post.body|safe }}
+                            <!-- end 这里是具体内容-->
+                        </div>
+                        <div class="d-footer">
+                            <div class="pull-right">
+                                <button class="btn btn-info btn-xs">点赞</button>
+                                <button class="btn btn-info btn-xs">回复</button>
+                            </div>
+                            <div class="d-vote-list">
+                                <i class="icon fa fa-fw fa-thumbs-o-up "></i><a href=""><strong>fann0128</strong></a>,
+                                <a href=""><strong>大黄鸭</strong></a>, 和 <a href=""><strong>SHIFT-M</strong></a> 等人赞了它
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <h4>回复列表</h4>
+                <div class="dj-list-d row">
+                    <div class="col-sm-2 clearfix">
+                        <a href="#" class="pull-left">
+                            <!-- <img class="dj-list-davatar" src="" alt="头像"> -->
+                            <span class="dj-list-davatar">A</span>
+                        </a>
+                    </div>
+                    <div class="col-sm-10 clearfix d-list-center">
+                        <h3 class="dj-list-dinfo">
+                            <a href=""><strong>作者名字</strong></a> · 发布于&nbsp;
+                            <time>3分钟前</time>
+                            <!-- <i class="fa fa-fw fa-pencil-square-o"></i><strong>作者</strong> · 发布于&nbsp;<time>3分钟前</time> -->
+                        </h3>
+                        <div class="d-content">
+                            <!-- 这里是具体内容 -->
+                            <p>图片为复制粘贴式上传，感觉像使用 Word 一样呢</p>
+                            <p>您可以使用 PrtSC键进行抓屏后粘贴到输入框内，也可以使用第三方截图程序，如QQ的截图功能，组合键为 Ctrl+Alt+a 更多姿势，等您发现</p>
+                            <!-- end 这里是具体内容-->
+                        </div>
+                        <div class="d-footer">
+                            <div class="pull-right">
+                                <button class="btn btn-info btn-xs">点赞</button>
+                                <button class="btn btn-info btn-xs">回复</button>
+                            </div>
+                            <div class="d-vote-list">
+                                <i class="icon fa fa-fw fa-thumbs-o-up "></i><a href=""><strong>fann0128</strong></a>,
+                                <a href=""><strong>大黄鸭</strong></a>, 和 <a href=""><strong>SHIFT-M</strong></a> 等人赞了它
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="dj-list-d row">
+                    <div class="col-sm-2 clearfix">
+                        <a href="#" class="pull-left">
+                            <!-- <img class="dj-list-davatar" src="" alt="头像"> -->
+                            <span class="dj-list-davatar">A</span>
+                        </a>
+                    </div>
+                    <div class="col-sm-10 clearfix d-list-center">
+                        <h3 class="dj-list-dinfo">
+                            <a href=""><strong>作者名字</strong></a> · 发布于&nbsp;
+                            <time>3分钟前</time>
+                            <!-- <i class="fa fa-fw fa-pencil-square-o"></i><strong>作者</strong> · 发布于&nbsp;<time>3分钟前</time> -->
+                        </h3>
+                        <div class="d-content">
+                            <!-- 这里是具体内容 -->
+                            <p>图片为复制粘贴式上传，感觉像使用 Word 一样呢</p>
+                            <p>您可以使用 PrtSC键进行抓屏后粘贴到输入框内，也可以使用第三方截图程序，如QQ的截图功能，组合键为 Ctrl+Alt+a 更多姿势，等您发现</p>
+                            <!-- end 这里是具体内容-->
+                        </div>
+                        <div class="d-footer">
+                            <div class="pull-right">
+                                <button class="btn btn-info btn-xs">点赞</button>
+                                <button class="btn btn-info btn-xs">回复</button>
+                            </div>
+                            <div class="d-vote-list">
+                                <i class="icon fa fa-fw fa-thumbs-o-up "></i><a href=""><strong>fann0128</strong></a>,
+                                <a href=""><strong>大黄鸭</strong></a>, 和 <a href=""><strong>SHIFT-M</strong></a> 等人赞了它
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!--分页 -->
+                <div class="row">
+                    <nav class="col-sm-offset-4 col-sm-4">
+                        <ul class="pagination">
+                            <li>
+                                <a href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                            </li>
+                            <li class="active"><a href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">4</a></li>
+                            <li><a href="#">5</a></li>
+                            <li>
+                                <a href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&raquo;</span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-sm-offset-1 col-sm-2">
+                <div class="list-group">
+                    <a href="#" class="btn btn-danger btn-block">
+                        <i class="fa fa-fw fa-reply" aria-hidden="true"></i>回复
+                    </a>
+                </div>
+                <div class="btn-group btn-block">
+                    <button type="button" class="btn btn-info dj-btn-dleft">
+                        <i class="fa fa-fw fa-star" aria-hidden="true"></i>关注
+                    </button>
+                    <button type="button" class="btn btn-info dropdown-toggle dj-btn-dright" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                        <span class="caret"></span>
+                        <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <ul class="dropdown-menu dj-fellow-dropdown">
+                        <li>
+                            <span class="dj-fellow-list">
+                                <i class="fa fa-fw fa-star-o dj-icon" aria-hidden="true"></i>
+                                <strong>常规</strong>
+                            </span>
+                            <span class="dj-fellow-desc">仅在有人@提到我时提醒我</span>
+                        </li>
+                        <li role="separator" class="divider"></li>
+                        <li>
+                            <span class="dj-fellow-list">
+                                <i class="fa fa-fw fa-star dj-icon" aria-hidden="true"></i>
+                                <strong>关注</strong>
+                            </span>
+                            <span class="dj-fellow-desc">当有人回复此帖子时提醒我</span>
+                        </li>
+                        <li role="separator" class="divider"></li>
+                        <li>
+                            <span class="dj-fellow-list">
+                                <i class="fa fa-fw fa-eye-slash dj-icon" aria-hidden="true"></i>
+                                <strong>忽视</strong>
+                            </span>
+                            <span class="dj-fellow-desc">不接收任何提醒并隐藏此帖子</span>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
