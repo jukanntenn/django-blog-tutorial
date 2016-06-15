@@ -41,8 +41,12 @@
                         <li><a href="#">博客</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#">登录</a></li>
-                        <li><a href="#">注册</a></li>
+                        {% if user.is_authenticated %}
+                            <li><a href="{% url 'usera:log_out' %}">退出登录</a></li>
+                        {% else %}
+                            <li><a href="{% url 'usera:sign_in' %}">登录</a></li>
+                            <li><a href="{% url 'usera:sign_up' %}">注册</a></li>
+                        {% endif %}
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->

@@ -1,6 +1,6 @@
 from django.conf.urls import url
 
-from apps.community import views
+from . import views
 
 urlpatterns = [
     url(r'^create-post/$', views.PostCreateView.as_view(), name='create_post'),

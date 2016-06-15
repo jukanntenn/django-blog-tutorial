@@ -1,11 +1,13 @@
 from django.views.generic import FormView, ListView, DetailView
+from django.core.urlresolvers import reverse
 from django.views.generic.edit import CreateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import PostForm
 from .models import Post
 import markdown2
 
 
-class PostCreateView(CreateView):
+class PostCreateView(LoginRequiredMixin, CreateView):
     template_name = 'community/post_create.html'
     form_class = PostForm
     success_url = '/'

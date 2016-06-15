@@ -44,28 +44,28 @@
                         <div class="form-top-left">
                             <h3>登录Django社区</h3>
                             <p>
-                                <a href="{% url 'usera:signup' %}">注册新账户</a>
+                                <a href="{% url 'usera:sign_up' %}">注册新账户</a>
                                 <a href="{% url 'usera:password_reset' %}"
-                                    class="pull-right">忘记密码？</a>
-                                </p>
+                                   class="pull-right">忘记密码？</a>
+                            </p>
                         </Div>
                         <div class="form-top-right">
                             <i class="fa fa-key"></i>
                         </div>
                     </div>
                     <div class="form-bottom">
-                        <form role="form" action="{% url 'usera:signin' %}" method="post" class="login-form">
+                        <form role="form" action="{% url 'usera:sign_in' %}" method="post" class="login-form">
                             {% csrf_token %}
                             <div class="form-group">
                                 <label class="sr-only" for="id_username">用户名</label>
                                 <input type="text" name="username" placeholder="用户名"
-                                        class="form-control" id="id_username">
+                                       class="form-control" id="id_username">
                                 {{ form.non_field_errors }}
                             </div>
                             <div class="form-group">
                                 <label class="sr-only" for="id_password">密码</label>
                                 <input type="password" name="password" placeholder="密码"
-                                        class="form-password form-control" id="id_password">
+                                       class="form-password form-control" id="id_password">
                                 {{ form.password.errors }}
                             </div>
                             <button type="submit" class="btn">登录</button>
