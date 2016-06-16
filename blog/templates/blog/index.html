@@ -73,7 +73,7 @@
                                  aria-labelledby="heading{{ forloop.counter }}">
                                 <div class="panel-body">
                                     {% for month in months %}
-                                        <p>{{ month }} 月</p>
+                                        <a href="{% url 'blog:archive' year month %}"><p>{{ month }} 月</p></a>
                                     {% endfor %}
                                 </div>
                             </div>
