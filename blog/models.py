@@ -7,13 +7,11 @@ import datetime
 # Create your models here.
 class ArticleManage(models.Manager):
     def archive(self):
-        date_list = Article.objects.datetimes('created_time', 'month')
+        date_list = Article.objects.datetimes('created_time', 'month', order='DESC')
         date_dict = defaultdict(list)
         for d in date_list:
-            print(type(d.year))
-            print(type(d.month))
             date_dict[d.year].append(d.month)
-        return dict(date_dict)  # 模板不支持defaultdict
+        return sorted(date_dict.items(), reverse=True)  # 模板不支持defaultdict
 
 
 class Article(models.Model):

@@ -49,21 +49,16 @@
                 <!-- tags -->
                 <h3>标签:</h3>
                 <div class="list-group">
-                    <a href="#" class="list-group-item"><span class="badge">14</span>Cras justo odio</a>
-                    <a href="#" class="list-group-item"><span class="badge">14</span>Dapibus ac facilisis in</a>
-                    <a href="#" class="list-group-item"><span class="badge">14</span>Morbi leo risus</a>
-                    <a href="#" class="list-group-item"><span class="badge">14</span>Porta ac consectetur ac</a>
-                    <a href="#" class="list-group-item"><span class="badge">14</span>Vestibulum at eros</a>
                     {% for tag in tag_list %}
-                        <a href="{% url 'blog:tags' tag.pk %}" class="list-group-item"><span
-                                class="badge">14</span>{{ tag.name }}</a>
+                        <a href="{% url 'blog:tag' tag.pk %}" class="list-group-item"><span
+                                class="badge"></span>{{ tag.name }}</a>
                     {% endfor %}
                 </div>
 
                 <!-- archive -->
                 <h3>文章归档：</h3>
                 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                    {% for year,months in date_archive.items %}
+                    {% for year,months in date_archive %}
                         <div class="panel panel-default">
                             <div class="panel-heading" role="tab" id="heading{{ forloop.counter }}">
                                 <h4 class="panel-title">
@@ -78,7 +73,7 @@
                                  aria-labelledby="heading{{ forloop.counter }}">
                                 <div class="panel-body">
                                     {% for month in months %}
-                                        {{ month }} 月
+                                        <p>{{ month }} 月</p>
                                     {% endfor %}
                                 </div>
                             </div>
