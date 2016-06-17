@@ -57,8 +57,8 @@
                         </div>
                         <div class="col-sm-10 clearfix d-list-center">
                             <h3 class="dj-list-dinfo">
-                                <a href=""><strong>作者名字</strong></a> · 发布于&nbsp;
-                                <time>3分钟前</time>
+                                <a href=""><strong>{{comment.author}}</strong></a> · 发布于&nbsp;
+                                <time>{{comment.created_time}}</time>
                                 <!-- <i class="fa fa-fw fa-pencil-square-o"></i><strong>作者</strong> · 发布于&nbsp;<time>3分钟前</time> -->
                             </h3>
                             <div class="d-content">
@@ -82,18 +82,22 @@
                     {% endfor %}
                 </div>
 
+                {% load widget_tweaks %}
                 {% comment_form post as form %}
-                <div class="well">
+                <div class="well" style="background: #fff;">
                     <h4>说点什么吧？</h4>
+                    <hr />
                     <form action="{% url 'commenta:post_comment' %}" method="post">{% csrf_token %}
                         {% if next %}
-                            <div><input type="hidden" name="next" value="{{ next }}"/></div>{% endif %}
+                            <div><input type="hidden" name="next" value="{{ next }}"/></div>
+                        {% endif %}
                         {% for field in form %}
                             {% if field.is_hidden %}
+
                                 <div>{{ field }}</div>
                             {% else %}
                                 {% if field.errors %}{{ field.errors }}{% endif %}
-                                <p
+                                <p>
                                         {% if field.errors %} class="error"{% endif %}
                                         {% ifequal field.name "honeypot" %} style="display:none;"{% endifequal %}>
                                     {{ field.label_tag }} {{ field }}

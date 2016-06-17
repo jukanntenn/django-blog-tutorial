@@ -1,5 +1,12 @@
 body{
 }
+textarea {
+    overflow: auto;
+    width: 100%;
+    background: inherit;
+    border: .1em solid #eee;
+    border-radius: .5em;
+}
 a:hover{
     text-decoration: none;
 }
@@ -140,7 +147,9 @@ a:hover{
     margin-left: -20px;
 }
 
-
+.form-control {
+    border: 2px solid red;
+}
 footer{
     width: 100%;
     background-color: #f8f8f8;

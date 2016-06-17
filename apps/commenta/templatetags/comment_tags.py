@@ -28,3 +28,7 @@ def comment_count(obj):
             object_id=obj.pk,
             content_type=ContentType.objects.get_for_model(obj)
     ).count()
+
+@register.filter(name='addcss')
+def addcss(field, css):
+    return field.as_widget(attrs={'class': css})
