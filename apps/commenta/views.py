@@ -9,39 +9,41 @@ from django.template.loader import render_to_string
 from django.views.generic.edit import CreateView
 from django.http import JsonResponse
 
-from .forms import SgsCommentForm
-from .models import SgsComment
+from .forms import CommentForm
+from .models import Comment
 
 
 # Create your views here.
 
-class SgsCommentCreateView(LoginRequiredMixin, CreateView):
+class CommentCreateView(LoginRequiredMixin, CreateView):
     login_url = '/login/'
-    form_class = SgsCommentForm
-    model = SgsComment
+    form_class = CommentForm
+    model = Comment
     content_object = None
     parent_comment = None
     object = None
-    template_name = 'records/detail.html'
+    template_name = 'community/detail.html'
 
     def get_form_kwargs(self):
-        kwargs = super(SgsCommentCreateView, self).get_form_kwargs()
+        kwargs = super(CommentCreateView, self).get_form_kwargs()
         kwargs.update({
+            "target_object": self.content_object,
             "request": self.request,
-            "obj": self.content_object,
             "user": self.request.user,
             "parent": self.parent_comment,
         })
         return kwargs
 
     def post(self, request, *args, **kwargs):
-        content_type = get_object_or_404(ContentType, pk=self.kwargs.get("content_type_id"))
-        self.content_object = content_type.get_object_for_this_type(pk=self.kwargs.get("object_id"))
+        ctype_pk = self.request.POST.get('content_type_id')
+        object_pk = self.request.POST.get("object_pk")
+        content_type = get_object_or_404(ContentType, pk=int(ctype_pk))
+        self.content_object = content_type.get_object_for_this_type(pk=int(object_pk))
         try:
-            self.parent_comment = SgsComment.objects.get(id=self.kwargs.get("parent_id"))
-        except SgsComment.DoesNotExist:
+            self.parent_comment = Comment.objects.get(id=self.kwargs.get("parent_id"))
+        except Comment.DoesNotExist:
             self.parent_comment = None
-        return super(SgsCommentCreateView, self).post(request, *args, **kwargs)
+        return super(CommentCreateView, self).post(request, *args, **kwargs)
 
     def form_valid(self, form):
         self.object = form.save()
@@ -55,7 +57,7 @@ class SgsCommentCreateView(LoginRequiredMixin, CreateView):
             }
             return JsonResponse(data)
         self.success_url = self.content_object.get_absolute_url()
-        return super(SgsCommentCreateView, self).form_valid(form)
+        return super(CommentCreateView, self).form_valid(form)
 
     def form_invalid(self, form):
         if self.request.is_ajax():
@@ -68,8 +70,4 @@ class SgsCommentCreateView(LoginRequiredMixin, CreateView):
                 }, context_instance=RequestContext(self.request))
             }
             return JsonResponse(data)
-        context = {
-            'rec': self.content_object,
-            'form': form
-        }
-        return render(self.request, self.template_name, context=context)
+        return super(CommentCreateView, self).form_invalid(form)

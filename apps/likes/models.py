@@ -10,7 +10,7 @@ from django.db import models
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
 # from django.contrib.contenttypes import generic
-from django.contrib.auth.models import User
+from config import settings
 
 
 # likes number model
@@ -34,7 +34,7 @@ class Likes(models.Model):
 # likes detail recode
 class LikesDetail(models.Model):
     likes = models.ForeignKey(Likes)
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL)
     is_like = models.BooleanField(default=False)
     pub_date = models.DateTimeField(auto_now=True)
 

@@ -5,7 +5,7 @@ __start_date__ = '2016-06-12'
     likes admin
 """
 from django.contrib import admin
-from likes.models import Likes, LikesDetail
+from .models import Likes, LikesDetail
 
 
 class LikesAdmin(admin.ModelAdmin):

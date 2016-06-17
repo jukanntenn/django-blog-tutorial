@@ -44,70 +44,66 @@
                     </div>
                 </div>
                 <hr>
+                {% load comment_tags %}
+                {% comments post as comment_list %}
                 <h4>回复列表</h4>
                 <div class="dj-list-d row">
-                    <div class="col-sm-2 clearfix">
-                        <a href="#" class="pull-left">
-                            <!-- <img class="dj-list-davatar" src="" alt="头像"> -->
-                            <span class="dj-list-davatar">A</span>
-                        </a>
-                    </div>
-                    <div class="col-sm-10 clearfix d-list-center">
-                        <h3 class="dj-list-dinfo">
-                            <a href=""><strong>作者名字</strong></a> · 发布于&nbsp;
-                            <time>3分钟前</time>
-                            <!-- <i class="fa fa-fw fa-pencil-square-o"></i><strong>作者</strong> · 发布于&nbsp;<time>3分钟前</time> -->
-                        </h3>
-                        <div class="d-content">
-                            <!-- 这里是具体内容 -->
-                            <p>图片为复制粘贴式上传，感觉像使用 Word 一样呢</p>
-                            <p>您可以使用 PrtSC键进行抓屏后粘贴到输入框内，也可以使用第三方截图程序，如QQ的截图功能，组合键为 Ctrl+Alt+a 更多姿势，等您发现</p>
-                            <!-- end 这里是具体内容-->
+                    {% for comment in comment_list %}
+                        <div class="col-sm-2 clearfix">
+                            <a href="#" class="pull-left">
+                                <!-- <img class="dj-list-davatar" src="" alt="头像"> -->
+                                <span class="dj-list-davatar">A</span>
+                            </a>
                         </div>
-                        <div class="d-footer">
-                            <div class="pull-right">
-                                <button class="btn btn-info btn-xs">点赞</button>
-                                <button class="btn btn-info btn-xs">回复</button>
+                        <div class="col-sm-10 clearfix d-list-center">
+                            <h3 class="dj-list-dinfo">
+                                <a href=""><strong>作者名字</strong></a> · 发布于&nbsp;
+                                <time>3分钟前</time>
+                                <!-- <i class="fa fa-fw fa-pencil-square-o"></i><strong>作者</strong> · 发布于&nbsp;<time>3分钟前</time> -->
+                            </h3>
+                            <div class="d-content">
+                                <!-- 这里是具体内容 -->
+                                {{ comment.body }}
+                                <!-- end 这里是具体内容-->
                             </div>
-                            <div class="d-vote-list">
-                                <i class="icon fa fa-fw fa-thumbs-o-up "></i><a href=""><strong>fann0128</strong></a>,
-                                <a href=""><strong>大黄鸭</strong></a>, 和 <a href=""><strong>SHIFT-M</strong></a> 等人赞了它
-                            </div>
+                            <div class="d-footer">
+                                <div class="pull-right">
+                                    <button class="btn btn-info btn-xs">点赞</button>
+                                    <button class="btn btn-info btn-xs">回复</button>
+                                </div>
+                                <div class="d-vote-list">
+                                    <i class="icon fa fa-fw fa-thumbs-o-up "></i><a
+                                        href=""><strong>fann0128</strong></a>,
+                                    <a href=""><strong>大黄鸭</strong></a>, 和 <a href=""><strong>SHIFT-M</strong></a> 等人赞了它
+                                </div>
 
+                            </div>
                         </div>
-                    </div>
+                    {% endfor %}
                 </div>
-                <div class="dj-list-d row">
-                    <div class="col-sm-2 clearfix">
-                        <a href="#" class="pull-left">
-                            <!-- <img class="dj-list-davatar" src="" alt="头像"> -->
-                            <span class="dj-list-davatar">A</span>
-                        </a>
-                    </div>
-                    <div class="col-sm-10 clearfix d-list-center">
-                        <h3 class="dj-list-dinfo">
-                            <a href=""><strong>作者名字</strong></a> · 发布于&nbsp;
-                            <time>3分钟前</time>
-                            <!-- <i class="fa fa-fw fa-pencil-square-o"></i><strong>作者</strong> · 发布于&nbsp;<time>3分钟前</time> -->
-                        </h3>
-                        <div class="d-content">
-                            <!-- 这里是具体内容 -->
-                            <p>图片为复制粘贴式上传，感觉像使用 Word 一样呢</p>
-                            <p>您可以使用 PrtSC键进行抓屏后粘贴到输入框内，也可以使用第三方截图程序，如QQ的截图功能，组合键为 Ctrl+Alt+a 更多姿势，等您发现</p>
-                            <!-- end 这里是具体内容-->
-                        </div>
-                        <div class="d-footer">
-                            <div class="pull-right">
-                                <button class="btn btn-info btn-xs">点赞</button>
-                                <button class="btn btn-info btn-xs">回复</button>
-                            </div>
-                            <div class="d-vote-list">
-                                <i class="icon fa fa-fw fa-thumbs-o-up "></i><a href=""><strong>fann0128</strong></a>,
-                                <a href=""><strong>大黄鸭</strong></a>, 和 <a href=""><strong>SHIFT-M</strong></a> 等人赞了它
-                            </div>
 
-                        </div>
-                    </div>
+                {% comment_form post as form %}
+                <div class="well">
+                    <h4>说点什么吧？</h4>
+                    <form action="{% url 'commenta:post_comment' %}" method="post">{% csrf_token %}
+                        {% if next %}
+                            <div><input type="hidden" name="next" value="{{ next }}"/></div>{% endif %}
+                        {% for field in form %}
+                            {% if field.is_hidden %}
+                                <div>{{ field }}</div>
+                            {% else %}
+                                {% if field.errors %}{{ field.errors }}{% endif %}
+                                <p
+                                        {% if field.errors %} class="error"{% endif %}
+                                        {% ifequal field.name "honeypot" %} style="display:none;"{% endifequal %}>
+                                    {{ field.label_tag }} {{ field }}
+                                </p>
+                            {% endif %}
+                        {% endfor %}
+                        <p class="submit">
+                            <input type="submit" name="post" class="submit-post" value="提交评论"/>
+                        </p>
+                    </form>
                 </div>
 
                 <!--分页 -->

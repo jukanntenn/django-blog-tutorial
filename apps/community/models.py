@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.core.urlresolvers import reverse
 
 
 class Post(models.Model):
@@ -20,7 +21,7 @@ class Post(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        pass
+        return reverse('community:detail', kwargs={'post_id': self.pk})
 
 
 class Tag(models.Model):

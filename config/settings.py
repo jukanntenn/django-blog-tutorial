@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'apps.community',
     'apps.likes',
     'apps.attention',
+    'apps.commenta',
 ]
 
 MIDDLEWARE_CLASSES = [

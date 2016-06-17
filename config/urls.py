@@ -5,5 +5,6 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^blog/', include('apps.blog.urls', namespace='blog', app_name='blog')),
     url(r'^usera/', include('apps.usera.urls', namespace='usera', app_name='usera')),
+    url(r'', include('apps.commenta.urls', namespace='commenta', app_name='commenta')),
     url(r'', include('apps.community.urls', namespace='community', app_name='community'))
 ]
