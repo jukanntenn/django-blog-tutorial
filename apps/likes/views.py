@@ -8,7 +8,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 import json
 
-from likes.models import Likes, LikesDetail
+from .models import Likes, LikesDetail
 from django.contrib.contenttypes.models import ContentType
 
 # 导入likes下自定义的装饰器
@@ -43,7 +43,7 @@ def likes_change(request):
     # 获取Likes对象
     try:
         l = Likes.objects.get(content_type=c, object_id=obj_id)
-    except Exception, e:
+    except Exception:
         # 没有获取到对象，则新增一个Likes对象
         l = Likes(content_type=c, object_id=obj_id)
     data['nums'] = l.likes_num
@@ -51,7 +51,7 @@ def likes_change(request):
     # 获取Likes明细对象
     try:
         detail = LikesDetail.objects.get(likes=l, user=user)
-    except Exception, e:
+    except Exception:
         detail = LikesDetail(likes=l, user=user, is_like=False)
     liked = 1 if detail.is_like else -1
 
@@ -101,7 +101,7 @@ def likes_nums(request):
 
         # 获取数量
         data['nums'] = l.likes_num
-    except Exception, e:
+    except Exception:
         data['nums'] = 0
 
     # 返回结果

@@ -27,8 +27,8 @@ class Likes(models.Model):
     # likes number
     likes_num = models.IntegerField(default=0)
 
-    def __unicode__(self):
-        return u'%s:%s(%s)' % (self.content_type, self.object_id, self.likes_num)
+    def __str__(self):
+        return '%s:%s(%s)' % (self.content_type, self.object_id, self.likes_num)
 
 
 # likes detail recode
