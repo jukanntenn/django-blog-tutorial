@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.urlresolvers import reverse
 from collections import defaultdict
+
 import datetime
 
 
@@ -41,6 +42,10 @@ class Article(models.Model):
     class Meta:
         ordering = ['-last_modified_time']
 
+    # 第五周：新增 get_absolute_url 方法
+    def get_absolute_url(self):
+        return reverse('blog:detail', kwargs={'article_id': self.pk})
+
 
 class Category(models.Model):
     name = models.CharField('类名', max_length=20)
@@ -58,3 +63,15 @@ class Tag(models.Model):
 
     def __str__(self):
         return self.name
+
+
+# # 第五周：新增评论
+class BlogComment(models.Model):
+    user_name = models.CharField('评论者名字', max_length=100)
+    user_email = models.EmailField('评论者邮箱', max_length=255)
+    body = models.TextField('评论内容')
+    created_time = models.DateTimeField('评论发表时间', auto_now_add=True)
+    article = models.ForeignKey('Article', verbose_name='评论所属文章', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.body[:20]

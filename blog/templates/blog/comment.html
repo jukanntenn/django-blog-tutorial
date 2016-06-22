@@ -1,0 +1,30 @@
+<div class="comment">
+    <div class="comment-main">
+        <p class="head">评论详情</p>
+        <form method="post" action="{% url 'blog:comment' article.pk %}">
+            {% csrf_token %}
+            <div class="row">
+                {% for field in form %}
+                    {{ field }}
+                    {{ field.errors }}
+                    <br>
+                {% endfor %}
+            </div>
+            <button type="submit" class="com-button">评论</button>
+        </form>
+        <p class="comment-count">共{{ 0 }}条评论</p>
+        <hr>
+        {% for comment in comment_list %}
+            <div class="main-content">
+{#                <img src="月英1.jpg" class="user-avatar">#}
+                <span class="user-nickname">{{ comment.user_name }}</span>
+                <time class="time">{{ comment.created_time }}</time>
+                <div class="comment-content">
+                    {{ comment.body }}
+                </div>
+{#                <a href="">回复</a>#}
+            </div>
+            <hr>
+        {% endfor %}
+    </div>
+</div>
