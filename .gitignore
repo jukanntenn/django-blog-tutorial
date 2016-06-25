@@ -90,4 +90,10 @@ ENV/
 # Rope project settings
 .ropeproject
 
-.sqlite3
+*.sqlite3
+.idea/.name
+.idea/django_blog_project.iml
+.idea/encodings.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/workspace.xml
