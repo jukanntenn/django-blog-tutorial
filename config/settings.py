@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'apps.usera',
     'apps.community',
     'apps.likes',
-    'apps.attention',
+    'apps.follow',
     'apps.commenta',
 ]
 
