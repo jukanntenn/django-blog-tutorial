@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div id="banner" class="noselect"></div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <div id="category" class="noselect">
+                    <div id="category-title">
+                        <ul>
+                            <li>分类：</li>
+                            {% for category in category_list %}
+                                <li class="cat-item"><a
+                                        href="{% url 'blog:category' category.pk %}">{{ category.name }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+
+                <div id="bd" class="wrp clear-fix">
+                    <div id="main">
+                        {% load paginate_tags %}
+                        {% paginate article_list 2 %}
+                        {% for article in article_list %}
+                            <div class="post">
+                                <div class="post-hd">
+                                    <h1 class="title"><a
+                                            href="{% url 'blog:detail' article.pk %}">{{ article.title }}</a></h1>
+                                </div>
+                                <div class="post-bd">
+                                    <!-- 	<p><a href=""><img src="" alt=""></a></p> -->
+                                    <p>{{ article.abstract }}</p>
+                                    <p><a href="" class="more-link"></a></p>
+                                </div>
+                                <div class="post-ft">
+                                    <a href="{% url 'blog:detail' article.id %}" class="more">阅读全文>></a>
+                                    <i class="icon-date"></i>
+                                    <span class="date">{{ article.last_modified_time|date:"Y年n月d日" }}</span>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        {% include 'blog/pagination.html' %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3">
+                <!-- tags -->
+                <h3>标签:</h3>
+                <div class="list-group">
+                    {% for tag in tag_list %}
+                        <a href="{% url 'blog:tag' tag.pk %}" class="list-group-item"><span
+                                class="badge"></span>{{ tag.name }}</a>
+                    {% endfor %}
+                </div>
+
+                <!-- archive -->
+                <h3>文章归档：</h3>
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    {% for year,months in date_archive %}
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="heading{{ forloop.counter }}">
+                                <h4 class="panel-title">
+                                    <a role="button" data-toggle="collapse" data-parent="#accordion"
+                                       href="#collapse{{ forloop.counter }}"
+                                       aria-expanded="true" aria-controls="collapse{{ forloop.counter }}">
+                                        {{ year }} 年
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapse{{ forloop.counter }}" class="panel-collapse collapse in" role="tabpanel"
+                                 aria-labelledby="heading{{ forloop.counter }}">
+                                <div class="panel-body">
+                                    {% for month in months %}
+                                        <a href="{% url 'blog:archive' year month %}"><p>{{ month }} 月</p></a>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

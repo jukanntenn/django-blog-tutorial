@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Myblog</title>
+    <link rel="stylesheet" href="{% static 'blog/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'blog/css/pygments/github.css' %}">
+    <link rel="stylesheet" href="{% static 'lib/css/bootstrap.min.css' %}">
+</head>
+<body>
+<div id="header">
+    <div id="header-warp">
+        <a href="{% url 'blog:index' %}" title="第一个博客" id="logo"></a>
+        <ul id="header-nav">
+            <li><a href="{% url 'blog:index' %}">首页</a></li>
+        </ul>
+        <div id="header-right" class="login">
+            <div id="user-info">
+                <span id="dropdown-button">登录</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block content %}{% endblock %}
+
+<div id="footer" class="noselect">
+    <ul id="ft-links">
+        <li><a href="" target="_blank">友情链接1</a></li>
+    </ul>
+    <ul id="ft-about-links">
+        <li><a href="" target="_blank">友情链接2</a></li>
+    </ul>
+    <div id="copyright">&copy; djangoBlog</div>
+</div>
+<script type="text/javascript" src="{% static 'blog/js/jquery.js' %}"></script>
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script type="text/javascript" src="{% static 'lib/js/bootstrap.min.js' %}"></script>
+</body>
+</html>
