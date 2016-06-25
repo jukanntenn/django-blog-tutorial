@@ -16,7 +16,7 @@ class Notifications(models.Model):
     unread = models.BooleanField(default=True)
 
     # 通知发起者
-    actor_content_type = models.ForeignKey(ContentType)
+    actor_content_type = models.ForeignKey(ContentType, related_name='notify_actor')
     actor_object_id = models.PositiveIntegerField()
     actor = GenericForeignKey('actor_content_type', 'actor_object_id')
 
@@ -25,7 +25,8 @@ class Notifications(models.Model):
     description = models.TextField()
 
     # 参与通知的对象，例如帖子
-    action_object_content_type = models.ForeignKey(ContentType, blank=True, null=True)
+    action_object_content_type = models.ForeignKey(ContentType, blank=True, null=True,
+                                                   related_name='notify_action_object')
     action_object_object_id = models.PositiveIntegerField(blank=True, null=True)
     action_object = GenericForeignKey('action_object_content_type', 'action_object_object_id')
 
@@ -36,12 +37,7 @@ class Notifications(models.Model):
 
     def __str__(self):
         # TO-DO 更好地格式化通知描述
-        ctx = {
-            'actor': self.actor,
-            'verb': self.verb,
-            'action_object': self.action_object
-        }
-        return '{actor} 在 {action_object} 中 {verb} 了你。'
+        return self.description
 
     def mark_as_read(self):
         if self.unread:
@@ -54,12 +50,11 @@ class Notifications(models.Model):
             self.save()
 
 
-def notification_handler(sender, **kwargs):
+def notification_handler(sender=None, **kwargs):
     recipient = kwargs.pop('recipient')
     verb = kwargs.pop('verb')
     description = kwargs.pop('description')
     action_object = kwargs.pop('action_object')
-    created_time = kwargs.pop('created_time')
 
     created_data = {
         'recipient': recipient,
@@ -68,7 +63,6 @@ def notification_handler(sender, **kwargs):
         'verb': verb,
         'description': description,
         'action_object': action_object,
-        'created_time': created_time,
     }
 
     Notifications.objects.create(**created_data)

@@ -9,6 +9,8 @@ from django.template.loader import render_to_string
 from django.views.generic.edit import CreateView
 from django.http import JsonResponse
 
+from apps.notifications.signals import notify
+
 from .forms import CommentForm
 from .models import Comment
 
@@ -47,6 +49,13 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         self.object = form.save()
+        description = '用户 {user} 在你发表的帖子 {post} 中回复了你：{comment}' \
+            .format(user=self.request.user.username, post=self.content_object.title, comment=form.instance.body[:50])
+        notify.send(self.request.user, recipient=self.content_object.author,
+                    actor=self.request.user,
+                    verb='回复',
+                    description=description,
+                    action_object=self.content_object)
         if self.request.is_ajax():
             data = {
                 "status": "OK",
