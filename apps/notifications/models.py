@@ -2,7 +2,14 @@ from django.db import models
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.conf import settings
+from django.db.models.manager import Manager
 from .signals import notify
+
+
+class NotificationManager(Manager):
+    """定义获取特定通知集的方法
+    """
+    pass
 
 
 class Notifications(models.Model):

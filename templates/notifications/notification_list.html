@@ -1,0 +1,8 @@
+{% extends 'community_base.html' %}
+{% block content %}
+    <div class="list-group">
+        {% for notification in all_notification_list %}
+            <a href="#" class="list-group-item">{{ notification.description }}</a>
+        {% endfor %}
+    </div>
+{% endblock %}
