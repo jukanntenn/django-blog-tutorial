@@ -9,6 +9,8 @@ from .signals import notify
 class NotificationQuerySet(models.QuerySet):
     """定义获取特定通知集的方法
     """
+    def mark_all_as_read(self):
+        return self.unread().update(unread=False)
 
     def read(self):
         return self.filter(unread=False)

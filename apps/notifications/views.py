@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, HttpResponseRedirect, re
 from django.shortcuts import HttpResponseRedirect
 from django.views.generic.list import ListView
 from .models import Notifications
+from django.contrib.contenttypes.models import ContentType
 
 
 # Create your views here.
@@ -10,9 +11,7 @@ def mark_all_read(request):
     TO-DO：修改重定向逻辑
     """
     # genericforeignkey 获取对象有误，需修改正确方法
-    notifications_set = Notifications.objects.filter(actor=request.user)
-    notifications_set.update(unread=False)
-
+    request.user.notifications.mark_all_as_read()
     return HttpResponseRedirect('/')
 
 
@@ -27,17 +26,22 @@ class NotificationListMixin(object):
     context_object_name = 'all_notification_list'
     template_name = 'notifications/notification_list.html'
 
+    def get_queryset(self):
+        return self.request.user.notifications.all()
+
 
 class AllNotificationsListView(NotificationListMixin, ListView):
     pass
 
 
 class ReadNotificationsListView(NotificationListMixin, ListView):
-    queryset = Notifications.objects.read()
+    def get_queryset(self):
+        return self.request.user.notifications.read()
 
 
 class UnreadNotificationListView(NotificationListMixin, ListView):
-    queryset = Notifications.objects.unread()
+    def get_queryset(self):
+        return self.request.user.notifications.unread()
 
 
 def mark_read(request, notification_id):
