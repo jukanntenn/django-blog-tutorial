@@ -6,10 +6,15 @@ from django.db.models.manager import Manager
 from .signals import notify
 
 
-class NotificationManager(Manager):
+class NotificationQuerySet(models.QuerySet):
     """定义获取特定通知集的方法
     """
-    pass
+
+    def read(self):
+        return self.filter(unread=False)
+
+    def unread(self):
+        return self.filter(unread=True)
 
 
 class Notifications(models.Model):
@@ -38,6 +43,8 @@ class Notifications(models.Model):
     action_object = GenericForeignKey('action_object_content_type', 'action_object_object_id')
 
     created_time = models.DateTimeField(auto_now_add=True)
+
+    objects = NotificationQuerySet.as_manager()
 
     class Meta:
         ordering = ['-created_time', ]

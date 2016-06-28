@@ -1,8 +1,23 @@
 {% extends 'community_base.html' %}
 {% block content %}
+    <a href="{% url 'notifications:unread_notifications' %}">
+        <button class="btn btn-default">未读通知列表</button>
+    </a>
+    <a href="{% url 'notifications:read_notifications' %}">
+        <button class="btn btn-default">已读通知列表</button>
+    </a>
     <div class="list-group">
         {% for notification in all_notification_list %}
             <a href="#" class="list-group-item">{{ notification.description }}</a>
+            {% if notification.unread %}
+                <a href="{% url 'notifications:mark_read' notification.pk %}">
+                    <button class="btn btn-default">标为已读</button>
+                </a>
+            {% endif %}
         {% endfor %}
     </div>
+
+    <a href="{% url 'notifications:mark_all_read' %}">
+        <button class="btn btn-info">全部标为已读</button>
+    </a>
 {% endblock %}
