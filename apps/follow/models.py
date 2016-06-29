@@ -12,9 +12,9 @@ class Follow(models.Model):
     content_type = models.ForeignKey(ContentType)
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
-    follow_num = models.IntegerField(default = 0)
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
     follow_time = models.DateTimeField(auto_now = True)
+    state = models.BooleanField(default = False)
     def __str__(self):
         return '%s: %s(%s)' % (self.content_type, self.object_id, self.follow_num)
 
