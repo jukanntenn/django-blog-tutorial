@@ -68,6 +68,7 @@
                                        class="form-password form-control" id="id_password">
                                 {{ form.password.errors }}
                             </div>
+                            <input type="hidden" name="next" value="{{ next }}">
                             <button type="submit" class="btn">登录</button>
                         </form>
                     </div>

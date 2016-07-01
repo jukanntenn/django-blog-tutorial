@@ -51,7 +51,7 @@
                         </ul>
                     </li>
                 {% else %}
-                    <li><a href="{% url 'usera:sign_in' %}">登录</a></li>
+                    <li><a href="{% url 'usera:sign_in' %}?next={{ request.path }}">登录</a></li>
                     <li><a href="{% url 'usera:sign_up' %}">注册</a></li>
                 {% endif %}
             </ul>

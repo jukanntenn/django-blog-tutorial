@@ -105,3 +105,4 @@ pip-selfcheck.json
 
 .sqlite3
 .idea
+/db.sqlite3

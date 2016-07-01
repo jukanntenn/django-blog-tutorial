@@ -20,6 +20,7 @@ from .models import Comment
 
 class CommentCreateView(LoginRequiredMixin, CreateView):
     # 该方法需要大重构，考虑使用FBV 重构！
+    # 使用 LoginRequiredMixin，当登录后 url 跳转到 /comment，此时是get请求，因此模板中没有object对象，模板标签函数会报错！cannot be solve immediately
     form_class = CommentForm
     model = Comment
     content_object = None

@@ -13,19 +13,28 @@ from .forms import SignInForm, SignUpForm, ResetPasswordForm
 class SignInView(FormView):
     template_name = 'usera/signin.html'
     form_class = SignInForm
-    success_url = '/'
+
+    # success_url = '/'
 
     def form_valid(self, form):
         user = form.get_user()
+        login(self.request, user)
         # 用户登录时，需要更新他的last_login_time，last_login_ip
         if user.is_active:
-            login(self.request, user)
-            user.last_login = timezone.now()
-            user.last_login_ip = self.request.META.get("REMOTE_ADDR", None)
-            user.save(update_fields=['last_login', 'last_login_ip'])
-        else:
-            pass
+            form.save(self.request, user)
         return super(SignInView, self).form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super(SignInView, self).get_context_data(**kwargs)
+        context['next'] = self.request.GET.get('next')
+        return context
+
+    def get_success_url(self):
+        redirect_to = self.request.POST['next']
+        # from next we got string 'None',not None
+        if redirect_to != 'None':
+            return redirect_to
+        return '/'
 
 
 class SignUpView(FormView):
@@ -72,7 +81,7 @@ class PassWordChangeView(FormView):
 
 def log_out(request):
     logout(request)
-    return HttpResponseRedirect('/')
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 
 class ResetPasswordView(FormView):
