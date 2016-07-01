@@ -8,6 +8,7 @@ from django.template import RequestContext
 from django.template.loader import render_to_string
 from django.views.generic.edit import CreateView
 from django.http import JsonResponse
+from django.core import urlresolvers
 
 from apps.notifications.signals import notify
 
@@ -18,13 +19,16 @@ from .models import Comment
 # Create your views here.
 
 class CommentCreateView(LoginRequiredMixin, CreateView):
-    login_url = '/login/'
+    # 该方法需要大重构，考虑使用FBV 重构！
     form_class = CommentForm
     model = Comment
     content_object = None
     parent_comment = None
     object = None
     template_name = 'community/detail.html'
+
+    def get_login_url(self):
+        return urlresolvers.reverse('usera:sign_in')
 
     def get_form_kwargs(self):
         kwargs = super(CommentCreateView, self).get_form_kwargs()
