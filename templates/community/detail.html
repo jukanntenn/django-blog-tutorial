@@ -23,7 +23,7 @@
                     <div class="col-sm-10 clearfix d-list-center">
                         <h3 class="dj-list-dinfo">
                             <a href=""><strong>{{ post.author }}</strong></a> · 发布于&nbsp;
-                            <time>3分钟前</time>
+                            <time>{{ post.created|timesince }}前</time>
                             <!-- <i class="fa fa-fw fa-pencil-square-o"></i><strong>作者</strong> · 发布于&nbsp;<time>3分钟前</time> -->
                         </h3>
                         <div class="d-content">
@@ -57,8 +57,8 @@
                         </div>
                         <div class="col-sm-10 clearfix d-list-center">
                             <h3 class="dj-list-dinfo">
-                                <a href=""><strong>作者名字</strong></a> · 发布于&nbsp;
-                                <time>3分钟前</time>
+                                <a href=""><strong>{{ comment.author.username }}</strong></a> · 发布于&nbsp;
+                                <time>{{ comment.created_time|timesince }}前</time>
                                 <!-- <i class="fa fa-fw fa-pencil-square-o"></i><strong>作者</strong> · 发布于&nbsp;<time>3分钟前</time> -->
                             </h3>
                             <div class="d-content">

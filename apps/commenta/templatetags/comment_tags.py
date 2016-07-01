@@ -2,6 +2,7 @@ from django import template
 from django.contrib.contenttypes.models import ContentType
 from ..forms import CommentForm
 from ..models import Comment
+from django.utils.timesince import timesince
 
 register = template.Library()
 
@@ -28,3 +29,20 @@ def comment_count(obj):
             object_id=obj.pk,
             content_type=ContentType.objects.get_for_model(obj)
     ).count()
+
+
+@register.filter
+def last_comment_by(obj):
+    return Comment.objects.filter(
+            object_id=obj.pk,
+            content_type=ContentType.objects.get_for_model(obj)
+    ).order_by('-modified_time').first().author.username
+
+
+@register.filter
+def last_comment_timesince(obj):
+    last_comment = Comment.objects.filter(
+            object_id=obj.pk,
+            content_type=ContentType.objects.get_for_model(obj)
+    ).order_by('-modified_time').first()
+    return timesince(last_comment.modified_time)
