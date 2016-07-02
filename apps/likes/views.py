@@ -49,18 +49,19 @@ class LikeToggleView(LikesLoginRequiredMixin, View):
             raise Http404("Object not found.")
         like, liked = Like.objects.like_toggle(request.user, content_type, obj.id)
         if liked:
-            description = ''
-            if isinstance(obj, Post):
-                description = '用户 {user} 赞了你的帖子 {post}' \
-                    .format(user=self.request.user.username, post=obj.title[:30])
-            if isinstance(obj, Comment):
-                description = '用户 {user} 赞了你的回复 {comment}' \
-                    .format(user=self.request.user.username, comment=obj.body[:30])
-            notify.send(self.request.user, recipient=obj.author,
-                        actor=self.request.user,
-                        verb='赞',
-                        description=description,
-                        action_object=obj)
+            if obj.author != self.request.user:  # 用于判断点赞人是否是作者，不够通用！因为obj的author命名可能不同
+                description = ''
+                if isinstance(obj, Post):
+                    description = '用户 {user} 赞了你的帖子 {post}' \
+                        .format(user=self.request.user.username, post=obj.title[:30])
+                if isinstance(obj, Comment):
+                    description = '用户 {user} 赞了你的回复 {comment}' \
+                        .format(user=self.request.user.username, comment=obj.body[:30])
+                notify.send(self.request.user, recipient=obj.author,
+                            actor=self.request.user,
+                            verb='赞',
+                            description=description,
+                            action_object=obj)
         return HttpResponseRedirect(request.META.get("HTTP_REFERER", "/"))
 
     def get_login_url(self):
