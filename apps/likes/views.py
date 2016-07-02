@@ -7,6 +7,8 @@ from django.core.exceptions import ImproperlyConfigured, PermissionDenied
 from django.contrib.auth.views import redirect_to_login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core import urlresolvers
+from apps.community.models import Post
+from apps.commenta.models import Comment
 
 
 class LikesLoginRequiredMixin(LoginRequiredMixin):
@@ -24,6 +26,15 @@ class LikesLoginRequiredMixin(LoginRequiredMixin):
         object_pk = self.kwargs.get("object_id")
         content_type = get_object_or_404(ContentType, pk=int(ctype_pk))
         content_object = content_type.get_object_for_this_type(pk=int(object_pk))
+
+        print(content_object._meta.model)
+        print(issubclass(content_object._meta.model, Comment))
+
+        # when like comment without login ,we need redirect to post url, so we have to get the post url form comment
+        if issubclass(content_object._meta.model, Comment):
+            post_pk = content_object.object_id
+            content_object = Post.objects.get(pk=post_pk)
+
         return redirect_to_login(content_object.get_absolute_url(), self.get_login_url(),
                                  self.get_redirect_field_name())
 
