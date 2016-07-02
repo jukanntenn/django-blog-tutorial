@@ -9,6 +9,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core import urlresolvers
 from apps.community.models import Post
 from apps.commenta.models import Comment
+from apps.notifications.signals import notify
 
 
 class LikesLoginRequiredMixin(LoginRequiredMixin):
@@ -46,7 +47,20 @@ class LikeToggleView(LikesLoginRequiredMixin, View):
             obj = content_type.get_object_for_this_type(pk=self.kwargs.get("object_id"))
         except ObjectDoesNotExist:
             raise Http404("Object not found.")
-        Like.objects.like_toggle(request.user, content_type, obj.id)
+        like, liked = Like.objects.like_toggle(request.user, content_type, obj.id)
+        if liked:
+            description = ''
+            if isinstance(obj, Post):
+                description = '用户 {user} 赞了你的帖子 {post}' \
+                    .format(user=self.request.user.username, post=obj.title[:30])
+            if isinstance(obj, Comment):
+                description = '用户 {user} 赞了你的回复 {comment}' \
+                    .format(user=self.request.user.username, comment=obj.body[:30])
+            notify.send(self.request.user, recipient=obj.author,
+                        actor=self.request.user,
+                        verb='赞',
+                        description=description,
+                        action_object=obj)
         return HttpResponseRedirect(request.META.get("HTTP_REFERER", "/"))
 
     def get_login_url(self):

@@ -31,6 +31,10 @@ class NotificationListMixin(object):
 
 
 class AllNotificationsListView(NotificationListMixin, ListView):
+    """
+    BUG: when user logout in notification list page,then a exception throw:
+    'AnonymousUser has no attribute:notifications'
+    """
     pass
 
 
