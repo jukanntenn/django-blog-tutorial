@@ -1,4 +1,5 @@
 from django.contrib import admin
+from .models import Like
 
 #
 # class LikesAdmin(admin.ModelAdmin):
@@ -18,3 +19,4 @@ from django.contrib import admin
 #
 # admin.site.register(Likes, LikesAdmin)
 # admin.site.register(LikesDetail, LikesDetailAdmin)
+admin.site.register(Like)
