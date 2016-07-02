@@ -32,8 +32,12 @@
                             <!-- end 这里是具体内容-->
                         </div>
                         <div class="d-footer">
+                            {% load like_tags %}
                             <div class="pull-right">
-                                <button class="btn btn-info btn-xs">点赞</button>
+                                <form method="post" style="display: inline"
+                                      action="{% url 'likes:like_toggle' post|ctype_id post.pk %}">{% csrf_token %}
+                                    <button class="btn btn-info btn-xs">点赞</button>
+                                </form>
                                 <button class="btn btn-info btn-xs">回复</button>
                             </div>
                             <div class="d-vote-list">
