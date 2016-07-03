@@ -149,41 +149,45 @@
                         <i class="fa fa-fw fa-reply" aria-hidden="true"></i>回复
                     </a>
                 </div>
-                <div class="btn-group btn-block">
-                    <button type="button" class="btn btn-info dj-btn-dleft">
-                        <i class="fa fa-fw fa-star" aria-hidden="true"></i>关注
-                    </button>
-                    <button type="button" class="btn btn-info dropdown-toggle dj-btn-dright" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false">
-                        <span class="caret"></span>
-                        <span class="sr-only">Toggle Dropdown</span>
-                    </button>
-                    <ul class="dropdown-menu dj-fellow-dropdown">
-                        <li>
+                <form action="{% url 'follow:follow_toggle' post|ctype_id post.pk %}" method="post"
+                      style="display: inline">{% csrf_token %}
+                    <div class="btn-group btn-block">
+                        <button type="submit" class="btn btn-info dj-btn-dleft">
+                            <i class="fa fa-fw fa-star" aria-hidden="true"></i>关注
+                        </button>
+
+                        <button type="button" class="btn btn-info dropdown-toggle dj-btn-dright" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu dj-fellow-dropdown">
+                            <li>
                             <span class="dj-fellow-list">
                                 <i class="fa fa-fw fa-star-o dj-icon" aria-hidden="true"></i>
                                 <strong>常规</strong>
                             </span>
-                            <span class="dj-fellow-desc">仅在有人@提到我时提醒我</span>
-                        </li>
-                        <li role="separator" class="divider"></li>
-                        <li>
+                                <span class="dj-fellow-desc">仅在有人@提到我时提醒我</span>
+                            </li>
+                            <li role="separator" class="divider"></li>
+                            <li>
                             <span class="dj-fellow-list">
                                 <i class="fa fa-fw fa-star dj-icon" aria-hidden="true"></i>
                                 <strong>关注</strong>
                             </span>
-                            <span class="dj-fellow-desc">当有人回复此帖子时提醒我</span>
-                        </li>
-                        <li role="separator" class="divider"></li>
-                        <li>
+                                <span class="dj-fellow-desc">当有人回复此帖子时提醒我</span>
+                            </li>
+                            <li role="separator" class="divider"></li>
+                            <li>
                             <span class="dj-fellow-list">
                                 <i class="fa fa-fw fa-eye-slash dj-icon" aria-hidden="true"></i>
                                 <strong>忽视</strong>
                             </span>
-                            <span class="dj-fellow-desc">不接收任何提醒并隐藏此帖子</span>
-                        </li>
-                    </ul>
-                </div>
+                                <span class="dj-fellow-desc">不接收任何提醒并隐藏此帖子</span>
+                            </li>
+                        </ul>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
