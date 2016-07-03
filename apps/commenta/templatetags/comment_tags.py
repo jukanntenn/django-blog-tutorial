@@ -34,7 +34,7 @@ def comment_count(obj):
 @register.filter
 def last_comment_by(obj):
     """
-    This way make template do extra thing,should be refactored
+    This way make template do extra thing,should be refactored,
     """
     try:
         return Comment.objects.filter(
