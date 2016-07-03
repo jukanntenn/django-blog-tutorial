@@ -76,11 +76,13 @@ class CommentCreateView(CommentLoginRequiredMixin, CreateView):
         self.object = form.save()
         description = '用户 {user} 在你发表的帖子 {post} 中回复了你：{comment}' \
             .format(user=self.request.user.username, post=self.content_object.title, comment=form.instance.body[:50])
-        notify.send(self.request.user, recipient=self.content_object.author,
-                    actor=self.request.user,
-                    verb='回复',
-                    description=description,
-                    action_object=self.content_object)
+        if self.content_object.author != self.request.user:  # 用于判断点赞人是否是作者，不够通用！因为obj的author命名可能不同
+            print(self.content_object.author, self.content_object.author)
+            notify.send(self.request.user, recipient=self.content_object.author,
+                        actor=self.request.user,
+                        verb='回复',
+                        description=description,
+                        action_object=self.content_object)
         if self.request.is_ajax():
             data = {
                 "status": "OK",

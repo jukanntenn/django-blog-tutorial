@@ -1,108 +1,68 @@
-# coding:utf-8
-__author__ = 'Haddy Yang(Ysh)'
-__start_date__ = '2016-06-12'
-"""
-    likes views
-"""
-from django.shortcuts import render
-from django.http import HttpResponse
-import json
-
-from .models import Likes, LikesDetail
+from django.shortcuts import render, redirect, get_object_or_404, Http404, HttpResponseRedirect
+from django.views.generic.base import View
 from django.contrib.contenttypes.models import ContentType
+from django.core.exceptions import ObjectDoesNotExist
+from .models import Like
+from django.core.exceptions import ImproperlyConfigured, PermissionDenied
+from django.contrib.auth.views import redirect_to_login
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core import urlresolvers
+from apps.community.models import Post
+from apps.commenta.models import Comment
+from apps.notifications.signals import notify
 
-# 导入likes下自定义的装饰器
-from .decorator import check_login, check_request
 
-
-@check_login
-@check_request('type', 'id', 'direct')
-def likes_change(request):
-    u"""处理改变点赞状态
-        Method: GET
-        params: 
-            type  : object type
-            id    : object id
-            direct: -1 or 1 (add like or remove like)
-        return: json
+class LikesLoginRequiredMixin(LoginRequiredMixin):
     """
-    # 创建json对象需要的数据
-    data = {}
-    data['status'] = 200
-    data['message'] = u'ok'
-    data['nums'] = 0
-
-    # 获取数据
-    obj_type = request.GET.get('type')
-    obj_id = request.GET.get('id')
-    user = request.user
-
-    direct = 1 if request.GET.get('direct') == '1' else -1
-    c = ContentType.objects.get(model=obj_type)
-
-    # 获取Likes对象
-    try:
-        l = Likes.objects.get(content_type=c, object_id=obj_id)
-    except Exception:
-        # 没有获取到对象，则新增一个Likes对象
-        l = Likes(content_type=c, object_id=obj_id)
-    data['nums'] = l.likes_num
-
-    # 获取Likes明细对象
-    try:
-        detail = LikesDetail.objects.get(likes=l, user=user)
-    except Exception:
-        detail = LikesDetail(likes=l, user=user, is_like=False)
-    liked = 1 if detail.is_like else -1
-
-    # 判断是否赞过，或者取消赞
-    if liked == direct:
-        data['status'] = 403
-        data['message'] = u'Invalid operation'
-    else:
-        # 更新记录
-        l.likes_num += direct
-        if l.likes_num < 0:
-            l.likes_num = 0
-        l.save()
-        data['nums'] = l.likes_num
-
-        # 修改明细
-        detail.is_like = direct == 1
-        detail.save()
-
-    # 返回结果
-    return HttpResponse(json.dumps(data), content_type="application/json")
-
-
-@check_request('type', 'id')
-def likes_nums(request):
-    u"""单独获取点赞的数量（也可以访问Likes模型获取数量）
-        Method: GET
-        params: 
-            type  : object type
-            id    : object id
-        return: json
+    for likes,the default LoginRequired is not satisfied our demand,
+    since we want when we use the get method to the like create view
+    url that redirect to the post detail page.
+    so the temp solution is custom a LoginRequiredMixin,but need a more elegant method further.
     """
-    # 创建json对象需要的数据
-    data = {}
-    data['status'] = 200
-    data['message'] = u'ok'
-    data['nums'] = 0
 
-    try:
-        # 获取对象模型
-        obj_type = request.GET.get('type')
-        obj_id = request.GET.get('id')
-        c = ContentType.objects.get(model=obj_type)
+    def handle_no_permission(self):
+        if self.raise_exception:
+            raise PermissionDenied(self.get_permission_denied_message())
+        ctype_pk = self.kwargs.get('content_type_id')
+        object_pk = self.kwargs.get("object_id")
+        content_type = get_object_or_404(ContentType, pk=int(ctype_pk))
+        content_object = content_type.get_object_for_this_type(pk=int(object_pk))
 
-        # 根据模型和id获取likes对象
-        l = Likes.objects.get(content_type=c, object_id=obj_id)
+        print(content_object._meta.model)
+        print(issubclass(content_object._meta.model, Comment))
 
-        # 获取数量
-        data['nums'] = l.likes_num
-    except Exception:
-        data['nums'] = 0
+        # when like comment without login ,we need redirect to post url, so we have to get the post url form comment
+        if issubclass(content_object._meta.model, Comment):
+            post_pk = content_object.object_id
+            content_object = Post.objects.get(pk=post_pk)
 
-    # 返回结果
-    return HttpResponse(json.dumps(data), content_type="application/json")
+        return redirect_to_login(content_object.get_absolute_url(), self.get_login_url(),
+                                 self.get_redirect_field_name())
+
+
+class LikeToggleView(LikesLoginRequiredMixin, View):
+    def post(self, request, *args, **kwargs):
+        content_type = get_object_or_404(ContentType, pk=self.kwargs.get("content_type_id"))
+        try:
+            obj = content_type.get_object_for_this_type(pk=self.kwargs.get("object_id"))
+        except ObjectDoesNotExist:
+            raise Http404("Object not found.")
+        like, liked = Like.objects.like_toggle(request.user, content_type, obj.id)
+        if liked:
+            if obj.author != self.request.user:  # 用于判断点赞人是否是作者，不够通用！因为obj的author命名可能不同
+                description = ''
+                if isinstance(obj, Post):
+                    description = '用户 {user} 赞了你的帖子 {post}' \
+                        .format(user=self.request.user.username, post=obj.title[:30])
+                if isinstance(obj, Comment):
+                    description = '用户 {user} 赞了你的回复 {comment}' \
+                        .format(user=self.request.user.username, comment=obj.body[:30])
+                notify.send(self.request.user, recipient=obj.author,
+                            actor=self.request.user,
+                            verb='赞',
+                            description=description,
+                            action_object=obj)
+        return HttpResponseRedirect(request.META.get("HTTP_REFERER", "/"))
+
+    def get_login_url(self):
+        return urlresolvers.reverse('usera:sign_in')

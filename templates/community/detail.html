@@ -1,4 +1,5 @@
 {% extends 'community_base.html' %}
+{% load like_tags %}
 {% block content %}
     <div class="jumbotron dj-jumbotron">
         <div class="container">
@@ -33,12 +34,18 @@
                         </div>
                         <div class="d-footer">
                             <div class="pull-right">
-                                <button class="btn btn-info btn-xs">点赞</button>
+                                <form method="post" style="display: inline"
+                                      action="{% url 'likes:like_toggle' post|ctype_id post.pk %}">{% csrf_token %}
+                                    <button class="btn btn-info btn-xs">点赞 {{ post|likes_count }}</button>
+                                </form>
                                 <button class="btn btn-info btn-xs">回复</button>
                             </div>
                             <div class="d-vote-list">
-                                <i class="icon fa fa-fw fa-thumbs-o-up "></i><a href=""><strong>fann0128</strong></a>,
-                                <a href=""><strong>大黄鸭</strong></a>, 和 <a href=""><strong>SHIFT-M</strong></a> 等人赞了它
+                                {% who_likes post as post_like_list %}
+                                <i class="icon fa fa-fw fa-thumbs-o-up "></i>
+                                {% for like in post_like_list %}
+                                    <a href=""><strong>{{ like.trigger_user.username }}</strong></a>,
+                                {% endfor %}{% if post_like_list %}等人赞了它{% endif %}
                             </div>
                         </div>
                     </div>
@@ -68,13 +75,18 @@
                             </div>
                             <div class="d-footer">
                                 <div class="pull-right">
-                                    <button class="btn btn-info btn-xs">点赞</button>
+                                    <form method="post" style="display: inline"
+                                          action="{% url 'likes:like_toggle' comment|ctype_id comment.pk %}">{% csrf_token %}
+                                        <button class="btn btn-info btn-xs">点赞 {{ comment|likes_count }}</button>
+                                    </form>
                                     <button class="btn btn-info btn-xs">回复</button>
                                 </div>
                                 <div class="d-vote-list">
-                                    <i class="icon fa fa-fw fa-thumbs-o-up "></i><a
-                                        href=""><strong>fann0128</strong></a>,
-                                    <a href=""><strong>大黄鸭</strong></a>, 和 <a href=""><strong>SHIFT-M</strong></a> 等人赞了它
+                                    {% who_likes comment as comment_like_list %}
+                                    <i class="icon fa fa-fw fa-thumbs-o-up "></i>
+                                    {% for like in comment_like_list %}
+                                        <a href=""><strong>{{ like.trigger_user.username }}</strong></a>,
+                                    {% endfor %}{% if comment_like_list %}等人赞了它{% endif %}
                                 </div>
 
                             </div>
