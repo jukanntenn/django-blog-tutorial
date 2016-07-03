@@ -57,9 +57,18 @@
                         <a class="col-sm-10 clearfix dj-list-center" href="{% url 'community:detail' post.pk %}">
                             <h4 class="dj-list-title">{{ post.title }}</h4>
                         <span class="dj-list-info">
-                            <i class="fa fa-fw fa-reply "></i><strong>{{ post|last_comment_by }}</strong> · 回复于&nbsp;<time>
-                            {{ post|last_comment_timesince }}前
-                        </time>
+                            {% if  post|last_comment_by %}
+                                <i class="fa fa-fw fa-reply "></i><strong>{{ post|last_comment_by }}</strong> · 回复于
+                                &nbsp;
+                                <time>
+                                {{ post|last_comment_timesince }}前
+                            {% else %}
+                                <i class="fa fa-fw fa-reply "></i><strong>{{ post.author }}</strong> · 发布于
+                                &nbsp;
+                                <time>
+                                {{ post.created|timesince }}前
+                            {% endif %}
+                            </time>
                             <!-- <i class="fa fa-fw fa-pencil-square-o"></i><strong>作者</strong> · 发布于&nbsp;<time>3分钟前</time> -->
                         </span>
                             <div class="btn-group btn-group-xs pull-right dj-list-tags" role="group">

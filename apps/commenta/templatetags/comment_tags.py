@@ -33,10 +33,16 @@ def comment_count(obj):
 
 @register.filter
 def last_comment_by(obj):
-    return Comment.objects.filter(
-            object_id=obj.pk,
-            content_type=ContentType.objects.get_for_model(obj)
-    ).order_by('-modified_time').first().author.username
+    """
+    This way make template do extra thing,should be refactored
+    """
+    try:
+        return Comment.objects.filter(
+                object_id=obj.pk,
+                content_type=ContentType.objects.get_for_model(obj)
+        ).order_by('-modified_time').first().author.username
+    except AttributeError:
+        return ''
 
 
 @register.filter
