@@ -129,3 +129,6 @@ AUTH_USER_MODEL = 'usera.CommunityUser'
 
 # 用户账号保留字
 RESERVED = []
+
+# 验证用户用的秘钥
+SECRET_KEY = 'DjangoBlog'

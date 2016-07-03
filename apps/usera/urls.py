@@ -9,4 +9,5 @@ urlpatterns = [
     url(r'^password-reset/$', views.ResetPasswordView.as_view(), name='password_reset'),
     # url(r'^profile_change/(?P<pk>[0-9]+)/$', views.ProfileChangeView.as_view(), name='profile_change'),
     url(r'^log-out/$', views.log_out, name='log_out'),
+    url(r'^activate/(?P<token>[a-zA-Z0-9]+)/$', views.active_user, name='active_user')
 ]

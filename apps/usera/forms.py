@@ -62,6 +62,8 @@ class SignUpForm(UserCreationForm):
             return email
 
 
+
+
 # class ProfileForm(forms.ModelForm):
 #     class Meta:
 #         model = CommunityUser
