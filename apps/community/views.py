@@ -7,10 +7,14 @@ from .models import Post
 import markdown2
 
 
-class PostCreateView(CreateView):
+class PostCreateView(LoginRequiredMixin, CreateView):
     template_name = 'community/post_create.html'
     form_class = PostForm
     success_url = '/'
+
+    def get_login_url(self):
+        # 复写此 url 获取到登录页面
+        return reverse('usera:sign_in')
 
     def get_form_kwargs(self):
         kwargs = super(PostCreateView, self).get_form_kwargs()

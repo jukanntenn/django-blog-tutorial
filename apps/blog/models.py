@@ -9,20 +9,20 @@ from django.template.defaultfilters import slugify
 
 
 # Create your models here.
-@python_2_unicode_compatible
-class ArchivesManager(models.Manager):
-    def get_queryset(self):
-        return Article.objects.datetimes('pub_date', 'month', order='DESC')
+
+# class ArchivesManager(models.Manager):
+#     def get_queryset(self):
+#         return Article.objects.datetimes('pub_date', 'month', order='DESC')
 
 
-class ArchivesItem(models.Model):
-    archives = ArchivesManager()
+# class ArchivesItem(models.Model):
+#     archives = ArchivesManager()
 
 
-class ArticleManager(models.Manager):
-    def archive(self):
-        dates = Article.objects.dates('year', 'month').distinct()
-        return dates
+# class ArticleManager(models.Manager):
+#     def archive(self):
+#         dates = Article.objects.dates('year', 'month').distinct()
+#         return dates
 
 
 class Article(models.Model):
@@ -31,7 +31,7 @@ class Article(models.Model):
         ('p', "已发布"),
     )
 
-    objects = ArchivesManager()
+    # objects = ArchivesManager()
 
     title = models.CharField('标题', max_length=100)
     body = models.TextField('正文')

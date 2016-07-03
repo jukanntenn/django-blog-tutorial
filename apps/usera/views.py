@@ -4,7 +4,6 @@ import smtplib
 from email.mime.text import MIMEText
 from django.contrib.auth import login, logout, update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
-from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.views.generic.edit import FormView, UpdateView
 from django.shortcuts import HttpResponseRedirect
@@ -12,7 +11,7 @@ from django.utils import timezone
 
 from apps.usera.models import CommunityUser
 from .forms import SignInForm, SignUpForm, ResetPasswordForm
-from itsdangerous import URLSafeSerializer as utsr
+#from itsdangerous import URLSafeSerializer as utsr
 #from config.settings import SECRET_KEY as security_key
 import base64
 
@@ -21,19 +20,28 @@ import base64
 class SignInView(FormView):
     template_name = 'usera/signin.html'
     form_class = SignInForm
-    success_url = '/'
+
+    # success_url = '/'
 
     def form_valid(self, form):
         user = form.get_user()
+        login(self.request, user)
         # 用户登录时，需要更新他的last_login_time，last_login_ip
         if user.is_active:
-            login(self.request, user)
-            user.last_login = timezone.now()
-            user.last_login_ip = self.request.META.get("REMOTE_ADDR", None)
-            user.save(update_fields=['last_login', 'last_login_ip'])
-        else:
-            pass
+            form.save(self.request, user)
         return super(SignInView, self).form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super(SignInView, self).get_context_data(**kwargs)
+        context['next'] = self.request.GET.get('next')
+        return context
+
+    def get_success_url(self):
+        redirect_to = self.request.POST['next']
+        # from next we got string 'None',not None
+        if redirect_to != 'None':
+            return redirect_to
+        return '/'
 
 # 更安全的加密方法，还没完全弄懂
 # create token used in activate link
@@ -51,6 +59,7 @@ class SignInView(FormView):
 #         return serializer.loads(token, salt=self.salt, max_age=expiration)
 #
 # token_confirm = Token
+
 
 def generate_token(username):
     token = base64.b64encode(username.encode('ascii'))
@@ -94,6 +103,7 @@ def active_user(request, token):
     user.is_active = True
     user.save()
     return HttpResponse(u'用户已经激活')
+
 
 class SignUpView(FormView):
     template_name = 'usera/signup.html'
@@ -141,7 +151,7 @@ class PassWordChangeView(FormView):
 
 def log_out(request):
     logout(request)
-    return HttpResponseRedirect('/')
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 
 class ResetPasswordView(FormView):

@@ -1,4 +1,5 @@
 {% extends 'community_base.html' %}
+{% load like_tags %}
 {% block content %}
     <div class="jumbotron dj-jumbotron">
         <div class="container">
@@ -23,7 +24,7 @@
                     <div class="col-sm-10 clearfix d-list-center">
                         <h3 class="dj-list-dinfo">
                             <a href=""><strong>{{ post.author }}</strong></a> · 发布于&nbsp;
-                            <time>3分钟前</time>
+                            <time>{{ post.created|timesince }}前</time>
                             <!-- <i class="fa fa-fw fa-pencil-square-o"></i><strong>作者</strong> · 发布于&nbsp;<time>3分钟前</time> -->
                         </h3>
                         <div class="d-content">
@@ -33,12 +34,18 @@
                         </div>
                         <div class="d-footer">
                             <div class="pull-right">
-                                <button class="btn btn-info btn-xs">点赞</button>
+                                <form method="post" style="display: inline"
+                                      action="{% url 'likes:like_toggle' post|ctype_id post.pk %}">{% csrf_token %}
+                                    <button class="btn btn-info btn-xs">点赞 {{ post|likes_count }}</button>
+                                </form>
                                 <button class="btn btn-info btn-xs">回复</button>
                             </div>
                             <div class="d-vote-list">
-                                <i class="icon fa fa-fw fa-thumbs-o-up "></i><a href=""><strong>fann0128</strong></a>,
-                                <a href=""><strong>大黄鸭</strong></a>, 和 <a href=""><strong>SHIFT-M</strong></a> 等人赞了它
+                                {% who_likes post as post_like_list %}
+                                <i class="icon fa fa-fw fa-thumbs-o-up "></i>
+                                {% for like in post_like_list %}
+                                    <a href=""><strong>{{ like.trigger_user.username }}</strong></a>,
+                                {% endfor %}{% if post_like_list %}等人赞了它{% endif %}
                             </div>
                         </div>
                     </div>
@@ -57,8 +64,8 @@
                         </div>
                         <div class="col-sm-10 clearfix d-list-center">
                             <h3 class="dj-list-dinfo">
-                                <a href=""><strong>作者名字</strong></a> · 发布于&nbsp;
-                                <time>3分钟前</time>
+                                <a href=""><strong>{{ comment.author.username }}</strong></a> · 发布于&nbsp;
+                                <time>{{ comment.created_time|timesince }}前</time>
                                 <!-- <i class="fa fa-fw fa-pencil-square-o"></i><strong>作者</strong> · 发布于&nbsp;<time>3分钟前</time> -->
                             </h3>
                             <div class="d-content">
@@ -68,13 +75,18 @@
                             </div>
                             <div class="d-footer">
                                 <div class="pull-right">
-                                    <button class="btn btn-info btn-xs">点赞</button>
+                                    <form method="post" style="display: inline"
+                                          action="{% url 'likes:like_toggle' comment|ctype_id comment.pk %}">{% csrf_token %}
+                                        <button class="btn btn-info btn-xs">点赞 {{ comment|likes_count }}</button>
+                                    </form>
                                     <button class="btn btn-info btn-xs">回复</button>
                                 </div>
                                 <div class="d-vote-list">
-                                    <i class="icon fa fa-fw fa-thumbs-o-up "></i><a
-                                        href=""><strong>fann0128</strong></a>,
-                                    <a href=""><strong>大黄鸭</strong></a>, 和 <a href=""><strong>SHIFT-M</strong></a> 等人赞了它
+                                    {% who_likes comment as comment_like_list %}
+                                    <i class="icon fa fa-fw fa-thumbs-o-up "></i>
+                                    {% for like in comment_like_list %}
+                                        <a href=""><strong>{{ like.trigger_user.username }}</strong></a>,
+                                    {% endfor %}{% if comment_like_list %}等人赞了它{% endif %}
                                 </div>
 
                             </div>
@@ -137,41 +149,45 @@
                         <i class="fa fa-fw fa-reply" aria-hidden="true"></i>回复
                     </a>
                 </div>
-                <div class="btn-group btn-block">
-                    <button type="button" class="btn btn-info dj-btn-dleft">
-                        <i class="fa fa-fw fa-star" aria-hidden="true"></i>关注
-                    </button>
-                    <button type="button" class="btn btn-info dropdown-toggle dj-btn-dright" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false">
-                        <span class="caret"></span>
-                        <span class="sr-only">Toggle Dropdown</span>
-                    </button>
-                    <ul class="dropdown-menu dj-fellow-dropdown">
-                        <li>
+                <form action="{% url 'follow:follow_toggle' post|ctype_id post.pk %}" method="post"
+                      style="display: inline">{% csrf_token %}
+                    <div class="btn-group btn-block">
+                        <button type="submit" class="btn btn-info dj-btn-dleft">
+                            <i class="fa fa-fw fa-star" aria-hidden="true"></i>关注
+                        </button>
+
+                        <button type="button" class="btn btn-info dropdown-toggle dj-btn-dright" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu dj-fellow-dropdown">
+                            <li>
                             <span class="dj-fellow-list">
                                 <i class="fa fa-fw fa-star-o dj-icon" aria-hidden="true"></i>
                                 <strong>常规</strong>
                             </span>
-                            <span class="dj-fellow-desc">仅在有人@提到我时提醒我</span>
-                        </li>
-                        <li role="separator" class="divider"></li>
-                        <li>
+                                <span class="dj-fellow-desc">仅在有人@提到我时提醒我</span>
+                            </li>
+                            <li role="separator" class="divider"></li>
+                            <li>
                             <span class="dj-fellow-list">
                                 <i class="fa fa-fw fa-star dj-icon" aria-hidden="true"></i>
                                 <strong>关注</strong>
                             </span>
-                            <span class="dj-fellow-desc">当有人回复此帖子时提醒我</span>
-                        </li>
-                        <li role="separator" class="divider"></li>
-                        <li>
+                                <span class="dj-fellow-desc">当有人回复此帖子时提醒我</span>
+                            </li>
+                            <li role="separator" class="divider"></li>
+                            <li>
                             <span class="dj-fellow-list">
                                 <i class="fa fa-fw fa-eye-slash dj-icon" aria-hidden="true"></i>
                                 <strong>忽视</strong>
                             </span>
-                            <span class="dj-fellow-desc">不接收任何提醒并隐藏此帖子</span>
-                        </li>
-                    </ul>
-                </div>
+                                <span class="dj-fellow-desc">不接收任何提醒并隐藏此帖子</span>
+                            </li>
+                        </ul>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
