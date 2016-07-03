@@ -77,7 +77,7 @@ def active_mail(username, email):
     host = 'smtp.163.com'  # 设置发件服务器地址
     port = 25  # 设置发件服务器端口号。注意，这里有SSL和非SSL两种形式
     sender = 'upczww@163.com'  # 设置发件邮箱，一定要自己注册的邮箱
-    pwd = '15763928103z'  # 设置发件邮箱的密码，等会登陆会用到
+    pwd = '*******'  # 设置发件邮箱的密码，等会登陆会用到
     receiver = email  # 设置邮件接收人
     body = '<h1>Django中国社区用户激活</h1><p>请点击以下链接激活用户</p>'+'http://127.0.0.1:8000/usera/activate/'+token.decode(encoding='UTF-8')# 设置邮件正文，这里是支持HTML的
 
