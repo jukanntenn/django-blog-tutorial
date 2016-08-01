@@ -6,7 +6,7 @@
                 <div class="form-wrapper">
                     <h1 class="page-title">登录</h1>
 
-                    <form action="#" method="post" class="login-form">
+                    <form action="{% url 'login' %}" method="post" class="login-form">
                         {% csrf_token %}
                         <div class="row">
                             <div class="col-md-4 col-md-offset-4">
@@ -25,7 +25,7 @@
                                 </div>
                                 <div class="social-icon">
                                     <a href="{{ weibo }}"><i class="icon-sina-weibo"></i></a>
-{#                                    <a href=""><i class="icon-github"></i></a>#}
+                                    {#                                    <a href=""><i class="icon-github"></i></a>#}
                                 </div>
 
                             </div>
