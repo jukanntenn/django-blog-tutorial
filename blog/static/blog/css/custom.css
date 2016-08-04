@@ -416,6 +416,18 @@ figure {
 
 /* modified #1 */
 
+/* modified #2 tag */
+.widget-tag {
+    margin-right: -20px;
+}
+
+.widget-tag > a {
+    margin: 0 10px 10px 0;
+    display: inline-block;
+}
+
+/* modified #2 tag end */
+
 .widget-category ul {
     padding: 0;
     margin: 0;

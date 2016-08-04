@@ -9,6 +9,7 @@
  * for archive
  *
  * */
+var randomSize = [15, 16, 17, 18, 19, 20, 21, 22];
 $(
     $('.widget-archives .icon').click(function () {
         $(this).next().slideToggle(500);
@@ -37,5 +38,22 @@ $(
             return false
         });
         return false;
+    }),
+
+
+    $.each($('.widget-tag > a'), function () {
+        var size = randomSize[Math.floor(Math.random() * randomSize.length)];
+        $(this).css('font-size', size);
     })
 );
+
+//window.onload = function () {
+//    var widget = document.getElementsByClassName('.widget-tag')[0];
+//
+//    var tags = widget.getElementsByTagName('a');
+//    var randomSize = [15, 17, 19, 21];
+//    for (var i = 0; i < tags.length; i++) {
+//        tags[i].style.fontSize =
+//            randomSize[Math.floor(Math.random() * randomSize.length)]
+//    }
+//};
