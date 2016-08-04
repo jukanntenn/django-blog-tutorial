@@ -1,41 +1,95 @@
-<!DOCTYPE html>
 {% load staticfiles %}
-<html lang="zh-CN">
+<!DOCTYPE html>
+<html>
 <head>
+    <title>Black &amp; White</title>
+
+    <!-- meta -->
     <meta charset="UTF-8">
-    <title>Myblog</title>
-    <link rel="stylesheet" href="{% static 'blog/css/style.css' %}">
-    <link rel="stylesheet" href="{% static 'blog/css/pygments/github.css' %}">
-    <link rel="stylesheet" href="{% static 'lib/css/bootstrap.min.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- css -->
+    <link rel="stylesheet" href="{% static 'blog/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'blog/css/ionicons.min.css' %}">
+    <link rel="stylesheet" href="{% static 'blog/css/pace.css' %}">
+    <link rel="stylesheet" href="{% static 'blog/css/custom.css' %}">
+
+    <!-- js -->
+    <script src="{% static 'blog/js/jquery-2.1.3.min.js' %}"></script>
+    <script src="{% static 'blog/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'blog/js/pace.min.js' %}"></script>
+    <script src="{% static 'blog/js/modernizr.custom.js' %}"></script>
 </head>
+
 <body>
-<div id="header">
-    <div id="header-warp">
-        <a href="{% url 'blog:index' %}" title="第一个博客" id="logo"></a>
-        <ul id="header-nav">
-            <li><a href="{% url 'blog:index' %}">首页</a></li>
-        </ul>
-        <div id="header-right" class="login">
-            <div id="user-info">
-                <span id="dropdown-button">登录</span>
-            </div>
+<div class="container">
+    <header id="site-header">
+        <div class="row">
+            <div class="col-md-4 col-sm-5 col-xs-8">
+                <div class="logo">
+                    <h1><a href="{% url 'blog:index' %}"><b>Black</b> &amp; White</a></h1>
+                </div>
+            </div><!-- col-md-4 -->
+            <div class="col-md-8 col-sm-7 col-xs-4">
+                <nav class="main-nav" role="navigation">
+                    <div class="navbar-header">
+                        <button type="button" id="trigger-overlay" class="navbar-toggle">
+                            <span class="ion-navicon"></span>
+                        </button>
+                    </div>
+
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="cl-effect-11"><a href="index.html" data-hover="Home">首页</a></li>
+                            <li class="cl-effect-11"><a href="full-width.html" data-hover="Blog">博客</a></li>
+                            <li class="cl-effect-11"><a href="about.html" data-hover="About">关于</a></li>
+                            <li class="cl-effect-11"><a href="contact.html" data-hover="Contact">联系我</a></li>
+                        </ul>
+                    </div><!-- /.navbar-collapse -->
+                </nav>
+                <div id="header-search-box">
+                    <a id="search-menu" href="#"><span id="search-icon" class="ion-ios-search-strong"></span></a>
+                    <div id="search-form" class="search-form">
+                        <form role="search" method="get" id="searchform" action="#">
+                            <input type="search" placeholder="Search" required>
+                            <button type="submit"><span class="ion-ios-search-strong"></span></button>
+                        </form>
+                    </div>
+                </div>
+            </div><!-- col-md-8 -->
         </div>
-    </div>
+    </header>
 </div>
+<div class="copyrights">Collect from <a href="http://www.cssmoban.com/">网页模板</a></div>
 
 {% block content %}{% endblock %}
 
-<div id="footer" class="noselect">
-    <ul id="ft-links">
-        <li><a href="" target="_blank">友情链接1</a></li>
-    </ul>
-    <ul id="ft-about-links">
-        <li><a href="" target="_blank">友情链接2</a></li>
-    </ul>
-    <div id="copyright">&copy; djangoBlog</div>
+<footer id="site-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <p class="copyright">&copy; 2014 ThemeWagon.com -More Templates <a href="http://www.cssmoban.com/"
+                                                                                   target="_blank" title="模板之家">模板之家</a>
+                    - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Mobile Menu -->
+<div class="overlay overlay-hugeinc">
+    <button type="button" class="overlay-close"><span class="ion-ios-close-empty"></span></button>
+    <nav>
+        <ul>
+            <li><a href="index.html">首页</a></li>
+            <li><a href="full-width.html">博客</a></li>
+            <li><a href="about.html">关于</a></li>
+            <li><a href="contact.html">联系我</a></li>
+        </ul>
+    </nav>
 </div>
-<script type="text/javascript" src="{% static 'blog/js/jquery.js' %}"></script>
-<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-<script type="text/javascript" src="{% static 'lib/js/bootstrap.min.js' %}"></script>
+
+<script src="{% static 'blog/js/script.js' %}"></script>
+
 </body>
 </html>
