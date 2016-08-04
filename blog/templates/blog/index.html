@@ -17,8 +17,7 @@
                                     <span class="post-date">
                                         <a href="#">
                                             <time class="entry-date"
-                                                  datetime="{{ article.created_time }}">{{ article.created_time }}
-                                            </time>
+                                                  datetime="{{ article.created_time }}">{{ article.created_time|date:'Y年n月j日' }}</time>
                                         </a>
                                     </span>
 

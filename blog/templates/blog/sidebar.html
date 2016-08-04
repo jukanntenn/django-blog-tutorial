@@ -22,13 +22,20 @@
 
     <div class="widget widget-archives">
         <h3 class="widget-title">归档</h3>
+        {% regroup dates by year as dates_by_year %}
         <ul>
-            <li>
-                <a href="#">2014</a>
-            </li>
-            <li>
-                <a href="#">2013</a>
-            </li>
+            {% for mouth in dates_by_year %}
+                <li>
+                    <a href="#"> {{ mouth.grouper }} 年</a><i class="icon ion-minus"></i>
+                    <ul>
+                        {% for d in mouth.list %}
+                            <li><a href="#">{{ d |date:'n' }} 月
+                            </a></li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endfor %}
+
         </ul>
     </div>
 
