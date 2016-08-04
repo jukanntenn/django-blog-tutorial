@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'markdown_deux',
     'blog',
 ]
 
@@ -118,3 +119,15 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES = os.path.join(BASE_DIR, 'blog/static')
+
+# Markdown settings
+MARKDOWN_DEUX_STYLES = {
+    "default": {
+        "extras": {
+            "code-friendly": None,
+            "fenced-code-blocks": None,
+            "codehilite": None,
+        },
+        "safe_mode": "escape",
+    },
+}

@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="{% static 'blog/css/pace.css' %}">
     <link rel="stylesheet" href="{% static 'blog/css/custom.css' %}">
     <link rel="stylesheet" href="{% static 'blog/css/comment.css' %}">
+    <link rel="stylesheet" href="{% static 'blog/css/github.css' %}">
+
 
     <!-- js -->
     <script src="{% static 'blog/js/jquery-2.1.3.min.js' %}"></script>
@@ -41,10 +43,10 @@
 
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav navbar-right">
-                            <li class="cl-effect-11"><a href="{% url 'blog:index' %}" data-hover="Home">首页</a></li>
-                            <li class="cl-effect-11"><a href="full-width.html" data-hover="Blog">博客</a></li>
-                            <li class="cl-effect-11"><a href="about.html" data-hover="About">关于</a></li>
-                            <li class="cl-effect-11"><a href="contact.html" data-hover="Contact">联系我</a></li>
+                            <li class="cl-effect-11"><a href="{% url 'blog:index' %}">首页</a></li>
+                            <li class="cl-effect-11"><a href="full-width.html">博客</a></li>
+                            <li class="cl-effect-11"><a href="about.html">关于</a></li>
+                            <li class="cl-effect-11"><a href="contact.html">联系我</a></li>
                         </ul>
                     </div><!-- /.navbar-collapse -->
                 </nav>
