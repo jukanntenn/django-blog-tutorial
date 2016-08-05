@@ -27,7 +27,8 @@
                                 </div>
                             </header>
                             <div class="entry-content clearfix">
-                                <p>{{ article.abstract }}</p>
+                                {% load markdown_deux_tags %}
+                                <p>{{ article.abstract |markdown | truncatechars_html:'54' }}</p>
                                 <div class="read-more cl-effect-14">
                                     <a href="{% url 'blog:detail' article.pk %}" class="more-link">继续阅读 <span
                                             class="meta-nav">→</span></a>

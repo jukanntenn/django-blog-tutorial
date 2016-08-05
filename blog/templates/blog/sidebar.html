@@ -14,7 +14,7 @@
         <ul>
             {% for category in category_list %}
                 <li>
-                    <a href="{% url 'blog:category' category.pk %}">{{ category.name }}-{{ category.num_articles }}</a>
+                    <a href="{% url 'blog:category' category.pk %}">{{ category.name }}</a><span style="float: right">(&nbsp;&nbsp;{{ category.num_articles }}&nbsp;&nbsp;)</span>
                 </li>
             {% endfor %}
         </ul>
@@ -41,22 +41,9 @@
 
     <div class="widget widget-tag">
         <h3 class="widget-title">标签云</h3>
-        <a href="">Django</a>
-        <a href="">Python</a>
-        <a href="">大数据</a>
-        <a href="">快乐编程</a>
-        <a href="">快乐编程</a>
-        <a href="">快乐编程</a>
-        <a href="">快乐编程</a>
-        <a href="">快乐编程</a>
-        <a href="">快乐编程</a>
-        <a href="">快乐编程</a>
-        <a href="">快乐编快编程</a>
-        <a href="">快</a>
-        <a href="">Python</a>
-        <a href="">dasd</a>
-        <a href="">sdas</a>
-        </ul>
+        {% for tag in tag_list %}
+            <a href="">{{ tag.name }}&nbsp;&nbsp;(&nbsp;&nbsp;{{ tag.num_articles }}&nbsp;&nbsp;)</a>
+        {% endfor %}
     </div>
 
 
