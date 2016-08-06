@@ -127,6 +127,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES = os.path.join(BASE_DIR, 'blog/static')
+STATIC_ROOT = 'static/'
 
 # Markdown settings
 MARKDOWN_DEUX_STYLES = {
