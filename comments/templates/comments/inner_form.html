@@ -1,0 +1,9 @@
+{% load comments %}
+<form method="post" action="{% comment_form_target %}">{% csrf_token %}
+    {% for field in form %}
+        {{ field }}
+    {% endfor %}
+    <input type="hidden" name="next" value="{{ request.path }}"/>
+    <input type="button" value="取消" name="quxiao">
+    <input type="submit" value="评论">
+</form>

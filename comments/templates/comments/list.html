@@ -1,0 +1,28 @@
+{% load static %}
+{% load comments_tags %}
+{% for parent in comment_list %}
+    <div class="comment-panel">
+        <img src="{% static 'blog/img/4040demo.jpg' %}">
+        <a href=""><span>{{ parent.name }}</span></a>
+        <div class="comment-content">
+            {{ parent.comment }}
+        </div>
+
+        <a href=""><i class="icon ion-thumbsup">&nbsp;105</i></a>
+        <a href=""><i class="icon ion-chatbox-working">&nbsp;{{ parent.children.count }}</i></a>
+        <time>{{ parent.submit_date |timesince }}前</time>
+
+        {% for child in parent.children.all %}
+            <div class="inner-panel">
+                <img src="{% static 'blog/img/4040demo.jpg' %}">
+                <span>{{ child.name }}</span> · <span>{{ child.submit_date |timesince }}前</span>
+                <a href="">回复</a>
+                <div class="comment-content">
+                    {{ child.comment }}
+                </div>
+            </div>
+        {% endfor %}
+
+        {% render_inner_comment_form for article with parent.pk %}
+    </div>
+{% endfor %}

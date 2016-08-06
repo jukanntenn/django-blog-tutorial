@@ -19,5 +19,7 @@ from blog import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'', include('blog.urls', namespace='blog', app_name='blog'))
+    url(r'', include('blog.urls', namespace='blog', app_name='blog')),
+    url(r'', include('django_comments.urls')),
+    url(r'', include('django.contrib.auth.urls')),
 ]

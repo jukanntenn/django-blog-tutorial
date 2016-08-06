@@ -22,8 +22,9 @@
                                     </span>
 
                                     <span class="post-author"><a href="#">{{ article.author.username }}</a></span>
-
-                                    <span class="comments-link"><a href="#">{{ article.num_comments }} 评论</a></span>
+                                    {% load comments_tags %}
+                                    {% get_comment_count for article as num_comments %}
+                                    <span class="comments-link"><a href="#">{{ num_comments }} 评论</a></span>
                                 </div>
                             </header>
                             <div class="entry-content clearfix">

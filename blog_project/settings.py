@@ -35,9 +35,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'markdown_deux',
+    'django_comments',
     'blog',
+    'comments',
 ]
+
+SITE_ID = 1
+
+COMMENTS_APP = 'comments'  # for custom django-contrib-comments framework
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
@@ -55,7 +62,7 @@ ROOT_URLCONF = 'blog_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'blog/templates')]
+        'DIRS': [os.path.join(BASE_DIR, 'blog/templates'), os.path.join(BASE_DIR, 'comments/templates')]
         ,
         'APP_DIRS': True,
         'OPTIONS': {

@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 {% load markdown_deux_tags %}
+{% load comments %}
+{% load comments_tags %}
 {% block content %}
     <div class="content-body">
         <div class="container">
@@ -16,14 +18,14 @@
                                 <span class="post-date">
                                     <a href="#">
                                         <time class="entry-date"
-                                              datetime="{{ article.created_time }}">{{ article.created_time }}
+                                              datetime="{{ article.created_time }}">{{ article.created_time|date:'Y年n月j日' }}
                                         </time>
                                     </a>
                                 </span>
 
                                 <span class="post-author"><a href="#">{{ article.author.username }}</a></span>
-
-                                <span class="comments-link"><a href="#">4 评论</a></span>
+                                {% get_comment_count for article as num_comments %}
+                                <span class="comments-link"><a href="#">{{ num_comments }} 评论</a></span>
                             </div>
                         </header>
                         <div class="entry-content clearfix">
@@ -31,150 +33,8 @@
                         </div>
                     </article>
 
-                    <!-- comment -->
-
-                    <form id="comment-form">
-                        <!--<label for="id_comment">评论</label>-->
-                        <textarea id="id_comment"></textarea>
-                        <input type="submit" value="回复">
-                    </form>
-
-                    <div class="comment-panel">
-                        <img src="{% static 'blog/img/4040demo.jpg' %}">
-                        <a href=""><span>追梦人物</span></a>
-                        <div class="comment-content">
-                            <p>
-                                感觉实用性不大，当年discuz的短消息中也有聊天功能，结果也没啥用。感觉实用性不大，当年discuz的短消息中也有聊天功能，结果也没啥用。感觉实用性不大，当年discuz的短消息中也有聊天功能，结果也没啥用。</p>
-                            <p>感觉实用性不大，当年discuz的短消息中也有聊天功能，结果也没啥用。感觉实用性不大，当年discuz的短消息中也有聊天功能，结果也没啥用。</p>
-                        </div>
-
-                        <a href=""><i class="icon ion-thumbsup">&nbsp;105</i></a>
-                        <a href=""><i class="icon ion-chatbox-working">&nbsp;10</i></a>
-                        <time>4天前</time>
-
-                        <div class="inner-panel">
-                            <img src="{% static 'blog/img/4040demo.jpg' %}">
-                            <span>筷子收</span> ·
-                            <span>2天前</span>
-                            <a href="">回复</a>
-
-                            <div class="comment-content">
-                                <p>
-                                    感觉实用性不大，当年discuz的短消息中也有聊天功能，结果也没啥用。感觉实用性不大，当年discuz的短消息中也有聊天功能，结果也没啥用。感觉实用性不大，当年discuz的短消息中也有聊天功能，结果也没啥用。</p>
-                                <p>感觉实用性不大，当年discuz的短消息中也有聊天功能，结果也没啥用。感觉实用性不大，当年discuz的短消息中也有聊天功能，结果也没啥用。</p>
-                            </div>
-                        </div>
-                        <div class="inner-panel">
-                            <img src="{% static 'blog/img/4040demo.jpg' %}">
-                            <span>shabi</span> ·
-                            <span>2天前</span>
-                            <a href="">回复</a>
-
-                            <div class="comment-content">
-                                <p>
-                                    感觉实用性不大，当年discuz的短消息中也有聊天功能，结果也没啥用。感觉实用性不大，当年discuz的短消息中也有聊天功能，结果也没啥用。感觉实用性不大，当年discuz的短消息中也有聊天功能，结果也没啥用。</p>
-                                <p>感觉实用性不大，当年discuz的短消息中也有聊天功能，结果也没啥用。感觉实用性不大，当年discuz的短消息中也有聊天功能，结果也没啥用。</p>
-                            </div>
-                        </div>
-
-                        <form>
-                            <textarea></textarea><br/>
-                            <input type="button" value="取消" name="quxiao">
-                            <input type="submit" value="评论">
-                        </form>
-                    </div>
-
-                    <div class="comment-panel">
-                        <img src="{% static 'blog/img/4040demo.jpg' %}">
-                        <a href=""><span>追梦人物</span></a>
-                        <div class="comment-content">
-                            <p>
-                                感觉实用性不大，当年discuz的短消息中也有聊天功能，结果也没啥用。感觉实用性不大，当年discuz的短消息中也有聊天功能，结果也没啥用。感觉实用性不大，当年discuz的短消息中也有聊天功能，结果也没啥用。</p>
-                            <p>感觉实用性不大，当年discuz的短消息中也有聊天功能，结果也没啥用。感觉实用性不大，当年discuz的短消息中也有聊天功能，结果也没啥用。</p>
-                        </div>
-
-                        <a href=""><i class="icon ion-thumbsup">&nbsp;105</i></a>
-                        <a href=""><i class="icon ion-chatbox-working">&nbsp;10</i></a>
-                        <time>4天前</time>
-
-                        <div class="inner-panel">
-                            <img src="{% static 'blog/img/4040demo.jpg' %}">
-                            <span>筷子收</span> ·
-                            <span>2天前</span>
-                            <a href="">回复</a>
-
-                            <div class="comment-content">
-                                <p>
-                                    感觉实用性不大，当年discuz的短消息中也有聊天功能，结果也没啥用。感觉实用性不大，当年discuz的短消息中也有聊天功能，结果也没啥用。感觉实用性不大，当年discuz的短消息中也有聊天功能，结果也没啥用。</p>
-                                <p>感觉实用性不大，当年discuz的短消息中也有聊天功能，结果也没啥用。感觉实用性不大，当年discuz的短消息中也有聊天功能，结果也没啥用。</p>
-                            </div>
-                        </div>
-                        <div class="inner-panel">
-                            <img src="{% static 'blog/img/4040demo.jpg' %}">
-                            <span>shabi</span> ·
-                            <span>2天前</span>
-                            <a href="">回复</a>
-
-                            <div class="comment-content">
-                                <p>
-                                    感觉实用性不大，当年discuz的短消息中也有聊天功能，结果也没啥用。感觉实用性不大，当年discuz的短消息中也有聊天功能，结果也没啥用。感觉实用性不大，当年discuz的短消息中也有聊天功能，结果也没啥用。</p>
-                                <p>感觉实用性不大，当年discuz的短消息中也有聊天功能，结果也没啥用。感觉实用性不大，当年discuz的短消息中也有聊天功能，结果也没啥用。</p>
-                            </div>
-                        </div>
-
-                        <form>
-                            <textarea></textarea><br/>
-                            <input type="button" value="取消" name="quxiao">
-                            <input type="submit" value="评论">
-                        </form>
-                    </div>
-
-                    <div class="comment-panel">
-                        <img src="{% static 'blog/img/4040demo.jpg' %}">
-                        <a href=""><span>追梦人物</span></a>
-                        <div class="comment-content">
-                            <p>
-                                感觉实用性不大，当年discuz的短消息中也有聊天功能，结果也没啥用。感觉实用性不大，当年discuz的短消息中也有聊天功能，结果也没啥用。感觉实用性不大，当年discuz的短消息中也有聊天功能，结果也没啥用。</p>
-                            <p>感觉实用性不大，当年discuz的短消息中也有聊天功能，结果也没啥用。感觉实用性不大，当年discuz的短消息中也有聊天功能，结果也没啥用。</p>
-                        </div>
-
-                        <a href=""><i class="icon ion-thumbsup">&nbsp;105</i></a>
-                        <a href=""><i class="icon ion-chatbox-working">&nbsp;10</i></a>
-                        <time>4天前</time>
-
-                        <div class="inner-panel">
-                            <img src="{% static 'blog/img/4040demo.jpg' %}">
-                            <span>筷子收</span> ·
-                            <span>2天前</span>
-                            <a href="">回复</a>
-
-                            <div class="comment-content">
-                                <p>
-                                    感觉实用性不大，当年discuz的短消息中也有聊天功能，结果也没啥用。感觉实用性不大，当年discuz的短消息中也有聊天功能，结果也没啥用。感觉实用性不大，当年discuz的短消息中也有聊天功能，结果也没啥用。</p>
-                                <p>感觉实用性不大，当年discuz的短消息中也有聊天功能，结果也没啥用。感觉实用性不大，当年discuz的短消息中也有聊天功能，结果也没啥用。</p>
-                            </div>
-                        </div>
-                        <div class="inner-panel">
-                            <img src="{% static 'blog/img/4040demo.jpg' %}">
-                            <span>shabi</span> ·
-                            <span>2天前</span>
-                            <a href="">回复</a>
-
-                            <div class="comment-content">
-                                <p>
-                                    感觉实用性不大，当年discuz的短消息中也有聊天功能，结果也没啥用。感觉实用性不大，当年discuz的短消息中也有聊天功能，结果也没啥用。感觉实用性不大，当年discuz的短消息中也有聊天功能，结果也没啥用。</p>
-                                <p>感觉实用性不大，当年discuz的短消息中也有聊天功能，结果也没啥用。感觉实用性不大，当年discuz的短消息中也有聊天功能，结果也没啥用。</p>
-                            </div>
-                        </div>
-
-                        <form>
-                            <textarea></textarea><br/>
-                            <input type="button" value="取消">
-                            <input type="submit" value="评论">
-                        </form>
-                    </div>
-
-                    <!-- end comment -->
+                    {% render_comment_form for article %}
+                    {% render_comment_list for article %}
                 </main>
                 {% block aside %}
                     {% include 'blog/sidebar.html' %}
@@ -182,4 +42,7 @@
             </div>
         </div>
     </div>
+
+
+
 {% endblock %}
