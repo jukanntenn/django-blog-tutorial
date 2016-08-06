@@ -187,6 +187,7 @@ figure {
     padding: 0 0 5px 0 !important;
     max-width: 0;
     border-bottom: 1px solid #000;
+    white-space: nowrap; /*add this for no line-break*/
     color: #000;
     content: attr(data-hover);
     -webkit-transition: max-width 0.5s;

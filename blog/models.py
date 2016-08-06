@@ -51,14 +51,3 @@ class Tag(models.Model):
 
     def __str__(self):
         return self.name
-
-
-class ArticleComment(models.Model):
-    body = models.TextField('评论内容')
-    created_time = models.DateTimeField('评论发表时间', auto_now_add=True)
-    article = models.ForeignKey('Article', verbose_name='评论所属文章', related_name='comments', on_delete=models.CASCADE)
-    parent = models.ForeignKey('self', verbose_name='父级评论', related_name='sub_comments', on_delete=models.CASCADE)
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name='评论人', on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.body[:20]

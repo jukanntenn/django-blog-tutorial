@@ -26,7 +26,8 @@
         <ul>
             {% for mouth in dates_by_year %}
                 <li>
-                    <a href="#"> {{ mouth.grouper }} 年</a><i class="icon ion-minus"></i>
+                    <a href="#"> {{ mouth.grouper }} 年</a><i
+                        class="{% if forloop.counter0 == 0 %}icon ion-minus{% else %}icon ion-plus{% endif %}"></i>
                     <ul>
                         {% for d in mouth.list %}
                             <li><a href="#">{{ d |date:'n' }} 月

@@ -6,15 +6,14 @@ from django.views.generic.edit import CreateView, FormView
 
 import markdown2
 
-from .models import Article, ArticleComment, Category, Tag
-from .forms import ArticleCommentForm
+from .models import Article, Category, Tag
 
 
 class IndexView(ListView):
     template_name = "blog/index.html"
 
     def get_queryset(self):
-        return Article.objects.annotate(num_comments=Count('comments'))
+        return Article.objects.filter(status='p')
 
 
 class ArticleDetailView(DetailView):
@@ -27,15 +26,14 @@ class CategoryView(ListView):
     template_name = "blog/index.html"
 
     def get_queryset(self):
-        return Article.objects.filter(category=self.kwargs['category_id'], status='p').annotate(
-                num_comments=Count('comments'))
+        return Article.objects.filter(category=self.kwargs['category_id'], status='p')
 
 
 class TagView(ListView):
     template_name = "blog/index.html"
 
     def get_queryset(self):
-        return Article.objects.filter(tags=self.kwargs['tag_id'], status='p').annotate(num_comments=Count('comments'))
+        return Article.objects.filter(tags=self.kwargs['tag_id'], status='p')
 
 
 class ArchiveView(ListView):
@@ -53,25 +51,3 @@ class ArchiveView(ListView):
     def get_context_data(self, **kwargs):
         kwargs['tag_list'] = Tag.objects.all().order_by('name')
         return super(ArchiveView, self).get_context_data(**kwargs)
-
-
-# 第五周新增
-class CommentPostView(FormView):
-    form_class = ArticleCommentForm
-    template_name = 'blog/detail.html'
-
-    def form_valid(self, form):
-        target_article = get_object_or_404(Article, pk=self.kwargs['article_id'])
-        comment = form.save(commit=False)
-        comment.article = target_article
-        comment.save()
-        self.success_url = target_article.get_absolute_url()
-        return redirect(self.success_url)
-
-    def form_invalid(self, form):
-        target_article = get_object_or_404(Article, pk=self.kwargs['article_id'])
-        return render(self.request, 'blog/detail.html', {
-            'form': form,
-            'article': target_article,
-            'comment_list': target_article.blogcomment_set.all(),
-        })

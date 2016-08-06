@@ -24,7 +24,7 @@ SECRET_KEY = '_lho^m33w-!qkhmqe2n2cwovcouiw(l++%&^(w5x@171pbm7_4'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['zmrenwu.pythonanywhere.com']
 
 # Application definition
 
@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django_comments',
     'blog',
     'comments',
+    'accounts',
 ]
 
 SITE_ID = 1
@@ -138,3 +139,5 @@ MARKDOWN_DEUX_STYLES = {
         "safe_mode": "escape",
     },
 }
+
+AUTH_USER_MODEL = 'accounts.BlogUser'
