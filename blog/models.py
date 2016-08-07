@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import F
 from django.core.urlresolvers import reverse
 from django.conf import settings
 
@@ -33,6 +34,10 @@ class Article(models.Model):
     def save(self, *args, **kwargs):
         self.abstract = self.abstract or self.body[:120]
         super().save(*args, **kwargs)
+
+    def viewed(self):
+        self.views += 1
+        self.save(update_fields=['views'])
 
 
 class Category(models.Model):

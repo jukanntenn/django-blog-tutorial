@@ -12,17 +12,16 @@ from .models import CommentWithParent
 class CommentWithParentForm(CommentForm):
     parent = forms.IntegerField(required=False, widget=forms.HiddenInput)
 
-    def __init__(self, target_object, parent=None, data=None, initial=None):
+    def __init__(self, target_object, parent=None, data=None, initial=None, auto_id=False):
         self.parent = parent
 
         if initial is None:
             initial = {}
         initial.update({'parent': self.parent})
-        super(CommentWithParentForm, self).__init__(target_object, data=data, initial=initial)
+        super(CommentWithParentForm, self).__init__(target_object, data=data, initial=initial, auto_id=auto_id)
         del self.fields['name']
         del self.fields['email']
         del self.fields['url']
-        del self.fields['honeypot']
 
     def get_comment_model(self):
         return CommentWithParent

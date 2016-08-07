@@ -21,6 +21,11 @@ class ArticleDetailView(DetailView):
     template_name = "blog/detail.html"
     pk_url_kwarg = 'article_id'
 
+    def get_object(self, queryset=None):
+        obj = super(ArticleDetailView, self).get_object(queryset=None)
+        obj.viewed()
+        return obj
+
 
 class CategoryView(ListView):
     template_name = "blog/index.html"

@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'markdown_deux',
     'django_comments',
+    'notifications',
+    'likes',
     'blog',
     'comments',
     'accounts',
@@ -63,7 +65,8 @@ ROOT_URLCONF = 'blog_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'blog/templates'), os.path.join(BASE_DIR, 'comments/templates')]
+        'DIRS': [os.path.join(BASE_DIR, 'templates'), os.path.join(BASE_DIR, 'blog/templates'),
+                 os.path.join(BASE_DIR, 'comments/templates')]
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -142,3 +145,15 @@ MARKDOWN_DEUX_STYLES = {
 }
 
 AUTH_USER_MODEL = 'accounts.BlogUser'
+
+# pinax likes
+PINAX_LIKES_LIKABLE_MODELS = {
+    "blog.Article": {},
+    "comments.CommentWithParent": {},  # can override default config settings for each model here
+}
+
+AUTHENTICATION_BACKENDS = [
+    'likes.auth_backends.CanLikeBackend',
+]
+
+LOGIN_URL = '/login/'

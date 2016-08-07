@@ -20,6 +20,9 @@ from blog import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'', include('blog.urls', namespace='blog', app_name='blog')),
+    url(r'', include('comments.urls')),
     url(r'', include('django_comments.urls')),
     url(r'', include('django.contrib.auth.urls')),
+    url('^notifications/', include('notifications.urls', namespace='notifications')),
+    url(r'^likes/', include('likes.urls', namespace='pinax_likes')),
 ]

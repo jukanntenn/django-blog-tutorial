@@ -26,6 +26,7 @@
                                 <span class="post-author"><a href="#">{{ article.author.username }}</a></span>
                                 {% get_comment_count for article as num_comments %}
                                 <span class="comments-link"><a href="#">{{ num_comments }} 评论</a></span>
+                                <span class="post-views"><a href="#">{{ article.views }} 阅读</a></span>
                             </div>
                         </header>
                         <div class="entry-content clearfix">
@@ -37,7 +38,7 @@
                     {% else %}
                         <div>登录后评论</div>
                     {% endif %}
-                    {% render_comment_form for article %}
+
                     {% render_comment_list for article %}
                 </main>
                 {% block aside %}

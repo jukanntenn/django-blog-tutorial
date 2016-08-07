@@ -1,5 +1,6 @@
 {% load static %}
 {% load comments_tags %}
+{% load pinax_likes_tags %}
 {% for parent in comment_list %}
     <div class="comment-panel">
         <img src="{% static 'blog/img/4040demo.jpg' %}">
@@ -8,7 +9,8 @@
             {{ parent.comment }}
         </div>
 
-        <a href=""><i class="icon ion-thumbsup">&nbsp;105</i></a>
+        {#        <a href=""><i class="icon ion-thumbsup">&nbsp;105</i></a>#}
+        {% likes_widget user parent %}
         <a href=""><i class="icon ion-chatbox-working">&nbsp;{{ parent.children.count }}</i></a>
         <time>{{ parent.submit_date |timesince }}前</time>
 

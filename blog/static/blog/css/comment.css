@@ -73,7 +73,9 @@
     display: none;
 }
 
-
+input[name='honeypot'] {
+    display: none;
+}
 
 .comment-panel textarea {
     height: 32px;
