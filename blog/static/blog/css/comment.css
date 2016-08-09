@@ -73,6 +73,23 @@
     display: none;
 }
 
+.comment-panel .like-form {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+}
+
+.comment-panel .like-form button {
+    background: none;
+    border: none;
+    margin-right: 10px;
+    font-size: 16px;
+}
+
+.comment-panel .like-form button i {
+    margin: 0;
+}
+
 input[name='honeypot'] {
     display: none;
 }

@@ -1,4 +1,5 @@
-<form method="post" action="{{ like_url }}">
+{% load pinax_likes_tags %}
+<form class="like-form" method="post" action="{{ like_url }}">
     {% csrf_token %}
-    <input type="submit" value="赞">
+    <button type="submit"><i class="icon ion-thumbsup" onClick="form.submit()"></i> {{ object|likes_count }}</button>
 </form>

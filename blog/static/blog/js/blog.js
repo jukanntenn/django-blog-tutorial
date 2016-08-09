@@ -25,7 +25,7 @@ $(
     }),
 
     $('.comment-panel .ion-chatbox-working').click(function () {
-        $(this).parent().siblings('.inner-panel , form').slideToggle(400);
+        $(this).parent().siblings('.inner-panel , .comment-form').slideToggle(400);
         $(this).parent().siblings(':last').children(':button').click(function () {
             $(this).parent().parent().children('.inner-panel , form').slideUp(400);
         });

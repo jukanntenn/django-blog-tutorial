@@ -39,10 +39,12 @@ INSTALLED_APPS = [
     'markdown_deux',
     'django_comments',
     'notifications',
+    'haystack',
     'likes',
     'blog',
     'comments',
     'accounts',
+    'social_login',
 ]
 
 SITE_ID = 1
@@ -76,6 +78,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'blog.context_processors.sidebar',  # for sidebar information
+                'social_login.context_processors.social_sites',  # for social login
             ],
         },
     },
@@ -157,3 +160,28 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 LOGIN_URL = '/login/'
+
+MEDIA_ROOT = 'media/'
+MEDIA_URL = '/media/'
+
+# social user settings
+SOCIALOAUTH_SITES = (
+    ('weibo', 'socialoauth.sites.weibo.Weibo', '新浪微博',
+     {
+         'redirect_uri': 'http://zmrenwu.pythonanywhere.com',
+         'client_id': '3072222160',
+         'client_secret': '9b06ed28d7598a91ee72bc38e4f067b2',
+     }
+     ),
+)
+SOCIAL_LOGIN_ERROR_REDIRECT_URL = 'errors/'
+
+# haystack
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'whoosh_cn_backend.WhooshEngine',
+        'PATH': os.path.join(BASE_DIR, 'whoosh_index'),
+    },
+}
+# 自动更新索引
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'

@@ -23,6 +23,8 @@ urlpatterns = [
     url(r'', include('comments.urls')),
     url(r'', include('django_comments.urls')),
     url(r'', include('django.contrib.auth.urls')),
+    url(r'^search/', include('haystack.urls')),
     url('^notifications/', include('notifications.urls', namespace='notifications')),
     url(r'^likes/', include('likes.urls', namespace='pinax_likes')),
+    url(r'', include('social_login.urls', namespace='social_login')),
 ]

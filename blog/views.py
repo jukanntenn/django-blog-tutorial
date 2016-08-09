@@ -13,6 +13,7 @@ class IndexView(ListView):
     template_name = "blog/index.html"
 
     def get_queryset(self):
+        print(self.request.session.items())
         return Article.objects.filter(status='p')
 
 

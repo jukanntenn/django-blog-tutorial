@@ -18,15 +18,14 @@ class Weibo(OAuth2):
         return data
 
     def parse_token_response(self, res):
-        # weibo does not return uid now , instead , got uid from "account/get_uid"
-        # self.uid = res['uid']
+        self.uid = res['uid']
         self.access_token = res['access_token']
         self.expires_in = res['expires_in']
         self.refresh_token = None
 
         res = self.api_call_get(
                 'https://api.weibo.com/2/users/show.json',
-                access_token=self.access_token
+                uid=self.uid
         )
 
         self.name = res['name']

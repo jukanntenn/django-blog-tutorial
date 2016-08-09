@@ -33,11 +33,9 @@
                             {{ article.body|markdown }}
                         </div>
                     </article>
-                    {% if user.is_authenticated %}
-                        {% render_comment_form for article %}
-                    {% else %}
-                        <div>登录后评论</div>
-                    {% endif %}
+
+                    {% render_comment_form for article %}
+
 
                     {% render_comment_list for article %}
                 </main>

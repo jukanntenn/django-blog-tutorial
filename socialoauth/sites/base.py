@@ -24,8 +24,8 @@ from socialoauth import SocialSites
 HTTP_TIMEOUT = 10
 
 socialsites = SocialSites()
-if not socialsites._configed:
-    raise SocialSitesConfigError("SocialSites not configed yet, Do it first!")
+# if not socialsites._configed:
+#     raise SocialSitesConfigError("SocialSites not configed yet, Do it first!")
 
 
 def _http_error_handler(func):
@@ -97,18 +97,20 @@ class OAuth2(object):
 
     @_http_error_handler
     def http_get(self, url, data, parse=True):
-        req = Request('%s?%s' % (url, urlencode(data)))
+        data = urlencode(data)
+        req = Request('%s?%s' % (url, data))
         self.http_add_header(req)
-        res = urlopen(req, timeout=HTTP_TIMEOUT).read()
+        res = urlopen(req, timeout=HTTP_TIMEOUT).read().decode('utf-8')
         if parse:
             return json.loads(res)
         return res
 
     @_http_error_handler
     def http_post(self, url, data, parse=True):
-        req = Request(url, data=urlencode(data))
+        data = urlencode(data).encode('utf-8')
+        req = Request(url, data=data)
         self.http_add_header(req)
-        res = urlopen(req, timeout=HTTP_TIMEOUT).read()
+        res = urlopen(req, timeout=HTTP_TIMEOUT).read().decode('utf-8')
         if parse:
             return json.loads(res)
         return res
@@ -161,6 +163,7 @@ class OAuth2(object):
 
         if method == 'POST':
             res = self.http_post(self.ACCESS_TOKEN_URL, data, parse=parse)
+            print(res)
         else:
             res = self.http_get(self.ACCESS_TOKEN_URL, data, parse=parse)
 
