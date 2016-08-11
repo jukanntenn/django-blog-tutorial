@@ -3,8 +3,10 @@
 {% load pinax_likes_tags %}
 {% for parent in comment_list %}
     <div class="comment-panel">
-        <img src="{% static 'blog/img/4040demo.jpg' %}">
-        <a href=""><span>{{ parent.name }}</span></a>
+        <img src="
+
+                {% if parent.user.social_user %}{{ parent.user.mugshot }}{% else %}{{ parent.user.mugshot.url }}{% endif %}">
+        <a href=""><span>{{ parent.user.nickname }}</span></a>
         <div class="comment-content">
             {{ parent.comment }}
         </div>
@@ -16,8 +18,9 @@
 
         {% for child in parent.children.all %}
             <div class="inner-panel">
-                <img src="{% static 'blog/img/4040demo.jpg' %}">
-                <span>{{ child.name }}</span> · <span>{{ child.submit_date |timesince }}前</span>
+                <img src="
+                        {% if child.user.social_user %}{{ child.user.mugshot }}{% else %}{{ child.user.mugshot.url }}{% endif %}">
+                <span>{{ child.user.nickname }}</span> · <span>{{ child.submit_date |timesince }}前</span>
                 <a href="">回复</a>
                 <div class="comment-content">
                     {{ child.comment }}

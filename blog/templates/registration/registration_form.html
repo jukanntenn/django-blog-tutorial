@@ -11,8 +11,10 @@
                         {% csrf_token %}
                         <div class="row">
                             <div class="col-md-4 col-md-offset-4">
+                                {{ form.non_field_errors }}
                                 {% for field in form %}
                                     {{ field }}
+                                    {{ field.errors }}
                                 {% endfor %}
                                 <span class="login-text">已有账号？<a href="{% url 'login' %}">立即登录</a></span>
 

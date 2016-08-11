@@ -16,16 +16,23 @@ socialsites.config(SOCIALOAUTH_SITES)
 # `social_sites` is a lazy object, it readly called just access the `social_sites`
 
 
+# def social_sites(request):
+#     def _social_sites():
+#         def make_site(s):
+#             s = import_oauth_class(s)()
+#             return {
+#                 'site_name': s.site_name,
+#                 'site_name_zh': s.site_name_zh,
+#                 'authorize_url': s.authorize_url,
+#             }
+#
+#         return [make_site(s) for s in socialsites.list_sites()]
+#
+#     return {'social_sites': LazyList(_social_sites)}
+
 def social_sites(request):
-    def _social_sites():
-        def make_site(s):
-            s = import_oauth_class(s)()
-            return {
-                'site_name': s.site_name,
-                'site_name_zh': s.site_name_zh,
-                'authorize_url': s.authorize_url,
-            }
+    def make_site(s):
+        s = import_oauth_class(s)()
+        return s.authorize_url
 
-        return [make_site(s) for s in socialsites.list_sites()]
-
-    return {'social_sites': LazyList(_social_sites)}
+    return {s.split('.')[-2]: make_site(s) for s in socialsites.list_sites_class()}
