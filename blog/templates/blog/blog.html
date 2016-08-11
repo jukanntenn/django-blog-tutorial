@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="content-body">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-12">
+                    {% for article in article_list %}
+                        <article class="post post-{{ article.pk }}">
+                            <header class="entry-header">
+                                <h1 class="entry-title">
+                                    <a href="{% url 'blog:detail' article.pk %}">{{ article.title }}</a>
+                                </h1>
+                                <div class="entry-meta">
+                                    <span class="post-category"><a
+                                            href="{% url 'blog:category' article.category.pk %}">{{ article.category.name }}</a></span>
+
+                                    <span class="post-date">
+                                        <a href="#">
+                                            <time class="entry-date"
+                                                  datetime="{{ article.created_time }}">{{ article.created_time|date:'Y年n月j日' }}</time>
+                                        </a>
+                                    </span>
+
+                                    <span class="post-author"><a href="#">{{ article.author.username }}</a></span>
+                                    {% load comments_tags %}
+                                    {% get_comment_count for article as num_comments %}
+
+                                    <span class="comments-link"><a href="#">{{ num_comments }} 评论</a></span>
+                                    <span class="post-views"><a href="#">{{ article.views }} 阅读</a></span>
+                                </div>
+                            </header>
+                            <div class="entry-content clearfix">
+                                {% load markdown_deux_tags %}
+                                <p>{{ article.abstract |markdown | truncatechars_html:'54' }}</p>
+                                <div class="read-more cl-effect-14">
+                                    <a href="{% url 'blog:detail' article.pk %}" class="more-link">继续阅读 <span
+                                            class="meta-nav">→</span></a>
+                                </div>
+                            </div>
+                        </article>
+                    {% endfor %}
+                </main>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

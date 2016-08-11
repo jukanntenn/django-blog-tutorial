@@ -38,6 +38,7 @@
                                     <p>{% highlight result.object.body with query %}</p>
                                 </div>
                             </article>
+                        {% empty %}
                             <p>没有搜到任何结果！</p>
                         {% endfor %}
                     {% endif %}

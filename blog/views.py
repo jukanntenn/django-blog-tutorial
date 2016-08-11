@@ -3,6 +3,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, FormView
+from django.views.generic.dates import YearArchiveView, MonthArchiveView
+from django.views.generic import TemplateView
 
 import markdown2
 
@@ -13,8 +15,22 @@ class IndexView(ListView):
     template_name = "blog/index.html"
 
     def get_queryset(self):
-        print(self.request.session.items())
         return Article.objects.filter(status='p')
+
+
+class BlogView(ListView):
+    template_name = "blog/blog.html"
+
+    def get_queryset(self):
+        return Article.objects.filter(status='p')
+
+
+class AboutView(TemplateView):
+    template_name = 'blog/about.html'
+
+
+class ContactView(TemplateView):
+    template_name = 'blog/contact.html'
 
 
 class ArticleDetailView(DetailView):
@@ -42,18 +58,17 @@ class TagView(ListView):
         return Article.objects.filter(tags=self.kwargs['tag_id'], status='p')
 
 
-class ArchiveView(ListView):
-    template_name = "blog/index.html"
-    context_object_name = "article_list"
+class ArticleYearArchiveView(YearArchiveView):
+    queryset = Article.objects.all()
+    date_field = "created_time"
+    make_object_list = True
+    context_object_name = 'article_list'
+    template_name = 'blog/index.html'
 
-    def get_queryset(self):
-        year = int(self.kwargs['year'])
-        month = int(self.kwargs['month'])
-        article_list = Article.objects.filter(created_time__year=year, created_time__month=month)
-        for article in article_list:
-            article.body = markdown2.markdown(article.body, extras=['fenced-code-blocks'], )
-        return article_list
 
-    def get_context_data(self, **kwargs):
-        kwargs['tag_list'] = Tag.objects.all().order_by('name')
-        return super(ArchiveView, self).get_context_data(**kwargs)
+class ArticleMonthArchiveView(MonthArchiveView):
+    queryset = Article.objects.all()
+    date_field = "created_time"
+    context_object_name = 'article_list'
+    template_name = 'blog/index.html'
+    month_format = '%m'

@@ -26,12 +26,14 @@
         <ul>
             {% for mouth in dates_by_year %}
                 <li>
-                    <a href="#"> {{ mouth.grouper }} 年</a><i
+                    <a href="{% url 'blog:archive_year' mouth.grouper %}"> {{ mouth.grouper }} 年</a><i
                         class="{% if forloop.counter0 == 0 %}icon ion-minus{% else %}icon ion-plus{% endif %}"></i>
                     <ul>
                         {% for d in mouth.list %}
-                            <li><a href="#">{{ d |date:'n' }} 月
-                            </a></li>
+                            <li>
+                                <a href="{% url 'blog:archive_month_numeric' mouth.grouper d|date:'m' %}">{{ d |date:'n' }}
+                                    月
+                                </a></li>
                         {% endfor %}
                     </ul>
                 </li>
@@ -43,7 +45,7 @@
     <div class="widget widget-tag">
         <h3 class="widget-title">标签云</h3>
         {% for tag in tag_list %}
-            <a href="">{{ tag.name }}&nbsp;&nbsp;(&nbsp;&nbsp;{{ tag.num_articles }}&nbsp;&nbsp;)</a>
+            <a href="{% url 'blog:tag' tag.pk %}">{{ tag.name }}&nbsp;&nbsp;(&nbsp;&nbsp;{{ tag.num_articles }}&nbsp;&nbsp;)</a>
         {% endfor %}
     </div>
 

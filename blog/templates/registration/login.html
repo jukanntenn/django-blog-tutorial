@@ -10,8 +10,10 @@
                         {% csrf_token %}
                         <div class="row">
                             <div class="col-md-4 col-md-offset-4">
+                                {{ form.non_field_errors }}
                                 {% for field in form %}
                                     {{ field }}
+                                    {{ field.errors }}
                                 {% endfor %}
                                 <span class="login-text"><a href="{% url 'password_reset' %}">忘记密码？</a></span>
                                 <span class="login-text">还没有账号？<a
