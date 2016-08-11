@@ -33,7 +33,9 @@
                             {{ article.body|markdown }}
                         </div>
                     </article>
-
+                    {% if user.is_anonymous %}
+                        <div class="login-reminder">您尚未登录，请在 <a href="{% url 'login' %}">登录</a> 后评论：</div>
+                    {% endif %}
                     {% render_comment_form for article %}
 
 

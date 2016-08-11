@@ -30,6 +30,7 @@ ALLOWED_HOSTS = ['zmrenwu.pythonanywhere.com']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
+    'registration',  # should be immediately above 'django.contrib.auth'
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -185,3 +186,17 @@ HAYSTACK_CONNECTIONS = {
 }
 # 自动更新索引
 HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
+
+# registration
+ACCOUNT_ACTIVATION_DAYS = 7
+REGISTRATION_AUTO_LOGIN = True
+
+# Email settings
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.163.com'
+EMAIL_PORT = 25
+EMAIL_HOST_USER = 'zmrenwu@163.com'  # add your own accounts for local test
+EMAIL_HOST_PASSWORD = 'yxg19940330'
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

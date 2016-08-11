@@ -1,3 +1,7 @@
+.highlighted {
+    color: red;
+}
+
 #comment-form {
     margin: 50px 0 60px 0;
     padding: 0 30px;
@@ -116,4 +120,14 @@ input[name='honeypot'] {
     color: #fff;
     float: right;
     margin-left: 10px;
+}
+
+.login-reminder {
+    padding-left: 30px;
+    margin-bottom: -40px;
+    margin-top: 20px;
+}
+
+.login-reminder a {
+    color: deepskyblue;
 }

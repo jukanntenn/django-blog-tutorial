@@ -1,15 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <main class="col-md-12">
+                <div class="form-wrapper">
+                    <h1 class="page-title">登录</h1>
 
-<body>
-<form method="post" action={% url 'login' %}>{% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="评论">
-</form>
+                    <form action="#" method="post" class="login-form">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-4 col-md-offset-4">
+                                {% for field in form %}
+                                    {{ field }}
+                                {% endfor %}
+                                <span class="login-text"><a href="{% url 'password_reset' %}">忘记密码？</a></span>
+                                <span class="login-text">还没有账号？<a
+                                        href="{% url 'registration_register' %}">立即注册</a></span>
+                                <button class="login-btn">登录</button>
+                                <div class="social-login">
+                                    <hr>
+                                    <span class="social-text">社交账号登录</span>
+                                </div>
+                                <div class="social-icon">
+                                    <a href=""><i class="icon-sina-weibo"></i></a>
+                                    <a href=""><i class="icon-github"></i></a>
+                                </div>
 
-</body>
-</html>
+                            </div>
+                        </div>
+                        <!-- row -->
+                    </form>
+                </div>
+            </main>
+        </div>
+    </div>
+{% endblock %}
