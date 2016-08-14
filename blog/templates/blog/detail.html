@@ -8,7 +8,7 @@
         <div class="container">
             <div class="row">
                 <main class="col-md-8">
-                    <article class="post post-1">
+                    <article class="post post-1 typo">
                         <header class="entry-header">
                             <h1 class="entry-title">{{ article.title }}</h1>
                             <div class="entry-meta">
@@ -30,7 +30,7 @@
                             </div>
                         </header>
                         <div class="entry-content clearfix">
-                            {{ article.body|markdown }}
+                            {{ article.body }}
                         </div>
                     </article>
                     {% if user.is_anonymous %}

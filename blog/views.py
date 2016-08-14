@@ -5,6 +5,7 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, FormView
 from django.views.generic.dates import YearArchiveView, MonthArchiveView
 from django.views.generic import TemplateView
+from django.utils.safestring import mark_safe
 
 import markdown2
 
@@ -40,6 +41,8 @@ class ArticleDetailView(DetailView):
 
     def get_object(self, queryset=None):
         obj = super(ArticleDetailView, self).get_object(queryset=None)
+        obj.body = mark_safe(markdown2.markdown(obj.body, extras=['fenced-code-blocks', 'code-friendly', 'codehilite']))
+        # BUG:必须在这里渲染，如果在模板中通过模板标签渲染则格式会乱掉
         obj.viewed()
         return obj
 
