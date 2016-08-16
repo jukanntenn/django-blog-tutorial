@@ -238,14 +238,16 @@ figure {
 
 .post-category,
 .post-date,
-.post-author {
+.post-author,
+.comments-link {
     position: relative;
     padding-right: 15px;
 }
 
 .post-category::after,
 .post-date::after,
-.post-author::after {
+.post-author::after,
+.comments-link::after {
     position: absolute;
     content: '.';
     color: #000;
@@ -835,4 +837,76 @@ figure {
     .overlay ul li {
         min-height: 34px;
     }
+}
+
+/**
+ * 11.0 - login form
+ */
+.form-wrapper {
+    margin-top: 100px;
+}
+
+.form-wrapper h1 {
+    margin-bottom: 20px;
+}
+
+.login-form input, .register-form input {
+    border: 1px solid #aaa;
+    margin-bottom: 25px;
+    width: 100%;
+    padding: 15px 15px;
+    font-size: 16px;
+    line-height: 100%;
+    transition: 0.4s border-color linear;
+}
+
+.login-form input:focus, .register-form input:focus,
+.login-form textarea:focus {
+    border-color: #666;
+}
+
+.login-form .login-text, .register-form .login-text {
+    display: block;
+    text-align: right;
+    margin-bottom: 10px;
+}
+
+.login-form .login-btn, .register-form .register-btn {
+    display: block;
+    width: 100%;
+    border: 1px solid #aaa;
+    background-color: #FFFFFF;
+    padding: 10px 0;
+    font-size: 16px;
+}
+
+.social-login {
+    position: relative;
+    margin-top: 30px;
+    font-size: 15px;
+}
+
+.social-login hr {
+    margin-bottom: 15px;
+}
+
+.social-text {
+    text-align: center;
+    position: absolute;
+    display: block;
+    width: 120px;
+    padding: 0 10px;
+    top: -11px;
+    left: 50%;
+    margin-left: -60px;
+    background-color: #FFFFFF;
+}
+
+.social-icon {
+    text-align: center;
+}
+
+.social-icon i {
+    margin: 0 4px;
+    font-size: 16px;
 }
