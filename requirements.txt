@@ -6,6 +6,7 @@ django-markdown-deux==1.0.5
 django-model-utils==2.5.2
 django-notifications-hq==1.2
 django-registration-redux==1.4
+gunicorn==19.6.0
 jieba==0.38
 jsonfield==1.0.3
 markdown2==2.3.1
