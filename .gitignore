@@ -90,6 +90,11 @@ ENV/
 # Rope project settings
 .ropeproject
 
-*.sqlite3
+database/
+static/
+media/
 .idea
 whoosh_index
+
+migrations/
+!migrations/__init__.py
