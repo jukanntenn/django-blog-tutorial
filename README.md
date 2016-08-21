@@ -5,7 +5,7 @@
 >
 > dev 分支为我的个人博客的分支，实现了诸多更为高级的特性，并会持续完善和改进以及添加新的功能。具体特性请参考下方说明。
 
-**演示地址**：[yangxg.top](yangxg.top)
+**演示地址**：http://yangxg.top/
 
 **Features**
 - 博客文章 markdown 渲染
