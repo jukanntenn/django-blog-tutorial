@@ -2,6 +2,7 @@ from fabric.contrib.files import append, exists, sed
 from fabric.api import env, run, local
 import random
 
+env.port = 26801
 REPO_URL = 'https://github.com/djangoStudyTeam/DjangoBlog.git'
 
 
@@ -57,7 +58,7 @@ def _update_database(source_folder):
 
 def _update_settings(source_folder, site_name):
     setting_path = source_folder + '/weblog/config/settings.py'
-    sed(setting_path, "DEBUG = True", "DEBUG = False")
+    # sed(setting_path, "DEBUG = True", "DEBUG = False")
     sed(
         setting_path,
         'ALLOWED_HOSTS =.+$',
