@@ -236,6 +236,10 @@ figure {
     color: #000;
 }
 
+.entry-content img {
+    max-width: 100%;
+}
+
 .post-category,
 .post-date,
 .post-author,
