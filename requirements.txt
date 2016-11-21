@@ -13,3 +13,4 @@ Pillow==3.2.0
 Pygments==2.1.3
 pytz==2016.4
 Whoosh==2.7.4
+uwsgi==2.0.14
