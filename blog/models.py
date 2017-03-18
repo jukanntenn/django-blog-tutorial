@@ -1,7 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.six import python_2_unicode_compatible
 
 
+@python_2_unicode_compatible
 class Category(models.Model):
     """
     django 要求我们必须继承 models.Model 类，
@@ -20,7 +22,12 @@ class Category(models.Model):
     """
     name = models.CharField(max_length=100)
 
+    def __str__(self):
+        # python_2_unicode_compatible 装饰器用于兼容 Python2
+        return self.name
 
+
+@python_2_unicode_compatible
 class Tag(models.Model):
     """
     标签 Tag 也比较简单，
@@ -29,7 +36,12 @@ class Tag(models.Model):
     """
     name = models.CharField(max_length=100)
 
+    def __str__(self):
+        # python_2_unicode_compatible 装饰器用于兼容 Python2
+        return self.name
 
+
+@python_2_unicode_compatible
 class Post(models.Model):
     """
     文章的数据库表稍微复杂一点，主要是涉及的字段更多。
@@ -88,3 +100,7 @@ class Post(models.Model):
     # 因此这是一对多的关系，
     # 和 Category 类似。
     author = models.ForeignKey(User)
+
+    def __str__(self):
+        # python_2_unicode_compatible 装饰器用于兼容 Python2
+        return self.title
