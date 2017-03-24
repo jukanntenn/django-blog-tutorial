@@ -16,7 +16,7 @@
             </div>
         </header>
         <div class="entry-content clearfix">
-            {{ post.body }}
+            {{ post.body|safe }}
         </div>
     </article>
 {% endblock main %}
