@@ -200,7 +200,7 @@ figure {
 	padding-bottom: 4em;
 }
 
-.post {
+.post, .comment-area {
 	background: #fff;
 	padding: 30px 30px 0;
 }
@@ -647,7 +647,7 @@ figure {
  * 10.0 - Contact Form
  */
 
-.contact-form input {
+.contact-form input, .comment-form input {
 	border: 1px solid #aaa;
 	margin-bottom: 15px;
 	width: 100%;
@@ -657,7 +657,7 @@ figure {
 	transition: 0.4s border-color linear;
 }
 
-.contact-form textarea {
+.contact-form textarea, .comment-form textarea {
 	border: 1px solid #aaa;
 	margin-bottom: 15px;
 	width: 100%;
@@ -668,8 +668,8 @@ figure {
 	transition: 0.4s border-color linear;
 }
 
-.contact-form input:focus,
-.contact-form textarea:focus {
+.contact-form input:focus, .comment-form input:focus,
+.contact-form textarea:focus, .comment-form textarea:focus {
 	border-color: #666;
 }
 
@@ -799,3 +799,30 @@ figure {
 		min-height: 34px;
 	}
 }
+
+/* Comment list */
+.comment-list {
+    margin-top: 30px;
+    font-size: 16px;
+}
+
+.comment-item {
+    border-bottom: 1px #ccc solid;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+}
+
+.comment-item .name,
+.comment-item .date {
+    color: #444;
+    font-size: 14px;
+}
+
+.comment-item .name:after {
+    content: '·';
+}
+
+.comment-item .text {
+    padding-top: 5px;
+}
+
