@@ -1,18 +1,16 @@
 {% extends 'base.html' %}
 
 {% block main %}
-    <article class="post post-1">
+    <article class="post post-{{ post.pk }}">
         <header class="entry-header">
             <h1 class="entry-title">{{ post.title }}</h1>
             <div class="entry-meta">
-                <span class="post-category"><a href="#">{{ post.category.name }} </a></span>
-                <span class="post-date">
-                    <a href="#">
-                    <time class="entry-date" datetime="{{ post.created_time }}">{{ post.created_time }}</time>
-                    </a>
-                </span>
-                <span class="post-author"><a href="#">{{ post.author }} </a></span>
-                <span class="comments-link"><a href="#">4 Comments</a></span>
+                <span class="post-category"><a href="#">{{ post.category.name }}</a></span>
+                <span class="post-date"><a href="#"><time class="entry-date"
+                                                          datetime="{{ post.created_time }}">{{ post.created_time }}</time></a></span>
+                <span class="post-author"><a href="#">{{ post.author }}</a></span>
+                <span class="comments-link"><a href="#">4 评论</a></span>
+                <span class="views-count"><a href="#">588 阅读</a></span>
             </div>
         </header>
         <div class="entry-content clearfix">
@@ -20,39 +18,41 @@
         </div>
     </article>
     <section class="comment-area">
-        <h2>留下你的评论</h2>
+        <hr>
+        <h3>发表评论</h3>
         <form action="{% url 'comments:post_comment' post.pk %}" method="post" class="comment-form">
             {% csrf_token %}
             <div class="row">
                 <div class="col-md-4">
-                    <label for="{{ form.name.id_for_label }}">Name:</label>
+                    <label for="{{ form.name.id_for_label }}">名字：</label>
                     {{ form.name }}
                     {{ form.name.errors }}
                 </div>
                 <div class="col-md-4">
-                    <label for="{{ form.email.id_for_label }}">Email:</label>
+                    <label for="{{ form.email.id_for_label }}">邮箱：</label>
                     {{ form.email }}
                     {{ form.email.errors }}
                 </div>
                 <div class="col-md-4">
-                    <label for="{{ form.url.id_for_label }}">Url:</label>
+                    <label for="{{ form.url.id_for_label }}">URL：</label>
                     {{ form.url }}
                     {{ form.url.errors }}
                 </div>
                 <div class="col-md-12">
-                    <label for="{{ form.text.id_for_label }}">Comment:</label>
+                    <label for="{{ form.text.id_for_label }}">评论：</label>
                     {{ form.text }}
                     {{ form.text.errors }}
-                    <button type="submit"><span>发表</span></button>
+                    <button type="submit" class="comment-btn">发表</button>
                 </div>
             </div>    <!-- row -->
         </form>
-        <div class="comment-list">
-            <h2>评论列表</h2>
-            <ul class="list-unstyled">
+        <div class="comment-list-panel">
+            <h3>评论列表，共 <span>4</span> 条评论</h3>
+            <ul class="comment-list list-unstyled">
                 {% for comment in comment_list %}
                     <li class="comment-item">
-                        <span class="name">{{ comment.name }}</span><time class="date">{{ comment.created_time }}</time>
+                        <span class="nickname">{{ comment.name }}</span>
+                        <time class="submit-date">{{ comment.created_time }}</time>
                         <div class="text">
                             {{ comment.text }}
                         </div>
