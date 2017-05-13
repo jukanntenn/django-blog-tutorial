@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 """
-使用下方的模板引擎方式。
+请使用下方的模板引擎方式。
 def index(request):
     return HttpResponse("欢迎访问我的博客首页！")
 """
