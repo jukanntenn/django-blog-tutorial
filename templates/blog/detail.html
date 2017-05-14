@@ -54,7 +54,8 @@
                 {% for comment in comment_list %}
                     <li class="comment-item">
                         <span class="nickname">{{ comment.name }}</span>
-                        <time class="submit-date">{{ comment.created_time }}</time>
+                        <time class="submit-date"
+                              datetime="{{ comment.created_time }}">{{ comment.created_time }}</time>
                         <div class="text">
                             {{ comment.text }}
                         </div>
@@ -66,3 +67,25 @@
         </div>
     </section>
 {% endblock main %}
+{% block toc %}
+    <div class="widget widget-content">
+        <h3 class="widget-title">文章目录</h3>
+        <ul>
+            <li>
+                <a href="#">教程特点</a>
+            </li>
+            <li>
+                <a href="#">谁适合这个教程</a>
+            </li>
+            <li>
+                <a href="#">在线预览</a>
+            </li>
+            <li>
+                <a href="#">资源列表</a>
+            </li>
+            <li>
+                <a href="#">获取帮助</a>
+            </li>
+        </ul>
+    </div>
+{% endblock toc %}
