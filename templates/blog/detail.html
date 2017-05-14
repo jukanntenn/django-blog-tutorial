@@ -17,7 +17,7 @@
             {{ post.body|safe }}
         </div>
     </article>
-    <section class="comment-area">
+    <section class="comment-area" id="comment-area">
         <hr>
         <h3>发表评论</h3>
         <form action="#" method="post" class="comment-form">
@@ -46,28 +46,28 @@
             <ul class="comment-list list-unstyled">
                 <li class="comment-item">
                     <span class="nickname">追梦人物</span>
-                    <time class="submit-date">2017年3月12日 14:56</time>
+                    <time class="submit-date" datetime="2012-11-09T23:15:57+00:00">2017年3月12日 14:56</time>
                     <div class="text">
                         文章观点又有道理又符合人性，这才是真正为了表达观点而写，不是为了迎合某某知名人士粉丝而写。我觉得如果琼瑶是前妻，生了三孩子后被一不知名的女人挖了墙角，我不信谁会说那个女人是追求真爱，说同情琼瑶骂小三的女人都是弱者。
                     </div>
                 </li>
                 <li class="comment-item">
                     <span class="nickname">zmrenwu</span>
-                    <time class="submit-date">2017年3月11日 23:56</time>
+                    <time class="submit-date" datetime="2012-11-09T23:15:57+00:00">2017年3月11日 23:56</time>
                     <div class="text">
                         本能有可能会冲破格局，但格局有时候也会拘住本能。
                     </div>
                 </li>
                 <li class="comment-item">
                     <span class="nickname">蝙蝠侠</span>
-                    <time class="submit-date">2017年3月9日 8:56</time>
+                    <time class="submit-date" datetime="2012-11-09T23:15:57+00:00">2017年3月9日 8:56</time>
                     <div class="text">
                         其实真理一般是属于沉默的大多数的。那些偏激的观点只能吸引那些同样偏激的人。前几年琼瑶告于妈抄袭，大家都表示大快人心，说明吃瓜观众都只是就事论事，并不是对琼瑶有偏见。
                     </div>
                 </li>
                 <li class="comment-item">
                     <span class="nickname">长江七号</span>
-                    <time class="submit-date">2017年2月12日 12:56</time>
+                    <time class="submit-date" datetime="2012-11-09T23:15:57+00:00">2017年2月12日 12:56</time>
                     <div class="text">
                         观点我很喜欢！就是哎嘛本来一清二楚的，来个小三小四乱七八糟一团乱麻夹缠不清，简直麻烦要死
                     </div>
@@ -76,3 +76,25 @@
         </div>
     </section>
 {% endblock main %}
+{% block toc %}
+    <div class="widget widget-content">
+        <h3 class="widget-title">文章目录</h3>
+        <ul>
+            <li>
+                <a href="#">教程特点</a>
+            </li>
+            <li>
+                <a href="#">谁适合这个教程</a>
+            </li>
+            <li>
+                <a href="#">在线预览</a>
+            </li>
+            <li>
+                <a href="#">资源列表</a>
+            </li>
+            <li>
+                <a href="#">获取帮助</a>
+            </li>
+        </ul>
+    </div>
+{% endblock toc %}
