@@ -5,11 +5,13 @@
         <header class="entry-header">
             <h1 class="entry-title">{{ post.title }}</h1>
             <div class="entry-meta">
-                <span class="post-category"><a href="#">{{ post.category.name }}</a></span>
+                <span class="post-category">
+                    <a href="{% url 'blog:category' post.category.pk %}">{{ post.category.name }}</a></span>
                 <span class="post-date"><a href="#"><time class="entry-date"
                                                           datetime="{{ post.created_time }}">{{ post.created_time }}</time></a></span>
                 <span class="post-author"><a href="#">{{ post.author }}</a></span>
-                <span class="comments-link"><a href="#">4 评论</a></span>
+                <span class="comments-link">
+                    <a href="{{ post.get_absolute_url }}#comment-area">{{ post.comment_set.count }} 评论</a></span>
                 <span class="views-count"><a href="#">588 阅读</a></span>
             </div>
         </header>
@@ -17,7 +19,7 @@
             {{ post.body|safe }}
         </div>
     </article>
-    <section class="comment-area">
+    <section class="comment-area" id="comment-area">
         <hr>
         <h3>发表评论</h3>
         <form action="{% url 'comments:post_comment' post.pk %}" method="post" class="comment-form">
@@ -47,7 +49,7 @@
             </div>    <!-- row -->
         </form>
         <div class="comment-list-panel">
-            <h3>评论列表，共 <span>4</span> 条评论</h3>
+            <h3>评论列表，共 <span>{{ post.comment_set.count }}</span> 条评论</h3>
             <ul class="comment-list list-unstyled">
                 {% for comment in comment_list %}
                     <li class="comment-item">
