@@ -14,7 +14,7 @@ env.port = '22'
 
 
 def deploy():
-    source_folder = '/home/yangxg/sites/zmrenwu.com/django-blog-tutorial'
+    source_folder = '/home/yangxg/sites/demo.zmrenwu.com/django-blog-tutorial'
 
     run('cd %s && git pull' % source_folder)
     run("""
