@@ -15,7 +15,7 @@
                     <span class="post-author"><a href="#">{{ post.author }}</a></span>
                     <span class="comments-link">
                         <a href="{{ post.get_absolute_url }}#comment-area">{{ post.comment_set.count }} 评论</a></span>
-                    <span class="views-count"><a href="{{ post.get_absolute_url }}">588 阅读</a></span>
+                    <span class="views-count"><a href="{{ post.get_absolute_url }}">{{ post.views }} 阅读</a></span>
                 </div>
             </header>
             <div class="entry-content clearfix">
