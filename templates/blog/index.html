@@ -29,6 +29,8 @@
         <div class="no-post">暂时还没有发布的文章！</div>
     {% endfor %}
 
+    {% comment %}
+    简单分页导航：
     {% if is_paginated %}
         <div class="pagination-simple">
             <!-- 如果当前页还有上一页，显示一个上一页的按钮 -->
@@ -43,18 +45,38 @@
             {% endif %}
         </div>
     {% endif %}
+    {% endcomment %}
 
-    <div class="pagination">
-        <ul>
-            <li><a href="">1</a></li>
-            <li><a href="">...</a></li>
-            <li><a href="">4</a></li>
-            <li><a href="">5</a></li>
-            <li class="current"><a href="">6</a></li>
-            <li><a href="">7</a></li>
-            <li><a href="">8</a></li>
-            <li><a href="">...</a></li>
-            <li><a href="">11</a></li>
-        </ul>
-    </div>
+    {% comment %}
+    完善的分页导航
+    {% endcomment %}
+    {% if is_paginated %}
+        <div class="pagination">
+            <ul>
+                {% if first %}
+                    <li><a href="?page=1">1</a></li>
+                {% endif %}
+                {% if left %}
+                    {% if left_has_more %}
+                        <li><span>...</span></li>
+                    {% endif %}
+                    {% for i in left %}
+                        <li><a href="?page={{ i }}">{{ i }}</a></li>
+                    {% endfor %}
+                {% endif %}
+                <li class="current"><a href="?page={{ page_obj.number }}">{{ page_obj.number }}</a></li>
+                {% if right %}
+                    {% for i in right %}
+                        <li><a href="?page={{ i }}">{{ i }}</a></li>
+                    {% endfor %}
+                    {% if right_has_more %}
+                        <li><span>...</span></li>
+                    {% endif %}
+                {% endif %}
+                {% if last %}
+                    <li><a href="?page={{ paginator.num_pages }}">{{ paginator.num_pages }}</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    {% endif %}
 {% endblock main %}
