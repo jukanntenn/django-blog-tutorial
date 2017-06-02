@@ -110,7 +110,7 @@
                         {% for category in category_list %}
                             <li>
                                 <a href="{% url 'blog:category' category.pk %}">{{ category.name }} <span
-                                        class="post-count">(13)</span></a>
+                                        class="post-count">({{ category.num_posts }})</span></a>
                             </li>
                         {% empty %}
                             暂无分类！
