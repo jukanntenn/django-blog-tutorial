@@ -1,20 +1,19 @@
 免费、中文、零基础，完整的项目，基于最新版 Django 1.10 和 Python 3.5。带你从零开始一步步开发属于自己的博客网站，帮助你以最快的速度掌握 Django 开发的技巧。
 
-## 项目演示地址
+## 资源列表
 
-http://demo.zmrenwu.com/
+- 项目演示：[Demo](http://demo.zmrenwu.com/)
+- 教程：[Django 博客开发入门教程](http://zmrenwu.com/category/django-blog-tutorial/)
+- 博客模板：[Blog templates](https://github.com/zmrenwu/django-blog-tutorial-templates)
+- 答疑与求助：[Pythonzhcn - Python 中文社区](http://www.pythonzh.cn/)
 
-## 项目 GitHub 地址
-
-https://github.com/zmrenwu/django-blog-tutorial
-
-## 项目教程
-
-本项目配有完整的教程说明，教程阅读地址：[django 博客开发入门教程](http://zmrenwu.com/category/django-blog-tutorial/)。
+## 分支说明
 
 每篇教程的代码都位于项目相应的分支中，点击上方的 **Branch** 按钮可以查看到，例如分支 Step1_build-development-environment 对应第 1 篇教程 [1 - 搭建开发环境](http://zmrenwu.com/post/3/)。
 
-master 主分支是整个项目的完整代码。
+master 主分支是项目的完整代码。
+
+demo 分支是演示项目的分支代码。
 
 ## 在本地运行项目
 
@@ -40,9 +39,7 @@ master 主分支是整个项目的完整代码。
    source blogproject_env/bin/activate
    ```
 
-   关于如何使用虚拟环境，参阅：[搭建开发环境](http://zmrenwu.com/post/3/)的 Virtualenv 部分。
-
-   如果不想使用虚拟环境，可以跳过这一步。
+   关于如何使用虚拟环境，参阅：[搭建开发环境](http://zmrenwu.com/post/3/) 的 Virtualenv 部分。如果不想使用虚拟环境，可以跳过这一步。
 
 3. 安装项目依赖
 
@@ -68,7 +65,7 @@ master 主分支是整个项目的完整代码。
    python manage.py createsuperuser
    ```
 
-   具体请参阅：[在 Django Admin 后台发布文章](http://zmrenwu.com/post/9/)
+   具体请参阅 [在 Django Admin 后台发布文章](http://zmrenwu.com/post/9/)
 
 6. 运行开发服务器
 
@@ -86,7 +83,67 @@ master 主分支是整个项目的完整代码。
 
    使用第 5 步创建的后台管理员账户登录
 
-   具体请参阅：[在 Django Admin 后台发布文章](http://zmrenwu.com/post/9/)
+   具体请参阅 [在 Django Admin 后台发布文章](http://zmrenwu.com/post/9/)
+
+## 教程目录索引
+
+基础部分
+
+- [0 - Django 博客教程：前言](http://zmrenwu.com/post/2/)
+
+- [1 - 搭建开发环境](http://zmrenwu.com/post/3/)
+
+- [2 - 建立 Django 博客应用](http://zmrenwu.com/post/4/)
+
+- [3 - 创建 Django 博客的数据库模型](http://zmrenwu.com/post/5/)
+
+- [4 - 让 Django 完成翻译：迁移数据库](http://zmrenwu.com/post/6/)
+
+- [5 - Django 博客首页视图](http://zmrenwu.com/post/7/)
+
+- [6 - 真正的 Django 博客首页视图](http://zmrenwu.com/post/8/)
+
+- [7 - 在 Django Admin 后台发布文章](http://zmrenwu.com/post/9/)
+
+- [8 - 博客文章详情页](http://zmrenwu.com/post/10/)
+
+- [9 - 支持 Markdown 语法和代码高亮](http://zmrenwu.com/post/11/)
+
+- [10 - 页面侧边栏：使用自定义模板标签](http://zmrenwu.com/post/12/)
+
+- [11 - 分类与归档](http://zmrenwu.com/post/13/)
+
+- [12 - 评论](http://zmrenwu.com/post/14/)
+
+- [13 - 已知小问题修正](http://zmrenwu.com/post/16/)
+
+- [14 - 使用 Nginx 和 Gunicorn 部署 Django 博客](http://zmrenwu.com/post/20/)
+
+- [15 - 使用 Fabric 自动化部署](http://zmrenwu.com/post/21/)
+
+进阶部分
+
+- [16 - 统计文章阅读量](http://zmrenwu.com/post/29/)
+
+- [17 - 自动生成文章摘要](http://zmrenwu.com/post/32/)
+
+- [18 - 基于类的通用视图：ListView 和 DetailView](http://zmrenwu.com/post/33/)
+
+- [19 - Django Pagination 简单分页](http://zmrenwu.com/post/34/)
+
+- [20 - Django Pagination 完善分页](http://zmrenwu.com/post/37/)
+
+- 21 - 统计各个分类下的文章数（撰写中）
+
+- 22 - 标签云（撰写中）
+
+- 23 - RSS 订阅（撰写中）
+
+- 24 - 自动生成目录（撰写中）
+
+- 25 - 简单全文搜索（撰写中）
+
+- 26 - haystack 高级搜索（撰写中）
 
 ## 交流讨论和继续学习 Django
 
@@ -94,6 +151,6 @@ master 主分支是整个项目的完整代码。
 
 - Django 博客，更多 Django 开发文章和教程：[追梦人物的博客](http://zmrenwu.com/)
 - Django 学习小组 QQ 群：561422498
-- Django 学习交流论坛：[Python 中文社](http://pythonzh.cn/)
+- Django 学习交流论坛：[Pythonzhcn - Python 中文社区](http://www.pythonzh.cn/)
 - Django 学习小组邮件列表：django_study@groups.163.com
 - [Django 入门学习规划与资料推荐](http://zmrenwu.com/post/15/)
