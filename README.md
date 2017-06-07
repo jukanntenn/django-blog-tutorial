@@ -133,9 +133,9 @@ demo 分支是演示项目的分支代码。
 
 - [20 - Django Pagination 完善分页](http://zmrenwu.com/post/37/)
 
-- 21 - 统计各个分类下的文章数（撰写中）
+- [21 - 统计各个分类下的文章数](http://zmrenwu.com/post/38/)
 
-- 22 - 标签云（撰写中）
+- [22 - 标签云](http://zmrenwu.com/post/39/)
 
 - 23 - RSS 订阅（撰写中）
 
