@@ -42,7 +42,7 @@ class IndexView(ListView):
         """
 
         # 首先获得父类生成的传递给模板的字典。
-        context = super().get_context_data(**kwargs)
+        context = super(IndexView, self).get_context_data(**kwargs)
 
         # 父类生成的字典中已有 paginator、page_obj、is_paginated 这三个模板变量，
         # paginator 是 Paginator 的一个实例，
