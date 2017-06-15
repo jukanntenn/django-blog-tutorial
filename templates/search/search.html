@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load highlight %}
+
+{% block main %}
+    {% if query %}
+        {% for result in page.object_list %}
+            <article class="post post-{{ result.object.pk }}">
+                <header class="entry-header">
+                    <h1 class="entry-title">
+                        <a href="{{ result.object.get_absolute_url }}">{% highlight result.object.title with query %}</a>
+                    </h1>
+                    <div class="entry-meta">
+                    <span class="post-category">
+                        <a href="{% url 'blog:category' result.object.category.pk %}">
+                            {{ result.object.category.name }}</a></span>
+                        <span class="post-date"><a href="#">
+                            <time class="entry-date" datetime="{{ result.object.created_time }}">
+                                {{ result.object.created_time }}</time></a></span>
+                        <span class="post-author"><a href="#">{{ result.object.author }}</a></span>
+                        <span class="comments-link">
+                        <a href="{{ result.object.get_absolute_url }}#comment-area">
+                            {{ result.object.comment_set.count }} 评论</a></span>
+                        <span class="views-count"><a
+                                href="{{ result.object.get_absolute_url }}">{{ result.object.views }} 阅读</a></span>
+                    </div>
+                </header>
+                <div class="entry-content clearfix">
+                    <p>{% highlight result.object.body with query %}</p>
+                    <div class="read-more cl-effect-14">
+                        <a href="{{ result.object.get_absolute_url }}" class="more-link">继续阅读 <span
+                                class="meta-nav">→</span></a>
+                    </div>
+                </div>
+            </article>
+        {% empty %}
+            <div class="no-post">没有搜索到你想要的结果！</div>
+        {% endfor %}
+        {% if page.has_previous or page.has_next %}
+            <div>
+                {% if page.has_previous %}
+                    <a href="?q={{ query }}&amp;page={{ page.previous_page_number }}">{% endif %}&laquo; Previous
+                {% if page.has_previous %}</a>{% endif %}
+                |
+                {% if page.has_next %}<a href="?q={{ query }}&amp;page={{ page.next_page_number }}">{% endif %}Next
+                &raquo;{% if page.has_next %}</a>{% endif %}
+            </div>
+        {% endif %}
+    {% else %}
+        请输入搜索关键词，例如 django
+    {% endif %}
+{% endblock main %}
