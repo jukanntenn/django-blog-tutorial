@@ -260,11 +260,8 @@ def archives(request, year, month):
     return render(request, 'blog/index.html', context={'post_list': post_list})
 
 
-class ArchivesView(ListView):
-    model = Post
-    template_name = 'blog/index.html'
-    context_object_name = 'post_list'
-
+# 归档页面，继承IndexView，可以拥有分页功能，减少代码量
+class ArchivesView(IndexView):
     def get_queryset(self):
         year = self.kwargs.get('year')
         month = self.kwargs.get('month')
@@ -279,21 +276,15 @@ def category(request, pk):
     return render(request, 'blog/index.html', context={'post_list': post_list})
 
 
-class CategoryView(ListView):
-    model = Post
-    template_name = 'blog/index.html'
-    context_object_name = 'post_list'
-
+# 分类页面，继承IndexView
+class CategoryView(IndexView):
     def get_queryset(self):
         cate = get_object_or_404(Category, pk=self.kwargs.get('pk'))
         return super(CategoryView, self).get_queryset().filter(category=cate)
 
 
-class TagView(ListView):
-    model = Post
-    template_name = 'blog/index.html'
-    context_object_name = 'post_list'
-
+# 标签页面，继承自IndexView
+class TagView(IndexView):
     def get_queryset(self):
         tag = get_object_or_404(Tag, pk=self.kwargs.get('pk'))
         return super(TagView, self).get_queryset().filter(tags=tag)
