@@ -87,7 +87,7 @@ demo 分支是演示项目的分支代码。
 
 ## 教程目录索引
 
-基础部分
+**基础部分**
 
 - [0 - Django 博客教程：前言](http://zmrenwu.com/post/2/)
 
@@ -121,7 +121,7 @@ demo 分支是演示项目的分支代码。
 
 - [15 - 使用 Fabric 自动化部署](http://zmrenwu.com/post/21/)
 
-进阶部分
+**进阶部分**
 
 - [16 - 统计文章阅读量](http://zmrenwu.com/post/29/)
 
@@ -137,13 +137,13 @@ demo 分支是演示项目的分支代码。
 
 - [22 - 标签云](http://zmrenwu.com/post/39/)
 
-- 23 - RSS 订阅（撰写中）
+- [23 - RSS 订阅](http://zmrenwu.com/post/41/)
 
-- 24 - 自动生成目录（撰写中）
+- [24 - 自动生成目录](http://zmrenwu.com/post/43/)
 
-- 25 - 简单全文搜索（撰写中）
+- [25 - 简单全文搜索](http://zmrenwu.com/post/44/)
 
-- 26 - haystack 高级搜索（撰写中）
+- [26 - Django Haystack 全文检索与关键词高亮](http://zmrenwu.com/post/45/)
 
 ## 交流讨论和继续学习 Django
 
