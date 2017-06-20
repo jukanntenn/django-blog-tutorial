@@ -90,59 +90,34 @@ demo 分支是演示项目的分支代码。
 **基础部分**
 
 - [0 - Django 博客教程：前言](http://zmrenwu.com/post/2/)
-
 - [1 - 搭建开发环境](http://zmrenwu.com/post/3/)
-
 - [2 - 建立 Django 博客应用](http://zmrenwu.com/post/4/)
-
 - [3 - 创建 Django 博客的数据库模型](http://zmrenwu.com/post/5/)
-
 - [4 - 让 Django 完成翻译：迁移数据库](http://zmrenwu.com/post/6/)
-
 - [5 - Django 博客首页视图](http://zmrenwu.com/post/7/)
-
 - [6 - 真正的 Django 博客首页视图](http://zmrenwu.com/post/8/)
-
 - [7 - 在 Django Admin 后台发布文章](http://zmrenwu.com/post/9/)
-
 - [8 - 博客文章详情页](http://zmrenwu.com/post/10/)
-
 - [9 - 支持 Markdown 语法和代码高亮](http://zmrenwu.com/post/11/)
-
 - [10 - 页面侧边栏：使用自定义模板标签](http://zmrenwu.com/post/12/)
-
 - [11 - 分类与归档](http://zmrenwu.com/post/13/)
-
 - [12 - 评论](http://zmrenwu.com/post/14/)
-
 - [13 - 已知小问题修正](http://zmrenwu.com/post/16/)
-
 - [14 - 使用 Nginx 和 Gunicorn 部署 Django 博客](http://zmrenwu.com/post/20/)
-
 - [15 - 使用 Fabric 自动化部署](http://zmrenwu.com/post/21/)
 
 **进阶部分**
 
 - [16 - 统计文章阅读量](http://zmrenwu.com/post/29/)
-
 - [17 - 自动生成文章摘要](http://zmrenwu.com/post/32/)
-
 - [18 - 基于类的通用视图：ListView 和 DetailView](http://zmrenwu.com/post/33/)
-
 - [19 - Django Pagination 简单分页](http://zmrenwu.com/post/34/)
-
 - [20 - Django Pagination 完善分页](http://zmrenwu.com/post/37/)
-
 - [21 - 统计各个分类下的文章数](http://zmrenwu.com/post/38/)
-
 - [22 - 标签云](http://zmrenwu.com/post/39/)
-
 - [23 - RSS 订阅](http://zmrenwu.com/post/41/)
-
 - [24 - 自动生成目录](http://zmrenwu.com/post/43/)
-
 - [25 - 简单全文搜索](http://zmrenwu.com/post/44/)
-
 - [26 - Django Haystack 全文检索与关键词高亮](http://zmrenwu.com/post/45/)
 
 ## 交流讨论和继续学习 Django
