@@ -54,33 +54,46 @@
     {% comment %}
     完善的分页导航
     {% endcomment %}
-    {% if is_paginated %}
         <div class="pagination">
             <ul>
-                {% if first %}
-                    <li><a href="?page=1">1</a></li>
+                {% if not is_paginated %}
+                    <a href="?page=1">首页</a>
+                    <a href="?page=1" style="color: red">1</a>
+                    <a href="?page=1">尾页</a>
                 {% endif %}
-                {% if left %}
-                    {% if left_has_more %}
-                        <li><span>...</span></li>
+                {% if is_paginated %}
+                    <a href="?page=1">首页</a>
+                    {% if page_obj.has_previous %}
+                        <a href="?page={{ page_obj.previous_page_number }}">上一页</a>
                     {% endif %}
-                    {% for i in left %}
-                        <li><a href="?page={{ i }}">{{ i }}</a></li>
-                    {% endfor %}
-                {% endif %}
-                <li class="current"><a href="?page={{ page_obj.number }}">{{ page_obj.number }}</a></li>
-                {% if right %}
-                    {% for i in right %}
-                        <li><a href="?page={{ i }}">{{ i }}</a></li>
-                    {% endfor %}
-                    {% if right_has_more %}
-                        <li><span>...</span></li>
+                    {% if first %}
+                        <li><a href="?page=1">1</a></li>
                     {% endif %}
-                {% endif %}
-                {% if last %}
-                    <li><a href="?page={{ paginator.num_pages }}">{{ paginator.num_pages }}</a></li>
+                    {% if left %}
+                        {% if left_has_more %}
+                            <li><span>...</span></li>
+                        {% endif %}
+                        {% for i in left %}
+                            <li><a href="?page={{ i }}">{{ i }}</a></li>
+                        {% endfor %}
+                    {% endif %}
+                    <li class="current"><a href="?page={{ page_obj.number }}" style="color: red">{{ page_obj.number }}</a></li>
+                    {% if right %}
+                        {% for i in right %}
+                            <li><a href="?page={{ i }}">{{ i }}</a></li>
+                        {% endfor %}
+                        {% if right_has_more %}
+                            <li><span>...</span></li>
+                        {% endif %}
+                    {% endif %}
+                    {% if last %}
+                        <li><a href="?page={{ paginator.num_pages }}">{{ paginator.num_pages }}</a></li>
+                    {% endif %}
+                    {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}">下一页</a>
+                    {% endif %}
+                    <a href="?page={{ paginator.num_pages }}">尾页</a>
                 {% endif %}
             </ul>
         </div>
-    {% endif %}
 {% endblock main %}
