@@ -1,3 +1,24 @@
+**第二版已发布！第二版已发布！第二版已发布！**
+
+Django博客教程第二版全面升级，带来以下新特性，帮助初学者更好地学习 django：
+
+1. 基于最新版 django 2.2
+2. Pipenv 无痛管理虚拟环境和依赖
+3. 更加简单无痛苦的部署流程，几条命令快速上线，一键脚本无痛更新
+4. 开启 HTTPS 新时代
+5. Elasticsearch 全文搜索
+
+**强烈不再建议学习旧版**，第二版教程戳下面直达：
+
+- [HelloDjango-blog-tutorial GitHub 仓库](https://github.com/HelloGitHub-Team/HelloDjango-blog-tutorial)
+- [Django博客教程（第二版）](https://www.zmrenwu.com/courses/hellodjango-blog-tutorial/)
+
+> PS：
+>
+> Django 全栈计划已启动，戳 [这里](https://www.zmrenwu.com/courses/hellodjango-blog-tutorial/) 了解详情，感兴趣的童鞋请持续关注我的博客：[追梦人物的博客](https://www.zmrenwu.com/)。
+
+--------
+
 免费、中文、零基础，完整的项目，基于最新版 Django 1.10 和 Python 3.5。带你从零开始一步步开发属于自己的博客网站，帮助你以最快的速度掌握 Django 开发的技巧。
 
 ## 资源列表
