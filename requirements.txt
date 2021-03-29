@@ -1,6 +1,6 @@
 django==1.10.6
 Markdown==2.6.8
-Pygments==2.2.0
+Pygments==2.7.4
 pytz==2016.10
 django-haystack==2.6.1
 jieba==0.38
